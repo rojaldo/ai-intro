@@ -1,0 +1,178 @@
+:toc:
+:toc-title: Índice
+:source-highlighter: highlight.js
+
+= Ejercicios de Python con Ollama y Gradio
+
+== Introducción
+Estos ejercicios combinan Gradio para la interfaz y Ollama para el procesamiento de IA local.
+
+== Ejercicios
+
+=== Ejercicio 1: Asistente de Programación
+Crea un asistente que ayude a explicar y depurar código.
+
+*Requisitos:*
+* Entrada: Código fuente
+* Modelo: codellama
+* Salida: Explicación y correcciones
+* Extras: Soporte para preguntas sobre el código
+
+=== Ejercicio 2: Generador de Historias
+Crea historias basadas en palabras clave o temas.
+
+*Requisitos:*
+
+* Entrada: Tema y longitud deseada
+* Modelo: mistral o llama3.2
+* Salida: Historia generada
+* Extras: Opciones de género literario
+
+=== Ejercicio 3: Traductor Multimodal
+Implementa un traductor que maneje texto e imágenes.
+
+*Requisitos:*
+
+* Entradas: Texto o imagen
+* Modelo: llama3.2 para texto, llava para imágenes
+* Salida: Traducción y explicación
+* Extras: Detección automática de idioma
+
+=== Ejercicio 4: Analizador de Sentimientos
+Analiza el sentimiento de textos con explicación.
+
+*Requisitos:*
+
+* Entrada: Texto a analizar
+* Modelo: mistral o llama3.2
+* Salida: Sentimiento y justificación
+* Extras: Gráfico de confianza
+
+=== Ejercicio 5: Generador de Resúmenes
+Resume textos largos manteniendo puntos clave.
+
+*Requisitos:*
+
+* Entrada: Texto largo
+* Modelo: llama3.2
+* Salida: Resumen y puntos principales
+* Extras: Ajuste de longitud del resumen
+
+=== Ejercicio 6: Asistente de Escritura
+Ayuda a mejorar textos y sugerir cambios.
+
+*Requisitos:*
+
+* Entrada: Texto a mejorar
+* Modelo: mistral o llama3.2
+* Salida: Sugerencias y correcciones
+* Extras: Diferentes estilos de escritura
+
+=== Ejercicio 7: Convertidor de Formatos
+Convierte entre diferentes formatos de texto.
+
+*Requisitos:*
+
+* Entrada: Texto y formatos (MD, HTML, Asciidoc, etc.)
+* Modelo: codellama
+* Salida: Texto convertido
+* Extras: Vista previa
+
+=== Ejercicio 8: Generador de Preguntas
+Crea preguntas de estudio sobre un tema.
+
+*Requisitos:*
+
+* Entrada: Texto de estudio
+* Modelo: llama3.2
+* Salida: Lista de preguntas
+* Extras: Diferentes niveles de dificultad
+
+=== Ejercicio 9: Explicador de Conceptos
+Explica conceptos complejos de forma simple.
+
+*Requisitos:*
+
+* Entrada: Concepto a explicar
+* Modelo: mistral
+* Salida: Explicación por niveles
+* Extras: Analogías y ejemplos
+
+=== Ejercicio 10: Chatbot Personalizado
+Crea un chatbot con personalidad específica.
+
+*Requisitos:*
+
+* Entrada: Mensajes del usuario
+* Modelo: llama3.2
+* Salida: Respuestas contextuales
+* Extras: Memoria de conversación
+
+== Estructura Base Común
+
+[source, python]
+----
+import gradio as gr
+from langchain.llms import Ollama
+
+def create_llm(model_name="llama3.2"):
+    return Ollama(model=model_name)
+
+def process_with_llm(prompt, model_name="llama3.2"):
+    llm = create_llm(model_name)
+    try:
+        response = llm(prompt)
+        return response
+    except Exception as e:
+        return f"Error: {str(e)}"
+
+def create_interface(process_fn, inputs, outputs, title):
+    return gr.Interface(
+        fn=process_fn,
+        inputs=inputs,
+        outputs=outputs,
+        title=title,
+        description="Powered by Ollama"
+    )
+----
+
+== Consideraciones Importantes
+
+=== Configuración de Ollama
+* Asegúrate de tener Ollama instalado y funcionando
+* Descarga los modelos necesarios previamente
+* Verifica los requisitos de sistema
+
+=== Manejo de Errores
+* Implementa timeout para respuestas
+* Maneja errores de conexión
+* Valida entradas del usuario
+
+=== Optimización
+* Usa caché para respuestas comunes
+* Implementa rate limiting
+* Optimiza prompts
+
+== Recursos Necesarios
+
+=== Dependencias
+[source, bash]
+----
+pip install gradio
+pip install langchain
+pip install ollama
+----
+
+=== Modelos Recomendados
+* llama3.2: Propósito general
+* codellama: Tareas de código
+* mistral: Textos y análisis
+* llava: Tareas con imágenes
+
+== Mejoras Sugeridas
+
+* Implementar sistema de caché
+* Agregar logging
+* Permitir selección de modelos
+* Añadir ejemplos predefinidos
+* Implementar feedback del usuario

@@ -1,0 +1,165 @@
+:toc:
+:toc-title: Índice
+:source-highlighter: highlight.js
+
+= Ejercicios Básicos con Gradio
+
+== Introducción
+Esta lista contiene 10 ejercicios básicos para practicar con Gradio sin necesidad de modelos de IA.
+
+== Ejercicios
+
+=== Ejercicio 1: Calculadora de IMC
+Crea una interfaz simple que calcule el Índice de Masa Corporal.
+
+*Requisitos:*
+
+* Entradas: Peso (kg) y altura (m)
+* Procesamiento: Fórmula IMC = peso/(altura²)
+* Salida: IMC y categoría (bajo peso, normal, sobrepeso)
+* Extras: Gráfico de rangos saludables
+* Extras: Hacer diferenciación por sexo. La fórmula cambia: IMC = peso/(altura²) + factor de corrección (0.5 para mujeres, 0.3 para hombres)
+
+=== Ejercicio 2: Conversor de Unidades
+Desarrolla un conversor que maneje diferentes tipos de unidades.
+
+*Requisitos:*
+
+* Entradas: Valor numérico y selección de unidades
+* Tipos: Longitud, peso, temperatura
+* Salida: Resultado en la unidad seleccionada
+* Extras: Historial de conversiones
+
+=== Ejercicio 3: Generador de Contraseñas
+Implementa un generador de contraseñas personalizable.
+
+*Requisitos:*
+
+* Entradas: Longitud y opciones (mayúsculas, números, símbolos)
+* Procesamiento: Generación aleatoria
+* Salida: Contraseña generada
+* Extras: Medidor de fortaleza
+
+=== Ejercicio 4: Calculadora de Fechas
+Crea una herramienta para calcular días entre fechas.
+
+*Requisitos:*
+
+* Entradas: Dos fechas
+* Procesamiento: Cálculo de diferencia
+* Salida: Días, semanas, meses
+* Extras: Días laborables vs calendario
+
+=== Ejercicio 5: Formatador de Texto
+Diseña un procesador de texto básico.
+
+*Requisitos:*
+
+* Entrada: Texto plano
+* Opciones: Mayúsculas, minúsculas, título
+* Salida: Texto formateado
+* Extras: Contador de palabras/caracteres
+
+=== Ejercicio 6: Calculadora de Propinas
+Desarrolla una calculadora de propinas y división de cuenta.
+
+*Requisitos:*
+
+* Entradas: Monto total, porcentaje, número de personas
+* Procesamiento: Cálculos de propina y división
+* Salida: Monto por persona
+* Extras: Diferentes porcentajes preestablecidos
+
+=== Ejercicio 7: Juego de Adivinanza
+Crea un juego simple de adivinanza de números.
+
+*Requisitos:*
+
+* Entrada: Número del usuario
+* Procesamiento: Comparación con número aleatorio
+* Salida: Pistas (mayor/menor)
+* Extras: Contador de intentos
+
+=== Ejercicio 8: Organizador de Listas
+Implementa un organizador de listas de texto.
+
+*Requisitos:*
+
+* Entrada: Lista de elementos
+* Opciones: Ordenar alfabéticamente, invertir, eliminar duplicados
+* Salida: Lista procesada
+* Extras: Exportación a diferentes formatos
+
+=== Ejercicio 9: Calculadora de Préstamos
+Diseña una calculadora de préstamos e intereses.
+
+*Requisitos:*
+
+* Entradas: Monto, tasa, plazo
+* Procesamiento: Cálculo de cuotas
+* Salida: Plan de pagos
+* Extras: Gráfico de amortización
+
+=== Ejercicio 10: Editor de Color
+Crea un editor de colores con diferentes formatos.
+
+*Requisitos:*
+
+* Entradas: Valores RGB o HEX
+* Procesamiento: Conversión entre formatos
+* Salida: Vista previa del color
+* Extras: Paleta de colores guardados
+
+== Características Comunes Sugeridas
+Cada ejercicio puede incluir:
+
+* Validación de entradas
+* Manejo de errores
+* Interfaz responsiva
+* Temas claro/oscuro
+* Botón de reinicio
+* Ayuda contextual
+
+== Consejos de Implementación
+
+=== Estructura Básica
+[source, python]
+----
+import gradio as gr
+
+def saludar(nombre, idioma):
+    if idioma == "Español":
+        return f"¡Hola, {nombre}!"
+    elif idioma == "Inglés":
+        return f"Hello, {nombre}!"
+    elif idioma == "Francés":
+        return f"Bonjour, {nombre}!"
+    else:
+        return f"¡Hola, {nombre}!"
+
+demo = gr.Interface(
+    fn=saludar,
+    inputs=[
+        gr.Textbox(label="Nombre"),
+        gr.Dropdown(choices=["Español", "Inglés", "Francés"], label="Idioma")
+    ],
+    outputs=[gr.Textbox(label="Saludo")],
+    title="Aplicación de Gradio con Dropdown",
+    description="Introduce tu nombre y selecciona un idioma para recibir un saludo."
+)
+
+if __name__ == "__main__":
+    demo.launch()
+----
+
+=== Componentes Comunes
+* Textbox
+* Number
+* Slider
+* Dropdown
+* Radio
+* Checkbox
+* Button
+
+== Recursos
+* Documentación de Gradio: https://gradio.app/docs

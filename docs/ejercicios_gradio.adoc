@@ -1,0 +1,121 @@
+:toc:
+:toc-title: Índice
+:source-highlighter: highlight.js
+
+= Ejercicios de Gradio
+
+== Introducción
+Este documento contiene 10 ejercicios prácticos para desarrollar aplicaciones usando la biblioteca Gradio.
+
+== Ejercicios
+
+=== Ejercicio 1: Analizador de Emociones en Música
+Crea una aplicación con Gradio que permita subir un archivo de audio (música) y determine la emoción predominante (alegre, triste, energética, relajante, etc.). Debe mostrar un gráfico circular con los porcentajes de cada emoción detectada y sugerir canciones similares.
+
+*Requisitos:*
+
+* Entrada: Archivo de audio (.mp3, .wav)
+* Procesamiento: Análisis de características musicales
+* Salida: Gráfico de emociones y recomendaciones
+* Extras: Exportación de resultados
+
+=== Ejercicio 2: Generador de Paletas de Colores desde Imágenes
+Desarrolla una interfaz que permita subir una imagen y extraiga su paleta de colores dominante. La aplicación debe mostrar los códigos hexadecimales de los colores, sugerir combinaciones armónicas y permitir descargar la paleta en formato compatible con Adobe/Figma.
+
+*Requisitos:*
+
+* Entrada: Imagen (.jpg, .png)
+* Procesamiento: Extracción de colores
+* Salida: Paleta de colores y códigos
+* Extras: Exportación a diferentes formatos
+
+=== Ejercicio 3: Traductor de Lenguaje de Señas
+Implementa una aplicación que use la webcam para detectar señas del lenguaje de signos en tiempo real y las traduzca a texto. Debe incluir un modo de práctica donde el usuario pueda aprender señas básicas con feedback inmediato.
+
+*Requisitos:*
+
+* Entrada: Video en tiempo real
+* Procesamiento: Detección de gestos
+* Salida: Texto traducido
+* Extras: Modo práctica interactivo
+
+=== Ejercicio 4: Asistente de Composición Musical
+Crea una herramienta que permita al usuario tararear una melodía y genere la partitura correspondiente. Debe incluir opciones para cambiar el instrumento, el tempo y exportar en formato MIDI o PDF.
+
+*Requisitos:*
+
+* Entrada: Audio del usuario
+* Procesamiento: Transcripción musical
+* Salida: Partitura y MIDI
+* Extras: Personalización de instrumentos
+
+=== Ejercicio 5: Analizador de Calidad de Código
+Diseña una interfaz donde los usuarios puedan pegar código fuente y reciban un análisis detallado de su calidad, incluyendo métricas de complejidad, sugerencias de mejora, detección de malas prácticas y una puntuación general.
+
+*Requisitos:*
+
+* Entrada: Código fuente
+* Procesamiento: Análisis estático
+* Salida: Reporte de calidad
+* Extras: Soporte multi-lenguaje
+
+=== Ejercicio 6: Restaurador de Fotos Antiguas
+Desarrolla una aplicación que permita subir fotos antiguas o dañadas y las restaure automáticamente. Debe incluir opciones para colorizar fotos en blanco y negro, mejorar la resolución, y eliminar artefactos.
+
+*Requisitos:*
+
+* Entrada: Imagen antigua
+* Procesamiento: Restauración y mejora
+* Salida: Imagen restaurada
+* Extras: Ajustes personalizables
+
+=== Ejercicio 7: Generador de Recetas por Ingredientes
+Crea una interfaz donde los usuarios puedan subir una foto de los ingredientes que tienen en su cocina o seleccionarlos de una lista. La aplicación debe sugerir recetas posibles y calcular valores nutricionales.
+
+*Requisitos:*
+
+* Entrada: Fotos/lista de ingredientes
+* Procesamiento: Búsqueda de recetas
+* Salida: Recetas sugeridas
+* Extras: Información nutricional
+
+=== Ejercicio 8: Asistente de Pronunciación de Idiomas
+Implementa una herramienta de práctica de pronunciación que permita al usuario grabar su voz pronunciando palabras o frases en diferentes idiomas. La aplicación debe proporcionar feedback detallado.
+
+*Requisitos:*
+
+* Entrada: Audio del usuario
+* Procesamiento: Análisis de pronunciación
+* Salida: Feedback y sugerencias
+* Extras: Visualización de ondas sonoras
+
+=== Ejercicio 9: Detector de Plagio en Textos Académicos
+Diseña una aplicación que analice textos académicos en busca de posible plagio. Debe incluir comparación con bases de datos académicas y detección de parafraseo.
+
+*Requisitos:*
+
+* Entrada: Texto académico
+* Procesamiento: Análisis de similitud
+* Salida: Reporte de plagio
+* Extras: Referencias bibliográficas
+
+=== Ejercicio 10: Analizador de Discursos
+Crea una herramienta que analice grabaciones de discursos o presentaciones y proporcione feedback sobre aspectos como velocidad del habla, uso de muletillas y claridad.
+
+*Requisitos:*
+
+* Entrada: Audio de discurso
+* Procesamiento: Análisis del habla
+* Salida: Reporte detallado
+* Extras: Visualizaciones temporales
+
+== Notas Adicionales
+Cada ejercicio puede ser expandido con:
+
+* Autenticación de usuarios
+* Almacenamiento de historial
+* Exportación de resultados
+* Diferentes modos (básico/avanzado)
+* Integración con APIs externas
+* Personalización de la interfaz
+

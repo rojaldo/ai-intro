@@ -1,0 +1,1802 @@
+:toc:
+:toc-title: Índice
+:source-highlighter: highlight.js
+
+= Curso de Gradio en Python
+
+== Módulo Introducción a Gradio
+
+=== ¿Qué es Gradio?
+
+==== Descripción de Gradio y sus aplicaciones.
+Gradio es una biblioteca de Python que permite crear interfaces gráficas interactivas para aplicaciones de machine learning, modelos de IA y scripts de Python. Es ampliamente utilizada para compartir modelos de forma accesible y visual, sin necesidad de crear complejas aplicaciones web desde cero. Su simplicidad y versatilidad permiten que cualquier persona, incluso sin conocimientos avanzados de desarrollo web, pueda interactuar con un modelo entrenado.
+
+*Aplicaciones comunes de Gradio:*
+- Evaluación y pruebas de modelos de machine learning.
+- Creación de herramientas interactivas para usuarios no técnicos.
+- Implementación rápida de demos para proyectos de IA.
+- Integración de interfaces para productos o aplicaciones comerciales.
+
+==== Instalación y primeros pasos.
+Para instalar Gradio, simplemente ejecuta el siguiente comando en tu entorno de Python:
+[source,bash]
+----
+pip install gradio
+----
+
+Una vez instalado, se puede iniciar una interfaz simple con muy pocas líneas de código:
+
+[source,python]
+----
+import gradio as gr
+
+def saludo(nombre):
+    return f"Hola, {nombre}!"
+
+iface = gr.Interface(fn=saludo, inputs="text", outputs="text")
+iface.launch()
+----
+
+Esto lanzará una interfaz web en tu navegador donde los usuarios pueden introducir su nombre y recibir un saludo personalizado.
+
+.Estructura básica de una interfaz Gradio. La estructura fundamental de una interfaz Gradio se basa en estos componentes:
+* **Función Python:** La función que se ejecutará cuando el usuario interactúe con la interfaz.
+* **Componentes de texto:** Entradas y salidas de texto.
+* **Componentes numéricos:** Entradas y salidas numéricas.
+* **Componentes de selección:** Botones, casillas de verificación, listas desplegables, etc.
+* **Componentes multimedia:** Entradas y salidas de imágenes, audio, video, etc.
+* **Componentes estructurados:** Tabs, columnas, filas, etc.
+* **Componentes interactivos:** Botones, Sliders, rangos, etc.
+* **Componentes de visualización:** Gráficos, HTML, Markdown, etc.
+* **Componentes especiales:** ColorPicker, FileUploader, DatePicker, etc.
+
+.Ejemplos de componentes de texto:
+[source,python]
+----
+import gradio as gr
+
+# Entrada de texto básica o multilínea
+gr.Textbox(label="Texto")
+
+# Área de texto con formato markdown
+gr.Markdown()
+
+# Editor de código con resaltado de sintaxis
+gr.Code(language="python")
+
+# Chat interface
+gr.ChatInterface()
+----
+
+.Ejemplos de componentes numéricos:
+[source,python]
+----
+# Entrada numérica
+gr.Number(label="Número")
+
+# Deslizador
+gr.Slider(minimum=0, maximum=100, step=1)
+
+# Deslizador con rango
+gr.RangeSlider(minimum=0, maximum=100)
+----
+
+.Ejemplos de componentes de selección:
+[source,python]
+----
+# Menú desplegable
+gr.Dropdown(choices=["Opción 1", "Opción 2"])
+
+# Botones de radio
+gr.Radio(choices=["Opción 1", "Opción 2"])
+
+# Casillas de verificación
+gr.Checkbox(label="Activar")
+
+# Selección múltiple con checkboxes
+gr.CheckboxGroup(choices=["Opción 1", "Opción 2"])
+----
+
+.Ejemplos de componentes multimedia:
+[source,python]
+----
+# Entrada de imagen
+gr.Image(type="pil")
+
+# Entrada de video
+gr.Video()
+
+# Entrada de audio
+gr.Audio()
+
+# Entrada de archivo
+gr.File()
+
+# Cámara web
+gr.Image(source="webcam")
+
+# Micrófono
+gr.Audio(source="microphone")
+----
+
+.Ejemplos de componentes estructurados:
+[source,python]
+----
+# Contenedor de pestañas
+gr.Tab()
+gr.Tabs()
+
+# Acordeón desplegable
+gr.Accordion()
+
+# Filas y columnas
+gr.Row()
+gr.Column()
+
+# Grupo de componentes
+gr.Group()
+----
+
+.Ejemplos de componentes interactivos:
+[source,python]
+----
+# Botón
+gr.Button(value="Clic aquí")
+
+# Botón de actualización
+gr.UpdateButton()
+
+# Barra de progreso
+gr.Progress()
+
+# Estado
+gr.State()
+----
+
+.Ejemplos de componentes de visualización:
+[source,python]
+----
+# Etiqueta
+gr.Label()
+
+# HTML personalizado
+gr.HTML()
+
+# Gráfico/Plot
+gr.Plot()
+
+# Galería de imágenes
+gr.Gallery()
+
+# DataFrame
+gr.Dataframe()
+
+# JSON
+gr.JSON()
+----
+
+.Ejemplos de componentes especiales:
+[source,python]
+----
+# Entrada de color
+gr.ColorPicker()
+
+# Selector de fecha
+gr.Datepicker()
+
+# Entrada de tiempo
+gr.Timepicker()
+
+# Editor de modelo 3D
+gr.Model3D()
+----
+
+== Creación de interfaces de texto
+
+=== Textbox
+.Parámetros principales
+* `label`: Etiqueta del componente
+* `lines`: Número de líneas visibles
+* `placeholder`: Texto de ayuda
+* `value`: Valor inicial
+* `type`: Tipo de entrada (text/password/email)
+* `max_lines`: Máximo número de líneas
+* `interactive`: Si es editable
+* `show_copy_button`: Muestra botón de copiar
+
+.Ejemplo de Textbox
+[source,python]
+----
+import gradio as gr
+
+def process_text(text):
+    return text.upper()
+
+demo = gr.Interface(
+    fn=process_text,
+    inputs=gr.Textbox(
+        label="Entrada",
+        lines=3,
+        placeholder="Escribe aquí...",
+        value="Texto inicial",
+        show_copy_button=True,
+        max_lines=5
+    ),
+    outputs=gr.Textbox(label="Salida")
+)
+
+demo.launch()
+----
+
+=== Markdown
+.Parámetros principales
+* `value`: Contenido markdown inicial
+* `rtl`: Dirección del texto (derecha a izquierda)
+* `show_label`: Mostrar etiqueta
+* `visible`: Visibilidad del componente
+* `elem_id`: ID para CSS
+* `elem_classes`: Clases CSS
+
+.Ejemplo de Markdown
+[source,python]
+----
+import gradio as gr
+
+def update_markdown(text):
+    return f"# Título\n**Texto en negrita:** {text}\n* Lista 1\n* Lista 2"
+
+demo = gr.Interface(
+    fn=update_markdown,
+    inputs=gr.Textbox(label="Texto"),
+    outputs=gr.Markdown(
+        value="# Bienvenido\nEscribe algo arriba",
+        show_label=True,
+        elem_id="markdown-output"
+    )
+)
+
+demo.launch()
+----
+
+=== Code
+.Parámetros principales
+* `language`: Lenguaje para resaltado
+* `lines`: Número de líneas
+* `label`: Etiqueta del componente
+* `value`: Código inicial
+* `readonly`: Solo lectura
+* `highlight`: Activar resaltado
+* `interactive`: Si es editable
+
+.Ejemplo de Code
+[source,python]
+----
+import gradio as gr
+
+def format_code(code):
+    # Ejemplo simple de formateo
+    return code.replace("    ", "\t")
+
+demo = gr.Interface(
+    fn=format_code,
+    inputs=gr.Code(
+        language="python",
+        lines=5,
+        label="Editor de código",
+        value="def hello():\n    print('Hello World')",
+        highlight=True
+    ),
+    outputs=gr.Code(language="python")
+)
+
+demo.launch()
+----
+
+=== ChatInterface
+.Parámetros principales
+* `fn`: Función de procesamiento
+* `title`: Título del chat
+* `description`: Descripción
+* `examples`: Ejemplos de chat
+* `retry_btn`: Botón de reintentar
+* `undo_btn`: Botón de deshacer
+* `theme`: Tema visual
+* `css`: CSS personalizado
+
+.Ejemplo de ChatInterface
+[source,python]
+----
+import gradio as gr
+
+def chat_response(message, history):
+    return f"Echo: {message}"
+
+demo = gr.ChatInterface(
+    fn=chat_response,
+    title="Chat Demo",
+    description="Un simple chat de eco",
+    examples=[
+        ["Hola", "Echo: Hola"],
+        ["¿Cómo estás?", "Echo: ¿Cómo estás?"]
+    ]
+)
+
+demo.launch()
+----
+
+=== Ejemplo Combinado
+[source,python]
+----
+import gradio as gr
+
+def process_all(text, code):
+    markdown_output = f"# Procesado\n**Input:** {text}"
+    code_output = code.upper()
+    chat_history = [[text, code_output]]
+    return markdown_output, code_output, chat_history
+
+with gr.Blocks() as demo:
+    gr.Markdown("# Demo Completa")
+    
+    with gr.Row():
+        txt = gr.Textbox(label="Texto", lines=3)
+        code = gr.Code(language="python", label="Código")
+    
+    markdown = gr.Markdown()
+    chatbot = gr.Chatbot(label="Chat")  # Cambiado de ChatInterface a Chatbot
+    
+    btn = gr.Button("Procesar")
+    btn.click(
+        fn=process_all,
+        inputs=[txt, code],
+        outputs=[markdown, code, chatbot]
+    )
+
+demo.launch()
+----
+
+== Creación de interfaces numéricas
+
+=== 1. Number (gr.Number)
+.Parámetros principales
+* `label`: Etiqueta del campo
+* `value`: Valor inicial
+* `minimum`: Valor mínimo permitido
+* `maximum`: Valor máximo permitido
+* `step`: Incremento permitido
+* `precision`: Número de decimales
+* `interactive`: Si es editable
+
+.Ejemplo de Number
+[source,python]
+----
+import gradio as gr
+
+def multiply(num):
+    return num * 2
+
+demo = gr.Interface(
+    fn=multiply,
+    inputs=gr.Number(
+        label="Número",
+        value=5,
+        minimum=0,
+        maximum=100,
+        step=0.5,
+        precision=2
+    ),
+    outputs=gr.Number(label="Resultado")
+)
+
+demo.launch()
+----
+
+=== 2. Slider (gr.Slider)
+.Parámetros principales
+* `minimum`: Valor mínimo
+* `maximum`: Valor máximo
+* `step`: Tamaño del paso
+* `label`: Etiqueta del deslizador
+* `value`: Valor inicial
+* `interactive`: Si es interactivo
+* `visible`: Si es visible
+* `randomize`: Permite valor aleatorio
+
+.Ejemplo de Slider
+[source,python]
+----
+import gradio as gr
+
+def show_value(slider_value):
+    return f"Valor seleccionado: {slider_value}"
+
+demo = gr.Interface(
+    fn=show_value,
+    inputs=gr.Slider(
+        minimum=0,
+        maximum=100,
+        step=5,
+        label="Selecciona un valor",
+        value=50,
+        interactive=True,
+        info="Desliza para seleccionar"
+    ),
+    outputs=gr.Textbox()
+)
+
+demo.launch()
+----
+
+
+=== Ejemplo Combinado
+[source,python]
+----
+import gradio as gr
+
+def process_numbers(number, slider_val, range_vals):
+    min_range, max_range = range_vals
+    result = f"""
+    Número ingresado: {number}
+    Valor del slider: {slider_val}
+    Rango seleccionado: {min_range} - {max_range}
+    """
+    return result
+
+with gr.Blocks() as demo:
+    gr.Markdown("# Componentes Numéricos")
+    
+    with gr.Row():
+        num = gr.Number(
+            label="Ingresa un número",
+            value=5,
+            minimum=0,
+            maximum=100
+        )
+        
+        slider = gr.Slider(
+            minimum=0,
+            maximum=100,
+            step=5,
+            label="Deslizador simple"
+        )
+            
+    output = gr.Textbox(label="Resultados")
+    
+    btn = gr.Button("Procesar")
+    btn.click(
+        fn=process_numbers,
+        inputs=[num, slider],
+        outputs=output
+    )
+
+demo.launch()
+----
+
+== Creación de interfaces de selección
+
+=== Dropdown (gr.Dropdown)
+.Parámetros principales
+* `choices`: Lista de opciones disponibles
+* `value`: Valor inicial seleccionado
+* `label`: Etiqueta del componente
+* `multiselect`: Permite selección múltiple
+* `interactive`: Si es interactivo
+* `placeholder`: Texto cuando no hay selección
+* `allow_custom_value`: Permite valores personalizados
+
+.Ejemplo de Dropdown
+[source,python]
+----
+import gradio as gr
+
+def show_selection(choice):
+    return f"Has seleccionado: {choice}"
+
+demo = gr.Interface(
+    fn=show_selection,
+    inputs=gr.Dropdown(
+        choices=["Opción 1", "Opción 2", "Opción 3"],
+        value="Opción 1",
+        label="Selecciona una opción",
+        multiselect=False,
+        placeholder="Elige una opción..."
+    ),
+    outputs=gr.Textbox()
+)
+
+demo.launch()
+----
+
+=== Radio (gr.Radio)
+.Parámetros principales
+* `choices`: Lista de opciones
+* `value`: Opción seleccionada por defecto
+* `label`: Etiqueta del grupo
+* `interactive`: Si es interactivo
+* `info`: Texto informativo adicional
+* `visible`: Si es visible
+
+.Ejemplo de Radio
+[source,python]
+----
+import gradio as gr
+
+def process_radio(choice):
+    return f"Opción seleccionada: {choice}"
+
+demo = gr.Interface(
+    fn=process_radio,
+    inputs=gr.Radio(
+        choices=["Opción A", "Opción B", "Opción C"],
+        value="Opción A",
+        label="Selecciona una opción",
+        info="Solo puedes elegir una opción"
+    ),
+    outputs=gr.Textbox()
+)
+
+demo.launch()
+----
+
+=== Checkbox (gr.Checkbox)
+.Parámetros principales
+* `label`: Etiqueta del checkbox
+* `value`: Estado inicial (True/False)
+* `interactive`: Si es interactivo
+* `info`: Texto informativo
+* `visible`: Si es visible
+
+.Ejemplo de Checkbox
+[source,python]
+----
+import gradio as gr
+
+def check_status(is_checked):
+    return "Activado" if is_checked else "Desactivado"
+
+demo = gr.Interface(
+    fn=check_status,
+    inputs=gr.Checkbox(
+        label="Activar función",
+        value=False,
+        info="Marca para activar"
+    ),
+    outputs=gr.Textbox()
+)
+
+demo.launch()
+----
+
+=== CheckboxGroup (gr.CheckboxGroup)
+.Parámetros principales
+* `choices`: Lista de opciones
+* `value`: Lista de opciones seleccionadas
+* `label`: Etiqueta del grupo
+* `interactive`: Si es interactivo
+* `info`: Texto informativo
+* `visible`: Si es visible
+
+.Ejemplo de CheckboxGroup
+[source,python]
+----
+import gradio as gr
+
+def process_selections(selected):
+    return f"Opciones seleccionadas: {', '.join(selected)}"
+
+demo = gr.Interface(
+    fn=process_selections,
+    inputs=gr.CheckboxGroup(
+        choices=["Opción 1", "Opción 2", "Opción 3", "Opción 4"],
+        value=["Opción 1"],
+        label="Selecciona varias opciones",
+        info="Puedes seleccionar múltiples opciones"
+    ),
+    outputs=gr.Textbox()
+)
+
+demo.launch()
+----
+
+=== Ejemplo Combinado
+[source,python]
+----
+import gradio as gr
+
+def process_all_selections(dropdown, radio, checkbox, checkbox_group):
+    result = f"""
+    Dropdown: {dropdown}
+    Radio: {radio}
+    Checkbox: {'Activado' if checkbox else 'Desactivado'}
+    Grupo de Checkboxes: {', '.join(checkbox_group)}
+    """
+    return result
+
+with gr.Blocks() as demo:
+    gr.Markdown("# Demo de Componentes de Selección")
+    
+    with gr.Row():
+        dropdown = gr.Dropdown(
+            choices=["Opción 1", "Opción 2", "Opción 3"],
+            label="Menú desplegable",
+            value="Opción 1"
+        )
+        
+        radio = gr.Radio(
+            choices=["A", "B", "C"],
+            label="Botones de radio",
+            value="A"
+        )
+    
+    with gr.Row():
+        checkbox = gr.Checkbox(
+            label="Activar función",
+            value=False
+        )
+        
+        checkbox_group = gr.CheckboxGroup(
+            choices=["Item 1", "Item 2", "Item 3"],
+            label="Selección múltiple",
+            value=["Item 1"]
+        )
+    
+    output = gr.Textbox(label="Resultados")
+    
+    btn = gr.Button("Procesar selecciones")
+    btn.click(
+        fn=process_all_selections,
+        inputs=[dropdown, radio, checkbox, checkbox_group],
+        outputs=output
+    )
+
+demo.launch()
+----
+
+== Creación de interfaces multimedia
+
+=== Image (gr.Image)
+.Parámetros principales
+* `type`: "pil", "numpy", "filepath"
+* `source`: "upload", "webcam", "canvas"
+* `tool`: "editor", "select", "sketch"
+* `shape`: Dimensiones de la imagen
+* `label`: Etiqueta del componente
+* `interactive`: Si es editable
+
+.Ejemplo de Image Upload
+[source,python]
+----
+import gradio as gr
+from PIL import Image
+
+def process_image(img):
+    if img is None:
+        return None
+    return img.rotate(180)  # Gira la imagen 180 grados
+
+demo = gr.Interface(
+    fn=process_image,
+    inputs=gr.Image(
+        type="pil",
+        label="Sube una imagen",
+        tool="editor",
+        source="upload"
+    ),
+    outputs=gr.Image(type="pil")
+)
+
+demo.launch()
+----
+
+.Ejemplo de Webcam
+[source,python]
+----
+import gradio as gr
+
+def capture_image(img):
+    return img
+
+demo = gr.Interface(
+    fn=capture_image,
+    inputs=gr.Image(
+        source="webcam",
+        tool=None,
+        streaming=True,
+        label="Cámara"
+    ),
+    outputs=gr.Image()
+)
+
+demo.launch()
+----
+
+=== Video (gr.Video)
+.Parámetros principales
+* `source`: "upload" o "webcam"
+* `format`: Formato del video
+* `height`: Altura del componente
+* `width`: Ancho del componente
+* `interactive`: Si es editable
+
+.Ejemplo de Video
+[source,python]
+----
+import gradio as gr
+
+def process_video(video):
+    return video
+
+demo = gr.Interface(
+    fn=process_video,
+    inputs=gr.Video(
+        label="Sube un video",
+        source="upload",
+        format="mp4"
+    ),
+    outputs=gr.Video()
+)
+
+demo.launch()
+----
+
+=== Audio (gr.Audio)
+.Parámetros principales
+* `source`: "upload" o "microphone"
+* `type`: "numpy" o "filepath"
+* `label`: Etiqueta del componente
+* `interactive`: Si es editable
+* `streaming`: Para grabación en tiempo real
+
+.Ejemplo de Audio Upload y Micrófono
+[source,python]
+----
+import gradio as gr
+
+def process_audio(audio):
+    return audio
+
+demo = gr.Blocks()
+with demo:
+    gr.Markdown("# Procesamiento de Audio")
+    
+    with gr.Tab("Upload"):
+        audio_upload = gr.Audio(
+            label="Sube un archivo de audio",
+            source="upload",
+            type="filepath"
+        )
+    
+    with gr.Tab("Micrófono"):
+        audio_mic = gr.Audio(
+            label="Graba audio",
+            source="microphone",
+            streaming=True
+        )
+    
+    output_audio = gr.Audio(label="Audio procesado")
+    
+    btn = gr.Button("Procesar")
+    btn.click(fn=process_audio, 
+             inputs=[audio_upload], 
+             outputs=[output_audio])
+
+demo.launch()
+----
+
+=== File (gr.File)
+.Parámetros principales
+* `file_count`: "single" o "multiple"
+* `file_types`: Lista de extensiones permitidas
+* `label`: Etiqueta del componente
+* `interactive`: Si es editable
+
+.Ejemplo de File
+[source,python]
+----
+import gradio as gr
+
+def process_file(file):
+    return f"Archivo recibido: {file.name}"
+
+demo = gr.Interface(
+    fn=process_file,
+    inputs=gr.File(
+        label="Sube un archivo",
+        file_count="single",
+        file_types=[".pdf", ".txt", ".doc"],
+        type="file"
+    ),
+    outputs=gr.Textbox()
+)
+
+demo.launch()
+----
+
+=== Ejemplo Combinado Multimedia
+[source,python]
+----
+import gradio as gr
+
+def process_multimedia(image, video, audio, file):
+    result = {
+        "image": "Imagen procesada" if image is not None else "No image",
+        "video": "Video procesado" if video is not None else "No video",
+        "audio": "Audio procesado" if audio is not None else "No audio",
+        "file": f"Archivo: {file.name}" if file is not None else "No file"
+    }
+    return str(result)
+
+with gr.Blocks() as demo:
+    gr.Markdown("# Demo Multimedia")
+    
+    with gr.Row():
+        with gr.Column():
+            image_input = gr.Image(
+                label="Imagen",
+                source="upload",
+                tool="editor"
+            )
+            webcam_input = gr.Image(
+                label="Webcam",
+                source="webcam"
+            )
+    
+    with gr.Row():
+        video_input = gr.Video(
+            label="Video"
+        )
+        audio_input = gr.Audio(
+            label="Audio",
+            source="microphone"
+        )
+    
+    file_input = gr.File(
+        label="Archivos",
+        file_count="multiple"
+    )
+    
+    output = gr.Textbox(label="Resultados")
+    
+    btn = gr.Button("Procesar")
+    btn.click(
+        fn=process_multimedia,
+        inputs=[image_input, video_input, audio_input, file_input],
+        outputs=output
+    )
+
+demo.launch()
+----
+
+== Creación de interfaces estructuradas
+
+=== Tabs (gr.Tab y gr.Tabs)
+.Parámetros principales de Tabs
+* `selected`: Índice de la pestaña seleccionada
+* `visible`: Si las pestañas son visibles
+* `elem_id`: ID para CSS
+* `elem_classes`: Clases CSS
+
+.Ejemplo de Tabs
+[source,python]
+----
+import gradio as gr
+
+with gr.Blocks() as demo:
+    gr.Markdown("# Demo de Pestañas")
+    
+    with gr.Tabs() as tabs:
+        with gr.Tab("Entrada de Texto"):
+            text_input = gr.Textbox(label="Texto")
+            text_output = gr.Textbox(label="Resultado")
+            text_button = gr.Button("Procesar Texto")
+        
+        with gr.Tab("Entrada de Imagen"):
+            image_input = gr.Image(label="Imagen")
+            image_output = gr.Image(label="Resultado")
+            image_button = gr.Button("Procesar Imagen")
+        
+        with gr.Tab("Configuración"):
+            gr.Markdown("## Ajustes")
+            slider = gr.Slider(0, 100, label="Parámetro")
+
+demo.launch()
+----
+
+=== Accordion (gr.Accordion)
+.Parámetros principales
+* `label`: Etiqueta del acordeón
+* `open`: Si está expandido por defecto
+* `visible`: Si es visible
+
+.Ejemplo de Accordion
+[source,python]
+----
+import gradio as gr
+
+with gr.Blocks() as demo:
+    gr.Markdown("# Demo de Acordeón")
+    
+    with gr.Accordion("Configuración Avanzada", open=False):
+        gr.Markdown("### Parámetros")
+        param1 = gr.Slider(0, 10, label="Parámetro 1")
+        param2 = gr.Slider(0, 10, label="Parámetro 2")
+    
+    with gr.Accordion("Resultados", open=True):
+        output = gr.Textbox(label="Salida")
+        
+    btn = gr.Button("Procesar")
+
+demo.launch()
+----
+
+=== Row y Column (gr.Row y gr.Column)
+.Parámetros principales
+* `scale`: Escala relativa del contenedor
+* `min_width`: Ancho mínimo
+* `equal_height`: Para filas, si los elementos tienen igual altura
+* `variant`: Variante visual ("default", "panel", etc.)
+
+.Ejemplo de Row y Column
+[source,python]
+----
+import gradio as gr
+
+with gr.Blocks() as demo:
+    gr.Markdown("# Demo de Layout")
+    
+    with gr.Row():
+        with gr.Column(scale=2):
+            input1 = gr.Textbox(label="Entrada 1")
+            input2 = gr.Textbox(label="Entrada 2")
+        
+        with gr.Column(scale=1):
+            output = gr.Textbox(label="Resultado")
+    
+    with gr.Row():
+        btn1 = gr.Button("Acción 1")
+        btn2 = gr.Button("Acción 2")
+        btn3 = gr.Button("Acción 3")
+
+demo.launch()
+----
+
+=== Group (gr.Group)
+.Parámetros principales
+* `visible`: Si el grupo es visible
+* `elem_id`: ID para CSS
+* `elem_classes`: Clases CSS
+
+.Ejemplo de Group
+[source,python]
+----
+import gradio as gr
+
+with gr.Blocks() as demo:
+    gr.Markdown("# Demo de Grupos")
+    
+    with gr.Group():
+        gr.Markdown("## Grupo de Entrada")
+        name = gr.Textbox(label="Nombre")
+        age = gr.Number(label="Edad")
+        
+    with gr.Group():
+        gr.Markdown("## Grupo de Opciones")
+        checkbox = gr.Checkbox(label="Activar")
+        slider = gr.Slider(0, 100, label="Valor")
+
+demo.launch()
+----
+
+=== Ejemplo Combinado de Estructuras
+[source,python]
+----
+import gradio as gr
+
+def process(text, number, check):
+    return f"Procesado: {text}, {number}, {check}"
+
+with gr.Blocks() as demo:
+    gr.Markdown("# Demo Completa de Estructuras")
+    
+    with gr.Tabs():
+        with gr.Tab("Entrada de Datos"):
+            with gr.Row():
+                with gr.Column(scale=2):
+                    with gr.Group():
+                        text_input = gr.Textbox(label="Texto")
+                        num_input = gr.Number(label="Número")
+                
+                with gr.Column(scale=1):
+                    with gr.Accordion("Opciones", open=True):
+                        check = gr.Checkbox(label="Activar")
+                        slider = gr.Slider(0, 100)
+        
+        with gr.Tab("Resultados"):
+            with gr.Group():
+                output = gr.Textbox(label="Resultado")
+                with gr.Row():
+                    clear_btn = gr.Button("Limpiar")
+                    submit_btn = gr.Button("Procesar")
+        
+        with gr.Tab("Configuración"):
+            with gr.Accordion("Ajustes Avanzados"):
+                gr.Markdown("### Configuración del Sistema")
+                config1 = gr.Checkbox(label="Config 1")
+                config2 = gr.Checkbox(label="Config 2")
+    
+    submit_btn.click(
+        fn=process,
+        inputs=[text_input, num_input, check],
+        outputs=output
+    )
+
+demo.launch()
+----
+
+== Creación de interfaces interactivas
+
+=== Button (gr.Button)
+.Parámetros principales
+* `value`: Texto del botón
+* `variant`: "primary", "secondary", "stop"
+* `size`: "sm", "lg"
+* `interactive`: Si es clickeable
+* `visible`: Si es visible
+* `icon`: Ícono del botón
+
+.Ejemplo de Button
+[source,python]
+----
+import gradio as gr
+import time
+
+def proceso_largo():
+    time.sleep(2)  # Simula proceso
+    return "¡Proceso completado!"
+
+with gr.Blocks() as demo:
+    gr.Markdown("# Demo de Botones")
+    
+    with gr.Row():
+        btn1 = gr.Button(
+            value="Botón Principal",
+            variant="primary",
+            size="lg"
+        )
+        btn2 = gr.Button(
+            value="Botón Secundario",
+            variant="secondary"
+        )
+        btn3 = gr.Button(
+            value="Detener",
+            variant="stop"
+        )
+    
+    output = gr.Textbox(label="Resultado")
+    
+    btn1.click(fn=proceso_largo, outputs=output)
+
+demo.launch()
+----
+
+=== UpdateButton (gr.UpdateButton)
+.Parámetros principales
+* `value`: Texto del botón
+* `every`: Intervalo de actualización en segundos
+* `visible`: Si es visible
+* `interactive`: Si es clickeable
+
+.Ejemplo de UpdateButton
+[source,python]
+----
+import gradio as gr
+import time
+import random
+
+def actualizar_valor():
+    return random.randint(1, 100)
+
+with gr.Blocks() as demo:
+    gr.Markdown("# Demo de Actualización Automática")
+    
+    valor = gr.Number(label="Valor Actual")
+    
+    update_btn = gr.UpdateButton(
+        value="Actualizar",
+        every=5  # Actualiza cada 5 segundos
+    )
+    
+    update_btn.click(
+        fn=actualizar_valor,
+        outputs=valor
+    )
+
+demo.launch()
+----
+
+=== Progress (gr.Progress)
+.Parámetros principales
+* `track_tqdm`: Seguimiento de progreso tqdm
+* `visible`: Si es visible
+* `elem_id`: ID para CSS
+
+.Ejemplo de Progress
+[source,python]
+----
+import gradio as gr
+import time
+from tqdm import tqdm
+
+def proceso_con_progreso(progress=gr.Progress()):
+    result = ""
+    for i in progress.tqdm(range(10)):
+        time.sleep(0.5)
+        result += f"Paso {i+1} completado\n"
+    return result
+
+with gr.Blocks() as demo:
+    gr.Markdown("# Demo de Barra de Progreso")
+    
+    btn = gr.Button("Iniciar Proceso")
+    output = gr.Textbox(label="Estado del Proceso")
+    
+    btn.click(
+        fn=proceso_con_progreso,
+        outputs=output
+    )
+
+demo.launch()
+----
+
+=== State (gr.State)
+.Parámetros principales
+* `value`: Valor inicial del estado
+* `visible`: Si es visible (normalmente False)
+
+.Ejemplo de State
+[source,python]
+----
+import gradio as gr
+
+def incrementar_contador(contador):
+    return contador + 1, contador + 1
+
+def resetear_contador():
+    return 0, 0
+
+with gr.Blocks() as demo:
+    gr.Markdown("# Demo de Estado")
+    
+    # Estado invisible para mantener el contador
+    contador = gr.State(value=0)
+    
+    # Visualización del contador
+    numero = gr.Number(label="Contador", interactive=False)
+    
+    with gr.Row():
+        incrementar = gr.Button("Incrementar")
+        resetear = gr.Button("Resetear")
+    
+    incrementar.click(
+        fn=incrementar_contador,
+        inputs=[contador],
+        outputs=[contador, numero]
+    )
+    
+    resetear.click(
+        fn=resetear_contador,
+        outputs=[contador, numero]
+    )
+
+demo.launch()
+----
+
+=== Ejemplo Combinado
+[source,python]
+----
+import gradio as gr
+import time
+import random
+from tqdm import tqdm
+
+def proceso_complejo(steps, progress=gr.Progress()):
+    resultado = []
+    
+    for i in progress.tqdm(range(steps)):
+        time.sleep(0.5)
+        resultado.append(f"Paso {i+1}: {random.randint(1,100)}")
+    
+    return "\n".join(resultado)
+
+def actualizar_estado(estado_actual):
+    return estado_actual + 1, f"Estado actualizado: {estado_actual + 1}"
+
+with gr.Blocks() as demo:
+    gr.Markdown("# Demo Completa de Componentes Interactivos")
+    
+    # Estado
+    estado = gr.State(value=0)
+    
+    with gr.Row():
+        # Botones principales
+        start_btn = gr.Button(
+            "Iniciar Proceso", 
+            variant="primary",
+            size="lg"
+        )
+        update_btn = gr.UpdateButton(
+            value="Auto Actualizar",
+            every=3
+        )
+        stop_btn = gr.Button(
+            "Detener",
+            variant="stop"
+        )
+    
+    # Salidas
+    proceso_output = gr.Textbox(
+        label="Resultado del Proceso",
+        lines=5
+    )
+    estado_output = gr.Textbox(
+        label="Estado Actual"
+    )
+    
+    # Configuración de eventos
+    start_btn.click(
+        fn=proceso_complejo,
+        inputs=[gr.Slider(1, 10, value=5, label="Pasos")],
+        outputs=proceso_output
+    )
+    
+    update_btn.click(
+        fn=actualizar_estado,
+        inputs=[estado],
+        outputs=[estado, estado_output]
+    )
+
+demo.launch()
+----
+
+== Creación de interfaces de visualización
+
+=== Label (gr.Label)
+.Parámetros principales
+* `value`: Valor inicial
+* `label`: Etiqueta del componente
+* `color`: Color del texto
+* `visible`: Si es visible
+* `show_label`: Mostrar/ocultar etiqueta
+
+.Ejemplo de Label
+[source,python]
+----
+import gradio as gr
+
+def classify_text(text):
+    # Simula clasificación
+    return {
+        "positivo": 0.8,
+        "negativo": 0.2
+    }
+
+demo = gr.Interface(
+    fn=classify_text,
+    inputs=gr.Textbox(label="Texto a clasificar"),
+    outputs=gr.Label(
+        label="Clasificación",
+        num_top_classes=2
+    )
+)
+
+demo.launch()
+----
+
+=== HTML (gr.HTML)
+.Parámetros principales
+* `value`: Contenido HTML
+* `visible`: Si es visible
+* `elem_id`: ID para CSS
+* `elem_classes`: Clases CSS
+
+.Ejemplo de HTML
+[source,python]
+----
+import gradio as gr
+
+def generate_html(text):
+    return f"""
+    <div style='color: blue; padding: 20px; border: 1px solid'>
+        <h3>Resultado</h3>
+        <p>{text}</p>
+    </div>
+    """
+
+with gr.Blocks() as demo:
+    gr.HTML("<h1 style='color: red'>Demo HTML</h1>")
+    input_text = gr.Textbox(label="Entrada")
+    output_html = gr.HTML()
+    
+    input_text.change(
+        fn=generate_html,
+        inputs=input_text,
+        outputs=output_html
+    )
+
+demo.launch()
+----
+
+=== Plot (gr.Plot)
+.Parámetros principales
+* `value`: Figura del plot
+* `label`: Etiqueta del gráfico
+* `show_label`: Mostrar/ocultar etiqueta
+* `visible`: Si es visible
+
+.Ejemplo de Plot
+[source,python]
+----
+import gradio as gr
+import matplotlib.pyplot as plt
+import numpy as np
+
+def create_plot(points):
+    fig = plt.figure()
+    x = np.linspace(0, 10, int(points))
+    y = np.sin(x)
+    plt.plot(x, y)
+    plt.title("Gráfico Senoidal")
+    return fig
+
+with gr.Blocks() as demo:
+    gr.Markdown("# Demo de Gráficos")
+    
+    slider = gr.Slider(
+        minimum=10,
+        maximum=100,
+        value=50,
+        label="Número de puntos"
+    )
+    plot_output = gr.Plot(label="Gráfico")
+    
+    slider.change(
+        fn=create_plot,
+        inputs=slider,
+        outputs=plot_output
+    )
+
+demo.launch()
+----
+
+=== Gallery (gr.Gallery)
+.Parámetros principales
+* `value`: Lista de imágenes
+* `label`: Etiqueta de la galería
+* `columns`: Número de columnas
+* `height`: Altura de la galería
+* `object_fit`: Ajuste de imágenes
+
+.Ejemplo de Gallery
+[source,python]
+----
+import gradio as gr
+import numpy as np
+from PIL import Image
+
+def create_images():
+    images = []
+    for _ in range(4):
+        # Crear imágenes de ejemplo
+        img = np.random.randint(0, 255, (100, 100, 3), dtype=np.uint8)
+        images.append(Image.fromarray(img))
+    return images
+
+with gr.Blocks() as demo:
+    gr.Markdown("# Galería de Imágenes")
+    
+    gallery = gr.Gallery(
+        label="Imágenes",
+        columns=2,
+        height="auto"
+    )
+    btn = gr.Button("Generar Imágenes")
+    
+    btn.click(
+        fn=create_images,
+        outputs=gallery
+    )
+
+demo.launch()
+----
+
+=== Dataframe (gr.Dataframe)
+.Parámetros principales
+* `value`: Datos iniciales
+* `headers`: Encabezados de columnas
+* `row_count`: Número de filas
+* `col_count`: Número de columnas
+* `interactive`: Si es editable
+* `wrap`: Ajuste de texto
+
+.Ejemplo de Dataframe
+[source,python]
+----
+import gradio as gr
+import pandas as pd
+import numpy as np
+
+def create_dataframe():
+    data = {
+        'A': np.random.rand(5),
+        'B': np.random.rand(5),
+        'C': np.random.rand(5)
+    }
+    return pd.DataFrame(data)
+
+with gr.Blocks() as demo:
+    gr.Markdown("# Demo de DataFrame")
+    
+    df = gr.Dataframe(
+        headers=['A', 'B', 'C'],
+        interactive=True,
+        wrap=True
+    )
+    btn = gr.Button("Generar Datos")
+    
+    btn.click(
+        fn=create_dataframe,
+        outputs=df
+    )
+
+demo.launch()
+----
+
+=== JSON (gr.JSON)
+.Parámetros principales
+* `value`: Datos JSON iniciales
+* `label`: Etiqueta del componente
+* `visible`: Si es visible
+
+.Ejemplo de JSON
+[source,python]
+----
+import gradio as gr
+import random
+
+def generate_json():
+    return {
+        "id": random.randint(1, 1000),
+        "data": {
+            "name": "Ejemplo",
+            "values": [1, 2, 3, 4, 5],
+            "active": True
+        }
+    }
+
+with gr.Blocks() as demo:
+    gr.Markdown("# Visualización JSON")
+    
+    json_output = gr.JSON(label="Datos JSON")
+    btn = gr.Button("Generar JSON")
+    
+    btn.click(
+        fn=generate_json,
+        outputs=json_output
+    )
+
+demo.launch()
+----
+
+=== Ejemplo Combinado
+[source,python]
+----
+import gradio as gr
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+def process_data():
+    # Crear datos de ejemplo
+    data = np.random.randn(100)
+    
+    # Crear plot
+    fig = plt.figure()
+    plt.hist(data, bins=20)
+    plt.title("Distribución")
+    
+    # Crear DataFrame
+    df = pd.DataFrame({
+        'valores': data,
+        'cuadrado': data**2
+    })
+    
+    # Crear JSON
+    stats = {
+        "media": float(np.mean(data)),
+        "std": float(np.std(data)),
+        "min": float(np.min(data)),
+        "max": float(np.max(data))
+    }
+    
+    return fig, df, stats
+
+with gr.Blocks() as demo:
+    gr.Markdown("# Dashboard de Datos")
+    
+    with gr.Row():
+        with gr.Column():
+            plot_output = gr.Plot(label="Gráfico")
+            df_output = gr.Dataframe(label="Datos")
+        
+        with gr.Column():
+            stats_output = gr.JSON(label="Estadísticas")
+            html_output = gr.HTML("""
+                <div style='padding: 10px; background: #f0f0f0'>
+                    <h3>Información</h3>
+                    <p>Dashboard de análisis de datos</p>
+                </div>
+            """)
+    
+    btn = gr.Button("Actualizar Datos")
+    btn.click(
+        fn=process_data,
+        outputs=[plot_output, df_output, stats_output]
+    )
+
+demo.launch()
+----
+
+== Creación de componentes especiales
+
+=== ColorPicker (gr.ColorPicker)
+.Parámetros principales
+* `value`: Color inicial (hex o rgb)
+* `label`: Etiqueta del selector
+* `interactive`: Si es editable
+* `visible`: Si es visible
+* `show_label`: Mostrar etiqueta
+
+.Ejemplo de ColorPicker
+[source,python]
+----
+import gradio as gr
+
+def update_color(color):
+    return f"""
+    <div style='padding: 20px; background: {color}; color: white'>
+        Color seleccionado: {color}
+    </div>
+    """
+
+with gr.Blocks() as demo:
+    gr.Markdown("# Selector de Color")
+    
+    color_picker = gr.ColorPicker(
+        label="Selecciona un color",
+        value="#ff0000"  # Rojo por defecto
+    )
+    
+    output = gr.HTML()
+    
+    color_picker.change(
+        fn=update_color,
+        inputs=color_picker,
+        outputs=output
+    )
+
+demo.launch()
+----
+
+=== Datepicker (gr.Datepicker)
+.Parámetros principales
+* `value`: Fecha inicial
+* `label`: Etiqueta del selector
+* `min_date`: Fecha mínima permitida
+* `max_date`: Fecha máxima permitida
+* `format`: Formato de fecha
+
+.Ejemplo de Datepicker
+[source,python]
+----
+import gradio as gr
+from datetime import datetime, timedelta
+
+def process_date(date):
+    selected_date = datetime.strptime(date, "%Y-%m-%d")
+    future_date = selected_date + timedelta(days=7)
+    return f"Fecha seleccionada: {date}\nFecha + 7 días: {future_date.strftime('%Y-%m-%d')}"
+
+with gr.Blocks() as demo:
+    gr.Markdown("# Selector de Fecha")
+    
+    date_picker = gr.Datepicker(
+        label="Selecciona una fecha",
+        value="2024-01-01",  # Fecha inicial
+        min_date="2024-01-01",
+        max_date="2024-12-31"
+    )
+    
+    output = gr.Textbox(label="Resultado")
+    
+    date_picker.change(
+        fn=process_date,
+        inputs=date_picker,
+        outputs=output
+    )
+
+demo.launch()
+----
+
+=== Timepicker (gr.Timepicker)
+.Parámetros principales
+* `value`: Hora inicial
+* `label`: Etiqueta del selector
+* `interactive`: Si es editable
+* `visible`: Si es visible
+* `format`: Formato de hora (12/24)
+
+.Ejemplo de Timepicker
+[source,python]
+----
+import gradio as gr
+from datetime import datetime, timedelta
+
+def process_time(time):
+    if not time:
+        return "Por favor selecciona una hora"
+    
+    time_obj = datetime.strptime(time, "%H:%M")
+    later_time = (time_obj + timedelta(hours=2)).strftime("%H:%M")
+    
+    return f"""
+    Hora seleccionada: {time}
+    Hora + 2 horas: {later_time}
+    """
+
+with gr.Blocks() as demo:
+    gr.Markdown("# Selector de Hora")
+    
+    time_picker = gr.Timepicker(
+        label="Selecciona una hora",
+        value="09:00"  # Hora inicial
+    )
+    
+    output = gr.Textbox(label="Resultado")
+    
+    time_picker.change(
+        fn=process_time,
+        inputs=time_picker,
+        outputs=output
+    )
+
+demo.launch()
+----
+
+=== Model3D (gr.Model3D)
+.Parámetros principales
+* `value`: Ruta al modelo 3D
+* `label`: Etiqueta del visor
+* `clear_color`: Color de fondo
+* `camera_position`: Posición inicial de la cámara
+* `height`: Altura del visor
+* `width`: Ancho del visor
+
+.Ejemplo de Model3D
+[source,python]
+----
+import gradio as gr
+
+def load_3d_model(file):
+    return file.name if file else None
+
+with gr.Blocks() as demo:
+    gr.Markdown("# Visor de Modelos 3D")
+    
+    file_input = gr.File(
+        label="Sube un modelo 3D",
+        file_types=[".obj", ".glb", ".gltf"]
+    )
+    
+    model_viewer = gr.Model3D(
+        label="Visor 3D",
+        clear_color=[0.0, 0.0, 0.0, 0.0],
+        camera_position=[0, 0, 5],
+        height=500,
+        width=800
+    )
+    
+    file_input.change(
+        fn=load_3d_model,
+        inputs=file_input,
+        outputs=model_viewer
+    )
+
+demo.launch()
+----
+
+=== Ejemplo Combinado
+[source,python]
+----
+import gradio as gr
+from datetime import datetime, timedelta
+
+def process_all(color, date, time, model_file):
+    result = {
+        "color": color,
+        "date": date,
+        "time": time,
+        "model": model_file.name if model_file else "No model"
+    }
+    
+    # Crear HTML con el color seleccionado
+    html_output = f"""
+    <div style='padding: 20px; background: {color}; color: white'>
+        <h3>Resultados:</h3>
+        <p>Color: {color}</p>
+        <p>Fecha: {date}</p>
+        <p>Hora: {time}</p>
+        <p>Modelo: {result['model']}</p>
+    </div>
+    """
+    
+    return html_output, result
+
+with gr.Blocks() as demo:
+    gr.Markdown("# Demo de Componentes Especializados")
+    
+    with gr.Row():
+        with gr.Column():
+            color_input = gr.ColorPicker(
+                label="Selecciona un color",
+                value="#ff0000"
+            )
+            
+            date_input = gr.Datepicker(
+                label="Selecciona una fecha",
+                value=datetime.now().strftime("%Y-%m-%d")
+            )
+            
+            time_input = gr.Timepicker(
+                label="Selecciona una hora",
+                value="12:00"
+            )
+            
+            model_input = gr.File(
+                label="Sube un modelo 3D",
+                file_types=[".obj", ".glb", ".gltf"]
+            )
+        
+        with gr.Column():
+            html_output = gr.HTML()
+            json_output = gr.JSON()
+            model_viewer = gr.Model3D(
+                label="Vista previa del modelo",
+                height=400
+            )
+    
+    btn = gr.Button("Procesar")
+    
+    # Actualizar modelo 3D cuando se sube
+    model_input.change(
+        fn=lambda x: x.name if x else None,
+        inputs=model_input,
+        outputs=model_viewer
+    )
+    
+    # Procesar todos los inputs
+    btn.click(
+        fn=process_all,
+        inputs=[
+            color_input,
+            date_input,
+            time_input,
+            model_input
+        ],
+        outputs=[
+            html_output,
+            json_output
+        ]
+    )
+
+demo.launch()
+----

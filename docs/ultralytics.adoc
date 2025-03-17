@@ -1,0 +1,980 @@
+:toc:
+:toc-title: Índice
+:source-highlighter: highlight.js
+
+= Visión artificial con Python
+
+== Introducción a la visión artificial
+
+La visión artificial es una disciplina que se encarga de desarrollar algoritmos y técnicas para que las máquinas puedan interpretar y entender el mundo visual que las rodea. 
+
+.Existen varias disciplinas dentro de la visión artificial:
+* Detección de objetos
+* Segmentación de imágenes
+* Clasificación de imágenes
+* Reconocimiento facial
+* Detección de movimiento y seguimiento de objetos/patrones
+* Reconstrucción 3D
+* Y algunas más...
+
+== Bibliotecas de visión artificial en Python
+
+Python es uno de los lenguajes más utilizados en el campo de la visión artificial, gracias a la gran cantidad de bibliotecas y herramientas que existen para trabajar con imágenes y vídeos. 
+
+.Algunas de las bibliotecas más populares son:
+* OpenCV
+* Pillow
+* Scikit-Image
+* SimpleCV
+* YoLo
+
+== Procesamiento de imágenes con YoLo
+
+YoLo (You Only Look Once) es un algoritmo de detección de objetos en imágenes y vídeos que se caracteriza por ser muy rápido y eficiente.
+
+Los modeloes de YoLo11 preentrenados se muestran aquí. Los modelos Detect, Segment y Pose están preentrenados en el dataset COCO, mientras que los modelos Classify están preentrenados en el dataset ImageNet.
+
+.Versiones actuales de los modelos de YoLo11:
+[cols="7*", options="header"]
+|===
+| Model | size (pixels) | mAPval 50-95 | Speed CPU ONNX (ms) | Speed T4 TensorRT10 (ms) | params (M) | FLOPs (B)
+| YOLO11n | 640 | 39.5 | 56.1 ± 0.8 | 1.5 ± 0.0 | 2.6 | 6.5
+| YOLO11s | 640 | 47.0 | 90.0 ± 1.2 | 2.5 ± 0.0 | 9.4 | 21.5
+| YOLO11m | 640 | 51.5 | 183.2 ± 2.0 | 4.7 ± 0.1 | 20.1 | 68.0
+| YOLO11l | 640 | 53.4 | 238.6 ± 1.4 | 6.2 ± 0.1 | 25.3 | 86.9
+| YOLO11x | 640 | 54.7 | 462.8 ± 6.7 | 11.3 ± 0.2 | 56.9 | 194.9
+|===
+
+
+== Instalación de YoLo
+
+.Hay varias formas de instalar YoLo, pero la más sencilla es a través de pip:
+[source,shell]
+----
+# Install the ultralytics package from PyPI
+pip install ultralytics
+----
+
+
+.Otra forma de instalar YoLo es clonando el repositorio de GitHub y luego instalando el paquete en modo editable:
+[source,shell]
+----
+# Install the ultralytics package using conda
+conda install -c conda-forge ultralytics
+----
+
+.Para instalar el paquete en modo editable, primero clonamos el repositorio de ultralytics y luego instalamos el paquete:
+[source,shell]
+----
+# Clone the ultralytics repository
+git clone https://github.com/ultralytics/ultralytics
+
+# Navigate to the cloned directory
+cd ultralytics
+
+# Install the package in editable mode for development
+pip install -e .
+----
+
+.Para instalar YoLo con Docker, primero debemos clonar el repositorio de ultralytics y luego construir la imagen de Docker:
+[source,shell]
+----
+# Set image name as a variable
+t=ultralytics/ultralytics:latest
+
+# Pull the latest ultralytics image from Docker Hub
+docker pull $t
+
+# Run the ultralytics image in a container with GPU support
+docker run -it --ipc=host --gpus all $t  # all GPUs
+docker run -it --ipc=host --gpus '"device=2,3"' $t  # specify GPUs
+----
+
+== Uso de YoLo con el cliente de línea de comandos
+
+Una vez instalado el paquete de ultralytics, podemos utilizar el cliente de línea de comandos para ejecutar el algoritmo de YoLo en imágenes y vídeos.
+
+La estrucutra de comandos es la siguiente:
+[source,shell]
+----
+# Usage: yolo <task> <mode> <args>
+yolo detect --source image.jpg
+yolo train --data data.yaml --cfg model.yaml
+----
+
+=== task
+
+El argumento `task` especifica la tarea que queremos realizar con YoLo. Puede ser `detect` para detectar objetos en una imagen o vídeo, o `train` para entrenar un modelo de YoLo. No es necesario especificar la tarea si se utiliza el comando `yolo` sin argumentos, YoLo puede inferir la tarea automáticamente según el modelo y los datos proporcionados.
+
+.Las tareas disponibles son:
+* `detect`: Detectar objetos en una imagen o vídeo
+* `classify`: Clasificar una imagen en categorías predefinidas
+* `segment`: Segmentar una imagen en regiones de interés
+* `pose`: Detectar la pose de una persona en una imagen
+* `obb`: Detectar objetos en una imagen con bounding boxes orientadas
+
+=== mode
+
+El argumento `mode` especifica el modo de ejecución de la tarea. El modo es un parámetro obligatorio. Los modos disponibles dependen de la tarea seleccionada.
+
+.Los modos disponibles son:
+* `train`: Entrenar un modelo de YoLo
+* `val`: Validar un modelo de YoLo
+* `predict`: Predecir objetos en una imagen o vídeo
+* `export`: Exportar un modelo de YoLo a un formato específico
+* `track`: Seguimiento de objetos en un vídeo
+* `benchmark`: Medir el rendimiento de un modelo de YoLo
+
+=== args
+
+Los argumentos `args` son los parámetros específicos de cada tarea y modo. Estos argumentos pueden variar según la tarea y el modo seleccionados. Por ejemplo, para la tarea `detect` en el modo `predict`, el argumento es la ruta de la imagen o vídeo que queremos procesar.
+
+=== Archivos de configuración
+
+En el proceso de entrenamiento de un modelo de YoLo, es bastante común utilizar archivos de configuración para definir los hiperparámetros del modelo, los datos de entrenamiento y otros parámetros específicos.
+
+.Para definir el archivo de configuración de los datos de entrenamiento, utilizamos el siguiente comando:
+[source,shell]
+----
+# Create a data configuration file for training
+yolo copy-cfg
+yolo cfg=default_copy.yaml imgsz=320
+
+----
+
+== Ejemplos de uso de YoLo
+
+.Para detectar objetos en una imagen, utilizamos el siguiente comando:
+[source,shell]
+----
+# Detect objects in an image using YoLo
+yolo detect source='image.jpg'
+
+# Detect objects in an image with a specific model and confidence threshold
+yolo predict model=yolo11n.pt imgsz=640 conf=0.25
+----
+
+
+.Para entrenar un modelo de YoLo, utilizamos el siguiente comando:
+[source,shell]
+----
+# Train a YoLo model using the COCO dataset and specific configuration file with 100 epochs and image size of 640
+yolo detect train data=coco8.yaml model=yolo11n.pt epochs=100 imgsz=640
+
+# Train a YoLo model using the COCO dataset and specific configuration file with 100 epochs and image size of 640
+yolo detect train data=coco8.yaml model=yolo11n.pt epochs=100 imgsz=640
+----
+
+.Para validar un modelo de YoLo, utilizamos el siguiente comando:
+[source,shell]
+----
+# Validate a YoLo model using the COCO dataset and specific configuration file
+yolo detect val model=yolo11n.pt
+----
+
+.Para predecir objetos en una imagen o vídeo, utilizamos el siguiente comando:
+[source,shell]
+----
+# Predict objects in an image using YoLo with a specific model
+yolo detect predict model=yolo11n.pt source='https://ultralytics.com/images/bus.jpg'
+----
+
+.Para exportar un modelo de YoLo a un formato específico, utilizamos el siguiente comando:
+[source,shell]
+----
+# Export a YoLo model to a specific format
+yolo detect export model=yolo11n.pt format=onnx
+----
+
+.En la siguiente tabla se muestran los formatos de exportación soportados por YoLo:
+[cols="1,1,1,1,1", options="header"]
+|===
+| Format | Format Argument | Model | Metadata | Arguments
+| PyTorch | - | yolo11n.pt | ✅ | -
+| TorchScript | torchscript | yolo11n.torchscript | ✅ | imgsz, optimize, nms, batch
+| ONNX | onnx | yolo11n.onnx | ✅ | imgsz, half, dynamic, simplify, opset, nms, batch
+| OpenVINO | openvino | yolo11n_openvino_model/ | ✅ | imgsz, half, dynamic, int8, nms, batch, data
+| TensorRT | engine | yolo11n.engine | ✅ | imgsz, half, dynamic, simplify, workspace, int8, nms, batch, data
+| CoreML | coreml | yolo11n.mlpackage | ✅ | imgsz, half, int8, nms, batch
+| TF SavedModel | saved_model | yolo11n_saved_model/ | ✅ | imgsz, keras, int8, nms, batch
+| TF GraphDef | pb | yolo11n.pb | ❌ | imgsz, batch
+| TF Lite | tflite | yolo11n.tflite | ✅ | imgsz, half, int8, nms, batch, data
+| TF Edge TPU | edgetpu | yolo11n_edgetpu.tflite | ✅ | imgsz
+| TF.js | tfjs | yolo11n_web_model/ | ✅ | imgsz, half, int8, nms, batch
+| PaddlePaddle | paddle | yolo11n_paddle_model/ | ✅ | imgsz, batch
+| MNN | mnn | yolo11n.mnn | ✅ | imgsz, batch, int8, half
+| NCNN | ncnn | yolo11n_ncnn_model/ | ✅ | imgsz, half, batch
+| IMX500 | imx500 | yolo11n_imx_model/ | ✅ | imgsz, int8, data
+| RKNN | rknn | yolo11n_rknn_model/ | ✅ | imgsz, batch, name
+|===
+
+== YoLo con Python
+
+Además de utilizar YoLo desde la línea de comandos, también podemos utilizarlo desde Python para integrarlo en nuestras aplicaciones y proyectos. 
+
+La versión actual de YoLo es compatible con Python 3.6 o superior. Para utilizar YoLo en Python, primero debemos importar el paquete `ultralytics` y luego cargar el modelo de YoLo que queremos utilizar.
+
+.Para importar el paquete `ultralytics` con pip:
+[source,shell]
+----
+pip install ultralytics
+----
+
+
+.En el siguiente ejemplo, creamos un nuevo modelo de YoLo desde cero y luego cargamos un modelo personalizado:
+[source,python]
+----
+from ultralytics import YOLO
+
+# Create a new YOLO model from scratch
+model = YOLO("yolo11n.yaml")
+
+# Load a custom YOLO model
+model = YOLO("custom_model.pt")
+----
+
+== Tareas de visión artificial soportadas por YoLo11 de Ultralytics
+
+=== Detección de objetos
+
+La detección es la tarea principal soportada por YoLo11. Implica detectar objetos en una imagen o fotograma de vídeo y dibujar cuadros delimitadores alrededor de ellos. Los objetos detectados se clasifican en diferentes categorías basadas en sus características. YoLo11 puede detectar múltiples objetos en una sola imagen o fotograma de vídeo con alta precisión y velocidad.
+
+.El modo de predicción de YoLo11 está diseñado para ser robusto y versátil, con las siguientes características:
+* Compatibilidad con múltiples fuentes de datos: en forma de imágenes individuales, una colección de imágenes, archivos de vídeo o transmisiones de vídeo en tiempo real.
+* Modo de streaming: la función de streaming para generar un generador eficiente en memoria de objetos de resultados. Active esto configurando stream=True en el método de llamada del predictor.
+* Procesamiento por lotes: la capacidad de procesar varias imágenes o fotogramas de vídeo en un solo lote, acelerando aún más el tiempo de inferencia.
+* Integración sencilla: Integra fácilmente con pipelines de datos existentes y otros componentes de software, gracias a su API flexible.
+
+.Un ejemplo de detección de objetos en una imagen con YoLo11:
+[source,python]
+----
+from ultralytics import YOLO
+
+# Carga el modelo preentrenado de YoLo11n
+model = YOLO("yolo11n.pt")  # pretrained YOLO11n model
+
+# Ejecuta la detección de objetos en imágenes
+results = model(["image1.jpg", "image2.jpg"])  
+
+# Procesa los resultados
+for result in results:
+    boxes = result.boxes  # boxes de los objetos detectados
+    masks = result.masks  # Máscaras de segmentación de los objetos detectados
+    keypoints = result.keypoints  # Puntos clave de los objetos detectados
+    probs = result.probs  # Probabilidades de los objetos detectados
+    obb = result.obb  # Bounding boxes orientadas de los objetos detectados
+    result.show()  # muestra los resultados
+    result.save(filename="result" + str(result.idx) + ".jpg")
+----
+
+.Fuentes de Imagen para Procesamiento con YoLo
+[cols="1,1,1", options="header"]
+|===
+| Fuente | Ejemplo | Descripción
+| imagen | 'image.jpg' | Archivo de imagen individual.
+| URL | 'https://ultralytics.com/images/bus.jpg' | URL a una imagen.
+| screenshot | 'screen' | Capturar una captura de pantalla.
+| PIL | Image.open('image.jpg') | Formato HWC con canales RGB.
+| OpenCV | cv2.imread('image.jpg') | Formato HWC con canales BGR uint8 (0-255).
+| numpy | np.zeros((640,1280,3)) | Formato HWC con canales BGR uint8 (0-255).
+| torch | torch.zeros(16,3,320,640) | Formato BCHW con canales RGB float32 (0.0-1.0).
+| CSV | 'sources.csv' | Archivo CSV que contiene rutas a imágenes, videos o directorios.
+| video ✅ | 'video.mp4' | Archivo de video en formatos como MP4, AVI, etc.
+| directorio ✅ | 'path/' | Ruta a un directorio que contiene imágenes o videos.
+| glob ✅ | 'path/*.jpg' | Patrón glob para coincidir con múltiples archivos. Use el carácter * como comodín.
+| YouTube ✅ | 'https://youtu.be/LNwODJXcvt4' | URL a un video de YouTube.
+| stream ✅ | 'rtsp://example.com/media.mp4' | URL para protocolos de streaming como RTSP, RTMP, TCP o una dirección IP.
+| multi-stream ✅ | 'list.streams' | Archivo de texto *.streams con una URL de stream por línea, es decir, 8 streams se ejecutarán en lote de 8.
+| webcam ✅ | 0 | Índice del dispositivo de cámara conectado para ejecutar la inferencia.
+|===
+
+.Parámetros de inferencia de YoLo11
+[cols="1,4,1", options="header"]
+|===
+| Argumento | Descripción | Por defecto
+| fuente | Especifica la fuente de datos para la inferencia. Puede ser una ruta de imagen, archivo de video, directorio, URL o ID de dispositivo para transmisiones en vivo. Soporta una amplia gama de formatos y fuentes, permitiendo una aplicación flexible en diferentes tipos de entrada. | 'ultralytics/assets'
+| conf | Establece el umbral mínimo de confianza para las detecciones. Los objetos detectados con una confianza inferior a este umbral serán descartados. Ajustar este valor puede ayudar a reducir falsos positivos. | 0.25
+| iou | Umbral de Intersección sobre Unión (IoU) para la Supresión de No Máximos (NMS). Valores más bajos resultan en menos detecciones al eliminar cajas superpuestas, lo cual es útil para reducir duplicados. | 0.7
+| imgsz | Define el tamaño de la imagen para la inferencia. Puede ser un entero (640) para redimensionamiento cuadrado o una tupla (alto, ancho). Un tamaño adecuado puede mejorar la precisión de la detección y la velocidad de procesamiento. | 640
+| half | Activa la inferencia en mitad de precisión (FP16), lo que puede acelerar la inferencia en GPUs compatibles con un impacto mínimo en la precisión. | False
+| device | Especifica el dispositivo para la inferencia (por ejemplo, cpu, cuda:0 o 0). Permite seleccionar entre la CPU, una GPU específica u otros dispositivos de cómputo para la ejecución del modelo. | None
+| batch | Especifica el tamaño del lote para la inferencia (solo funciona cuando la fuente es un directorio, archivo de video o un archivo .txt). Un tamaño de lote mayor puede proporcionar mayor rendimiento, acortando el tiempo total requerido para la inferencia. | 1
+| max_det | Número máximo de detecciones permitidas por imagen. Limita la cantidad total de objetos que el modelo puede detectar en una sola inferencia, evitando salidas excesivas en escenas densas. | 300
+| vid_stride | Intervalo de frames para entradas de video. Permite omitir frames para acelerar el procesamiento a costa de la resolución temporal. Un valor de 1 procesa cada frame, valores mayores omiten frames. | 1
+| stream_buffer | Determina si se deben encolar los frames entrantes para transmisiones de video. Si es False, se descartan los frames antiguos para acomodar los nuevos (optimizado para aplicaciones en tiempo real). Si es True, encola los nuevos frames en un búfer, asegurando que no se omitan frames, pero puede causar latencia si los FPS de inferencia son inferiores a los FPS del stream. | False
+| visualize | Activa la visualización de características del modelo durante la inferencia, proporcionando información sobre lo que el modelo "ve". Útil para depuración e interpretación del modelo. | False
+| augment | Activa la augmentación en tiempo de prueba (TTA) para las predicciones, lo que puede mejorar la robustez de la detección a costa de la velocidad de inferencia. | False
+| agnostic_nms | Activa la Supresión de No Máximos sin distinción de clases, que fusiona cajas superpuestas de diferentes clases. Útil en escenarios de detección multiclase donde es común la superposición de clases. | False
+| classes | Filtra las predicciones a un conjunto de IDs de clase. Solo se retornarán las detecciones pertenecientes a las clases especificadas, lo cual es útil para enfocarse en objetos relevantes en tareas de detección multiclase. | None
+| retina_masks | Devuelve máscaras de segmentación de alta resolución. Las máscaras (masks.data) coincidirán con el tamaño original de la imagen si está activado; de lo contrario, tendrán el tamaño utilizado durante la inferencia. | False
+| embed | Especifica las capas de las cuales extraer vectores de características o embeddings. Útil para tareas posteriores como clustering o búsqueda de similitud. | None
+| project | Nombre del directorio del proyecto donde se guardan los resultados de predicción si se activa la opción de guardar. | None
+| name | Nombre de la ejecución de la predicción. Se utiliza para crear un subdirectorio dentro del proyecto, donde se almacenan los resultados de predicción si se activa la opción de guardar. | None
+|===
+
+.parámetros de visualización de YoLo11
+[cols="1,4,1", options="header"]
+|===
+| Argumento     | Descripción                                                                                                                                                   | Por defecto
+| show          | Si es True, muestra las imágenes o videos anotados en una ventana. Útil para retroalimentación visual inmediata durante el desarrollo o pruebas.             | False
+| save          | Habilita guardar las imágenes o videos anotados en archivo. Útil para documentación, análisis adicional o para compartir resultados. Por defecto es True al usar CLI y False en Python. | False or True
+| save_frames   | Cuando se procesan videos, guarda frames individuales como imágenes. Útil para extraer frames específicos o para análisis detallado cuadro por cuadro.   | False
+| save_txt      | Guarda resultados de detección en un archivo de texto, siguiendo el formato [clase] [x_centro] [y_centro] [ancho] [alto] [confianza]. Útil para integración con otras herramientas de análisis. | False
+| save_conf     | Incluye las puntuaciones de confianza en los archivos de texto guardados. Mejora el detalle disponible para el postprocesamiento y análisis.               | False
+| save_crop     | Guarda imágenes recortadas de las detecciones. Útil para aumento de dataset, análisis o para crear conjuntos de datos enfocados en objetos específicos.   | False
+| show_labels   | Muestra las etiquetas para cada detección en la salida visual. Proporciona comprensión inmediata de los objetos detectados.                             | True
+| show_conf     | Muestra la puntuación de confianza para cada detección junto a la etiqueta. Ofrece información sobre la certeza del modelo en cada detección.           | True
+| show_boxes    | Dibuja cuadros delimitadores alrededor de los objetos detectados. Esencial para la identificación y localización visual de objetos en imágenes o videos.  | True
+| line_width    | Especifica el grosor de las líneas para los cuadros delimitadores. Si es None, el ancho se ajusta automáticamente según el tamaño de la imagen.         | None
+|===
+
+
+.Formatos soportados por YoLo11
+[cols="1,1", options="header"]
+|===
+| Imágenes | Videos
+| .bmp    | .asf
+| .dng    | .avi
+| .jpeg   | .gif
+| .jpg    | .m4v
+| .mpo    | .mkv
+| .png    | .mov
+| .tif    | .mp4
+| .tiff   | .mpeg
+| .webp   | .mpg
+| .pfm    | .ts
+| .HEIC   | .wmv
+|         | .webm
+|===
+
+
+==== Resultados de la detección de objetos en YoLo11
+
+Los resultados de la detección de objetos en YoLo11 se devuelven como una lista de objetos `Result` que contienen información sobre los objetos detectados en una imagen o vídeo.
+
+.Cada objeto `Result` contiene los siguientes atributos:
+[cols="1,2,4", options="header"]
+|===
+| Atributo    | Tipo             | Descripción
+| orig_img    | numpy.ndarray    | La imagen original como un array de numpy.
+| orig_shape  | tupla            | La forma original de la imagen en formato (alto, ancho).
+| boxes       | Boxes, opcional  | Un objeto Boxes que contiene las cajas delimitadoras de las detecciones.
+| masks       | Masks, opcional  | Un objeto Masks que contiene las máscaras de las detecciones.
+| probs       | Probs, opcional  | Un objeto Probs que contiene las probabilidades de cada clase para la tarea de clasificación.
+| keypoints   | Keypoints, opcional | Un objeto Keypoints que contiene los puntos clave detectados para cada objeto.
+| obb         | OBB, opcional    | Un objeto OBB que contiene las cajas delimitadoras orientadas.
+| speed       | dict             | Un diccionario con las velocidades de preprocesamiento, inferencia y postprocesamiento en milisegundos por imagen.
+| names       | dict             | Un diccionario que mapea los índices de clase a los nombres de clase.
+| path        | str              | La ruta al archivo de imagen.
+| save_dir    | str, opcional    | Directorio donde se guardan los resultados.
+|===
+
+.Los métodos disponibles en el objeto `Result` son:
+* update(): Actualiza el objeto Results con nuevos datos de detección (boxes, masks, probs, obb, keypoints).
+* cpu(): Devuelve una copia del objeto Results con todos los tensores movidos a la memoria de la CPU.
+* numpy(): Devuelve una copia del objeto Results con todos los tensores convertidos a arreglos de numpy.
+* cuda(): Devuelve una copia del objeto Results con todos los tensores movidos a la memoria de la GPU.
+* to(): Devuelve una copia del objeto Results con los tensores movidos al dispositivo y tipo de dato especificados.
+* new(): Crea un nuevo objeto Results con la misma imagen, ruta, nombres y atributos de velocidad.
+* plot(): Dibuja los resultados de detección sobre una imagen RGB de entrada y devuelve la imagen anotada.
+* show(): Muestra la imagen con los resultados de inferencia anotados.
+* save(): Guarda la imagen de resultados anotados en un archivo y devuelve el nombre del archivo.
+* verbose(): Devuelve una cadena de registro para cada tarea, detallando los resultados de detección y clasificación.
+* save_txt(): Guarda los resultados de detección en un archivo de texto y devuelve la ruta del archivo guardado.
+* save_crop(): Guarda imágenes recortadas de las detecciones en un directorio especificado.
+* summary(): Convierte los resultados de inferencia a un diccionario resumido con normalización opcional.
+* to_df(): Convierte los resultados de detección a un DataFrame de Pandas.
+* to_csv(): Convierte los resultados de detección a formato CSV y devuelve una cadena.
+* to_xml(): Convierte los resultados de detección a formato XML y devuelve una cadena.
+* to_html(): Convierte los resultados de detección a formato HTML y devuelve una cadena.
+* to_json(): Convierte los resultados de detección a formato JSON y devuelve una cadena.
+* to_sql(): Convierte los resultados de detección a un formato compatible con SQL y guarda los datos en una base de datos.
+
+
+.El objeto `Result` también tiene los siguientes atributos:
+* `boxes`: Un objeto `Boxes` que contiene las cajas delimitadoras de las detecciones.
+* `masks`: Un objeto `Masks` que contiene las máscaras de las detecciones.
+* `probs`: Un objeto `Probs` que contiene las probabilidades de cada clase para la tarea de clasificación.
+* `keypoints`: Un objeto `Keypoints` que contiene los puntos clave detectados para cada objeto, se suele utilizar en tareas de estimación de pose.
+* `obb`: Un objeto `OBB` que contiene las cajas delimitadoras orientadas.
+
+.Ejemplo de objeto `Boxes`:
+[source,python]
+----
+from ultralytics import YOLO
+
+# Load a pretrained YOLO11n model
+model = YOLO("yolo11n.pt")
+
+# Run inference on an image
+results = model("https://ultralytics.com/images/bus.jpg")  # results list
+
+# View results
+for r in results:
+    print(r.boxes)  # print the Boxes object containing the detection bounding boxes
+----
+
+.Ejemplo de objeto `Masks`:
+[source,python]
+----
+from ultralytics import YOLO
+
+# Load a pretrained YOLO11n-seg Segment model
+model = YOLO("yolo11n-seg.pt")
+
+# Run inference on an image
+results = model("https://ultralytics.com/images/bus.jpg")  # results list
+
+# View results
+for r in results:
+    print(r.masks)  # print the Masks object containing the detected instance masks
+----
+
+.Ejemplo de objeto `Keypoints`:
+[source,python]
+----
+from ultralytics import YOLO
+
+# Load a pretrained YOLO11n-pose Pose model
+model = YOLO("yolo11n-pose.pt")
+
+# Run inference on an image
+results = model("https://ultralytics.com/images/bus.jpg")  # results list
+
+# View results
+for r in results:
+    print(r.keypoints)  # print the Keypoints object containing the detected keypoints
+----
+
+.Ejemplo de objeto `Probs`:
+[source,python]
+----
+from ultralytics import YOLO
+
+# Load a pretrained YOLO11n-cls Classify model
+model = YOLO("yolo11n-cls.pt")
+
+# Run inference on an image
+results = model("https://ultralytics.com/images/bus.jpg")  # results list
+
+# View results
+for r in results:
+    print(r.probs)  # print the Probs object containing the detected class probabilities
+----
+
+.Ejemplo de objeto `OBB`:
+[source,python]
+----
+from ultralytics import YOLO
+
+# Load a pretrained YOLO11n model
+model = YOLO("yolo11n-obb.pt")
+
+# Run inference on an image
+results = model("https://ultralytics.com/images/boats.jpg")  # results list
+
+# View results
+for r in results:
+    print(r.obb)  # print the OBB object containing the oriented detection bounding boxes
+----
+
+==== Visualización de resultados
+
+El método plot() en objetos Results facilita la visualización de predicciones superponiendo objetos detectados (como cuadros delimitadores, máscaras, puntos clave y probabilidades) sobre la imagen original. Este método devuelve la imagen anotada como un array de NumPy, lo que permite una fácil visualización o guardado.
+
+.Ejemplo básico de visualización de resultados:
+[source,python]
+----
+from PIL import Image
+
+from ultralytics import YOLO
+
+# Load a pretrained YOLO11n model
+model = YOLO("yolo11n.pt")
+
+# Run inference on 'bus.jpg'
+results = model(["https://ultralytics.com/images/bus.jpg", "https://ultralytics.com/images/zidane.jpg"])  # results list
+
+# Visualize the results
+for i, r in enumerate(results):
+    # Plot results image
+    im_bgr = r.plot()  # BGR-order numpy array
+    * **im_rgb **= Image.fromarray(im_bgr[..., :-1])  # RGB-order PIL image== Parámetros de anotación de imagen
+
+    # Show results to screen (in supported environments)
+    r.show()
+
+    # Save results to disk
+    r.save(filename=f"results{i}.jpg")
+----
+
+.El método plot() admite varios argumentos opcionales para personalizar la visualización de los resultados:
+[cols="1,4,1,1", options="header"]
+|===
+| argumento | descripción | tipo | por defecto
+| conf      | Incluir las puntuaciones de confianza de detección. | bool | True
+| line_width| Grosor de línea de los cuadros delimitadores. Se escala con el tamaño de la imagen si es None. | float | None
+| font_size | Tamaño de fuente del texto. Se escala con el tamaño de la imagen si es None. | float | None
+| font      | Nombre de la fuente para anotaciones de texto. | str | 'Arial.ttf'
+| pil       | Devolver la imagen como un objeto PIL Image. | bool | False
+| img       | Imagen alternativa para trazar. Utiliza la imagen original si es None. | numpy.ndarray | None
+| im_gpu    | Imagen acelerada por GPU para trazar máscaras más rápido. Forma: (1, 3, 640, 640). | torch.Tensor | None
+| kpt_radius| Radio para los puntos clave dibujados. | int | 5
+| kpt_line  | Conectar puntos clave con líneas. | bool | True
+| labels    | Incluir etiquetas de clase en las anotaciones. | bool | True
+| boxes     | Superponer cuadros delimitadores en la imagen. | bool | True
+| masks     | Superponer máscaras sobre la imagen. | bool | True
+| probs     | Incluir probabilidades de clasificación. | bool | True
+| show      | Mostrar la imagen anotada directamente usando el visor de imágenes predeterminado. | bool | False
+| save      | Guardar la imagen anotada en un archivo especificado por filename. | bool | False
+| filename  | Ruta y nombre del archivo para guardar la imagen anotada si save es True. | str | None
+| color_mode| Especificar el modo de color, por ejemplo, 'instance' o 'class'. | str | 'class'
+|===
+
+==== Inferencia con multi-threading
+
+Garantizar la seguridad de los hilos durante la inferencia es crucial cuando se ejecutan múltiples modelos de YoLo en paralelo en diferentes hilos. La inferencia segura para hilos garantiza que las predicciones de cada hilo estén aisladas y no interfieran entre sí, evitando condiciones de carrera y asegurando salidas consistentes y confiables.
+
+Hay varias formas de garantizar la seguridad de los hilos durante la inferencia con YoLo11. Una de las formas más comunes es instanciar un modelo de YoLo localmente dentro de cada hilo, lo que garantiza que cada hilo tenga su propia instancia de modelo y no comparta recursos con otros hilos.
+
+La librería threading de Python proporciona una forma sencilla de crear hilos seguros para la inferencia con YoLo11. Al instanciar un modelo de YoLo localmente dentro de cada hilo, podemos garantizar que cada hilo tenga su propia instancia de modelo y no comparta recursos con otros hilos.
+
+Existen otras librerías para gestionar hilos en Python, como concurrent.futures y multiprocessing, que también pueden utilizarse para garantizar la seguridad de los hilos durante la inferencia con YoLo11.
+
+.Un ejemplo de inferencia segura para hilos con YoLo11:
+[source,python]
+----
+from threading import Thread
+
+from ultralytics import YOLO
+
+
+def thread_safe_predict(model, image_path):
+    """Performs thread-safe prediction on an image using a locally instantiated YOLO model."""
+    model = YOLO(model)
+    results = model.predict(image_path)
+    # Process results
+
+
+# Starting threads that each have their own model instance
+Thread(target=thread_safe_predict, args=("yolo11n.pt", "image1.jpg")).start()
+Thread(target=thread_safe_predict, args=("yolo11n.pt", "image2.jpg")).start()
+----
+
+==== Uso de Streams en YoLo11
+
+El uso de streams en YoLo11 es una forma eficiente de procesar múltiples fuentes de datos, como imágenes, videos o transmisiones en tiempo real. Los streams permiten procesar datos de forma continua y en tiempo real, lo que es útil para aplicaciones que requieren una baja latencia y un alto rendimiento.
+
+Hay varias formas de utilizar streams en YoLo11. Una forma común es utilizar la función stream() en un modelo de YoLo para procesar datos de forma continua y en tiempo real. La función stream() acepta una fuente de datos, como una URL de video o una transmisión en tiempo real, y devuelve un generador que produce resultados de detección en tiempo real.
+
+Existen otras herramientas y librerías que pueden utilizarse para trabajar con streams en Python, como OpenCV, PyAV y ffmpeg, que proporcionan funcionalidades avanzadas para procesar y manipular streams de video y audio.
+
+.Un ejemplo que utiliza OpenCV (cv2) y YoLo para ejecutar inferencias en los fotogramas de un vídeo
+[source,python]
+----
+import cv2
+from ultralytics import YOLO
+
+# Load a pretrained YOLO11n model
+model = YOLO("yolo11n.pt")
+
+# Open a video stream
+cap = cv2.VideoCapture("video.mp4")
+
+# Process video frames
+while cap.isOpened():
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    # Run inference on the frame
+    results = model(frame)
+
+    # Visualize the results on the frame
+    annotated_frame = results[0].plot()
+
+    # Display the annotated frame
+    cv2.imshow("YOLO Inference", annotated_frame)
+
+    # Break the loop if 'q' is pressed
+    if cv2.waitKey(1) & 0xFF == ord("q"):
+        break
+
+# Release the video stream and close the window
+cap.release()
+cv2.destroyAllWindows()
+----
+
+=== Entrenamiento de modelos
+
+Entrenar un modelo de deep learning implica alimentarlo con datos y ajustar sus parámetros para que pueda hacer predicciones precisas. El modo de entrenamiento en Ultralytics YOLO11 está diseñado para el entrenamiento efectivo y eficiente de modelos de detección de objetos, aprovechando al máximo las capacidades de hardware modernas.
+
+.Las características notables del modo de entrenamiento de YoLo11 son:
+* **Descarga automática de conjuntos de datos:** Los conjuntos de datos estándar como COCO, VOC e ImageNet se descargan automáticamente en el primer uso.
+* **Soporte para múltiples GPUs:** Escala tus esfuerzos de entrenamiento de forma transparente en varias GPUs para acelerar el proceso.
+* **Configuración de hiperparámetros:** La opción de modificar los hiperparámetros a través de archivos de configuración YAML o argumentos de CLI.
+* **Visualización y monitorización:** Seguimiento en tiempo real de las métricas de entrenamiento y visualización del proceso de aprendizaje para obtener mejores conocimientos.
+
+
+.Un ejemplo de entrenamiento de un modelo de YoLo11:
+[source,python]
+----
+from ultralytics import YOLO
+
+# Load a model
+model = YOLO("yolo11n.yaml")  # build a new model from YAML
+model = YOLO("yolo11n.pt")  # load a pretrained model (recommended for training)
+model = YOLO("yolo11n.yaml").load("yolo11n.pt")  # build from YAML and transfer weights
+
+# Train the model
+results = model.train(data="coco8.yaml", epochs=100, imgsz=640)
+----
+
+.El mismo ejemplo de entrenamiento de un modelo de YoLo11 en línea de comandos:
+[source,shell]
+----
+# Build a new model from YAML and start training from scratch
+yolo detect train data=coco8.yaml model=yolo11n.yaml epochs=100 imgsz=640
+
+# Start training from a pretrained *.pt model
+yolo detect train data=coco8.yaml model=yolo11n.pt epochs=100 imgsz=640
+
+# Build a new model from YAML, transfer pretrained weights to it and start training
+yolo detect train data=coco8.yaml model=yolo11n.yaml pretrained=yolo11n.pt epochs=100 imgsz=640
+----
+
+.En el caso de continuar un entrenamiento previo, se puede utilizar el argumento `resume` para cargar un punto de control previo y continuar el entrenamiento desde ese punto:
+[source,python]
+----
+from ultralytics import YOLO
+
+# Load a model
+model = YOLO("path/to/last.pt")  # load a partially trained model
+
+# Resume training
+results = model.train(resume=True)
+----
+
+.Tabla de argumentos de entrenamiento de YoLo11
+* **model:** Especifica el archivo del modelo para el entrenamiento. Acepta una ruta hacia un modelo preentrenado (.pt) o un archivo de configuración (.yaml). Esencial para definir la estructura o inicializar los pesos.
+
+* **data:** Ruta al archivo de configuración del conjunto de datos (por ejemplo, coco8.yaml). Este archivo contiene parámetros específicos del dataset, incluyendo rutas a datos, nombres de clases y número de clases.
+
+* **epochs:** Número total de épocas de entrenamiento. Cada época representa una pasada completa sobre el conjunto de datos. Ajustar este valor puede afectar la duración y el rendimiento del modelo.
+
+* **time:** Tiempo máximo de entrenamiento en horas. Si se establece, anula el argumento epochs, permitiendo que el entrenamiento se detenga automáticamente después de la duración especificada. Útil para escenarios de entrenamiento con limitación de tiempo.
+
+* **patience:** Número de épocas a esperar sin mejora en las métricas de validación antes de detener el entrenamiento anticipadamente. Ayuda a prevenir el sobreajuste.
+
+* **batch:** Tamaño de lote, con tres modos: puede definirse como entero (por ejemplo, 16), o en modo automático para utilizar el 60% de la memoria GPU (batch=-1), o con una fracción especificada (por ejemplo, 0.70).
+
+* **imgsz:** Tamaño objetivo de la imagen para el entrenamiento. Todas las imágenes se redimensionan a esta dimensión antes de ingresar al modelo, lo que afecta la precisión y la complejidad computacional.
+
+* **save:** Habilita el guardado de puntos de control y de los pesos finales del modelo durante el entrenamiento. Útil para reanudar el entrenamiento o para la implementación del modelo.
+
+* **save_period:** Frecuencia (en épocas) para guardar los puntos de control del modelo. Un valor de -1 deshabilita esta función.
+
+* **cache:** Activa el almacenamiento en caché de las imágenes del conjunto de datos en memoria (True/ram), en disco (disk) o lo deshabilita (False). Mejora la velocidad de entrenamiento al reducir las operaciones de I/O, a costa de mayor uso de memoria.
+
+* **device:** Especifica el/los dispositivo(s) computacional(es) para el entrenamiento: una única GPU (device=0), múltiples GPUs (device=0,1), CPU (device=cpu) o MPS para Apple silicon (device=mps).
+
+* **workers:** Número de hilos para la carga de datos (por cada RANK en entrenamientos multi-GPU). Influye en la velocidad del preprocesamiento y de la alimentación del modelo.
+
+* **project:** Nombre del directorio del proyecto donde se guardan los resultados del entrenamiento, permitiendo una organización de los experimentos.
+
+* **name:** Nombre de la corrida de entrenamiento. Se utiliza para crear un subdirectorio dentro del proyecto, donde se almacenan los registros y salidas del entrenamiento.
+
+* **exist_ok:** Si es True, permite sobrescribir un directorio de proyecto ya existente. Útil para experimentación iterativa sin tener que borrar resultados previos.
+
+* **pretrained:** Determina si se debe iniciar el entrenamiento a partir de un modelo preentrenado. Puede ser un valor booleano o una ruta a un modelo específico, lo que mejora la eficiencia y el rendimiento.
+
+* **optimizer:** Elección del optimizador para el entrenamiento. Opciones como SGD, Adam, AdamW, NAdam, RAdam, RMSProp, etc., o 'auto' para selección automática según la configuración del modelo. Afecta la velocidad de convergencia y la estabilidad.
+
+* **seed:** Establece la semilla aleatoria para el entrenamiento, garantizando la reproducibilidad de los resultados con las mismas configuraciones.
+
+* **deterministic:** Obliga al uso de algoritmos deterministas, asegurando reproducibilidad aunque pueda afectar el rendimiento y la velocidad al restringir algoritmos no deterministas.
+
+* **single_cls:** Trata todas las clases en conjuntos de datos multiclase como una única clase durante el entrenamiento. Útil para tareas de clasificación binaria o cuando se enfoca en la presencia de un objeto en lugar de su clasificación.
+
+* **classes:** Especifica una lista de IDs de clases sobre las cuales entrenar. Útil para filtrar y centrarse únicamente en ciertas clases.
+
+* **rect:** Activa el entrenamiento rectangular, optimizando la composición del lote para minimizar el relleno. Puede mejorar la eficiencia y velocidad, aunque puede afectar la precisión.
+
+* **multi_scale:** Habilita el entrenamiento multi-escalar aumentando o disminuyendo imgsz hasta un factor de 0.5 durante el entrenamiento, para lograr mayor precisión en la inferencia con múltiples tamaños.
+
+* **cos_lr:** Utiliza un planificador de tasa de aprendizaje cosenoidal, ajustando la tasa de aprendizaje siguiendo una curva cosenoidal a lo largo de las épocas para gestionar mejor la convergencia.
+
+* **close_mosaic:** Desactiva la técnica de data augmentation mosaic en las últimas N épocas (por defecto, 10) para estabilizar el entrenamiento antes de finalizar. Un valor de 0 deshabilita esta función.
+
+* **resume:** Reanuda el entrenamiento desde el último punto de control guardado, cargando automáticamente los pesos del modelo, el estado del optimizador y el contador de épocas.
+
+* **amp:** Habilita el entrenamiento con Precisión Mixta Automática (AMP), reduciendo el uso de memoria y acelerando el entrenamiento con un impacto mínimo en la precisión.
+
+* **fraction:** Especifica la fracción del conjunto de datos a utilizar para el entrenamiento. Permite entrenar con un subconjunto del dataset completo, lo cual es útil para experimentos o con recursos limitados.
+
+* **profile:** Activa el perfilado de velocidades ONNX y TensorRT durante el entrenamiento, útil para optimizar la implementación del modelo.
+
+* **freeze:** Congela las primeras N capas del modelo o capas especificadas por índice, reduciendo la cantidad de parámetros entrenables. Útil para fine-tuning o aprendizaje por transferencia.
+
+* **lr0:** Tasa de aprendizaje inicial (por ejemplo, SGD=1E-2, Adam=1E-3). Es crucial para el proceso de optimización, ya que influye en la rapidez con que se actualizan los pesos.
+
+* **lrf:** Tasa de aprendizaje final, definida como una fracción de la tasa inicial (lr0 * lrf), empleada junto con planificadores para ajustar la tasa a lo largo del tiempo.
+
+* **momentum:** Factor de momentum para optimizadores como SGD o beta1 para Adam, que influye en cómo se incorporan gradientes pasados en la actualización actual.
+
+* **weight_decay:** Término de regularización L2 que penaliza pesos grandes para evitar el sobreajuste.
+
+* **warmup_epochs:** Número de épocas para el calentamiento de la tasa de aprendizaje, aumentando gradualmente desde un valor bajo hasta la tasa inicial para estabilizar el entrenamiento.
+
+* **warmup_momentum:** Momentum inicial durante la fase de calentamiento, que se ajusta gradualmente hasta el valor configurado.
+
+* **warmup_bias_lr:** Tasa de aprendizaje para los parámetros de sesgo durante la fase de calentamiento, ayudando a estabilizar el entrenamiento en las primeras épocas.
+
+* **box:** Peso del componente de pérdida asociado a la predicción de las cajas delimitadoras, determinando la importancia de predecir con precisión las coordenadas.
+
+* **cls:** Peso de la pérdida de clasificación en la función de pérdida total, afectando la relevancia de predecir correctamente las clases en relación a otros componentes.
+
+* **dfl:** Peso de la pérdida focal de distribución, utilizado en algunas versiones de YOLO para lograr una clasificación más fina.
+
+* **pose:** Peso de la pérdida de pose en modelos entrenados para estimación de pose, determinando la importancia de predecir correctamente los puntos clave.
+
+* **kobj:** Peso de la pérdida de objetividad en la detección de puntos clave en modelos de pose, balanceando la confianza en la detección con la precisión de la pose.
+
+* **nbs:** Tamaño de lote nominal utilizado para la normalización de la pérdida.
+
+* **overlap_mask:** Determina si las máscaras de objeto deben fusionarse en una sola o mantenerse separadas. En caso de solapamiento, la máscara más pequeña se superpone a la mayor.
+
+* **mask_ratio:** Ratio de reducción para las máscaras de segmentación, afectando su resolución durante el entrenamiento.
+
+* **dropout:** Tasa de dropout para la regularización en tareas de clasificación, evitando el sobreajuste mediante la omisión aleatoria de unidades durante el entrenamiento.
+
+* **val:** Habilita la validación durante el entrenamiento, permitiendo evaluar periódicamente el rendimiento del modelo en un conjunto de datos separado.
+
+* **plots:** Genera y guarda gráficos de las métricas de entrenamiento y validación, proporcionando insights visuales sobre el progreso y rendimiento del modelo.
+
+==== Formato COCO (Common Objects in Context)
+
+El formato COCO es un estándar (basado en JSON originalmente, y actualmente en YAML) ampliamente utilizado para la anotación y evaluación de datos en tareas de visión artificial. Es comúnmente empleado en detección de objetos, segmentación de instancias y detección de keypoints, gracias a su estructura flexible y detallada.
+
+.Las características clave del formato COCO son:
+* COCO contiene 330K imágenes, con 200K imágenes que tienen anotaciones para tareas de detección de objetos, segmentación y descripción de subtítulos.
+* El dataset comprende 80 categorías de objetos, incluyendo objetos comunes como coches, bicicletas y animales, así como categorías más específicas como paraguas, bolsos y equipamiento deportivo.
+* Las anotaciones incluyen cajas delimitadoras de objetos, máscaras de segmentación y subtítulos para cada imagen.
+* COCO proporciona métricas de evaluación estandarizadas como la Precisión Media (mAP) para la detección de objetos, y la Recuperación Media (mAR) para tareas de segmentación, lo que lo hace adecuado para comparar el rendimiento de los modelos.
+
+.El dataset COCO se divide en tres datasets:
+* Train2017: Este subconjunto contiene 118K imágenes para entrenar modelos de detección de objetos, segmentación y descripción de subtítulos.
+* Val2017: Este subconjunto tiene 5K imágenes utilizadas para validación durante el entrenamiento del modelo.
+* Test2017: Este subconjunto consta de 20K imágenes utilizadas para pruebas y evaluación de los modelos entrenados. Las anotaciones de referencia para este subconjunto no están disponibles públicamente, y los resultados se envían al servidor de evaluación de COCO para su evaluación de rendimiento.
+
+
+.El archivo COCO en su formato YAML contiene las siguientes secciones:
+* **path:** Ruta al directorio de datos de COCO.
+* **train:** Ruta al archivo de anotaciones de entrenamiento.
+* **val:** Ruta al archivo de anotaciones de validación.
+* **test:** Ruta al archivo de anotaciones de prueba.
+* **nc:** Número de clases en el dataset.
+* **names:** Lista de nombres de clases en el dataset.
+* **download:** Script de descarga del dataset COCO.
+
+
+.Un ejemplo de archivo COCO en formato YAML:
+[source,yaml]
+----
+path: /path/to/coco128
+train: /path/to/coco/train2017.yaml
+val: /path/to/coco/val2017.yaml
+test: /path/to/coco/test2017.yaml
+names: 
+0: person
+1: bicycle
+...
+78: hair drier
+79: toothbrush
+
+# Download script/URL (optional)
+download: https://github.com/ultralytics/assets/releases/download/v0.0.0/coco128.zip
+----
+
+.Colecciones de datos COCO predefinidas en YoLo11:
+* **coco128:** Un subconjunto de 128 clases de COCO, que incluye las 80 clases de COCO y 48 clases adicionales de Open Images, Visual Genome y CrowdHuman.
+* **coco8:** Un subconjunto de 8 clases de COCO, que incluye las clases más comunes de COCO como personas, coches, bicicletas y animales.
+* **coco80:** El conjunto completo de 80 clases de COCO, que incluye una amplia variedad de objetos comunes y específicos.
+* **LVIS:** El dataset de Large Vocabulary Instance Segmentation (LVIS) contiene 2M instancias de 1,203 clases, con anotaciones de segmentación de instancias y detección de objetos.
+
+==== Aumentación de datos
+
+Las técnicas de aumentación de datos son esenciales para mejorar la generalización y robustez de los modelos de deep learning, especialmente en tareas de visión artificial. YOLO11 proporciona una amplia gama de técnicas de aumentación de datos integradas para mejorar la diversidad y calidad de los datos de entrenamiento.
+
+.La siguiente tabla muestra las técnicas de aumentación de datos disponibles en YOLO11:
+[cols="2,5,1,1,2", options="header"]
+|===
+| Argumento      | Descripción                                                                                                                                       | Tipo   | Por defecto | Rango
+
+| hsv_h          | Ajusta el tono de la imagen por una fracción de la rueda de colores, introduciendo variabilidad cromática.                                        | float  | 0.015       | 0.0 - 1.0
+| hsv_s          | Modifica la saturación de la imagen por una fracción, afectando la intensidad de los colores.                                                    | float  | 0.7         | 0.0 - 1.0
+| hsv_v          | Modifica el valor (brillo) de la imagen por una fracción, ayudando al modelo a funcionar bien bajo diversas condiciones de iluminación.            | float  | 0.4         | 0.0 - 1.0
+| degrees        | Rota la imagen aleatoriamente dentro del rango de grados especificado, mejorando la capacidad de reconocer objetos en diversas orientaciones.       | float  | 0.0         | -180 - +180
+| translate      | Traslada la imagen horizontal y verticalmente por una fracción del tamaño, ayudando a detectar objetos parcialmente visibles.                     | float  | 0.1         | 0.0 - 1.0
+| scale          | Escala la imagen por un factor, simulando objetos a diferentes distancias de la cámara.                                                           | float  | 0.5         | >= 0.0
+| shear          | Cizalla la imagen por un grado especificado, imitando el efecto de ver objetos desde ángulos distintos.                                          | float  | 0.0         | -180 - +180
+| perspective    | Aplica una transformación de perspectiva aleatoria a la imagen, realzando la capacidad del modelo para entender objetos en 3D.                     | float  | 0.0         | 0.0 - 0.001
+| flipud         | Invierte verticalmente la imagen con la probabilidad especificada, aumentando la variabilidad sin alterar las características del objeto.          | float  | 0.0         | 0.0 - 1.0
+| fliplr         | Invierte horizontalmente la imagen con la probabilidad indicada, útil para reconocer objetos simétricos y ampliar la diversidad del dataset.       | float  | 0.5         | 0.0 - 1.0
+| bgr            | Invierte los canales de la imagen de RGB a BGR con la probabilidad dada, aumentando la robustez frente a errores en el orden de canales.         | float  | 0.0         | 0.0 - 1.0
+| mosaic         | Combina cuatro imágenes de entrenamiento en una, simulando diversas composiciones y relaciones entre objetos.                                     | float  | 1.0         | 0.0 - 1.0
+| mixup          | Fusiona dos imágenes y sus etiquetas para crear una imagen compuesta, potenciando la generalización mediante la introducción de ruido.            | float  | 0.0         | 0.0 - 1.0
+| copy_paste     | Copia y pega objetos entre imágenes para aumentar las instancias y aprender sobre oclusiones (requiere etiquetas de segmentación).                | float  | 0.0         | 0.0 - 1.0
+| copy_paste_mode| Selecciona el método de augmentación Copy-Paste entre las opciones disponibles ("flip", "mixup").                                                  | str    | 'flip'      | -
+| auto_augment   | Aplica automáticamente una política de augmentación predefinida (randaugment, autoaugment, augmix) para diversificar características visuales.   | str    | 'randaugment' | -
+| erasing        | Borra aleatoriamente una porción de la imagen durante el entrenamiento, incentivando al modelo a enfocarse en características menos evidentes.  | float  | 0.4         | 0.0 - 0.9
+| crop_fraction  | Recorta la imagen a una fracción de su tamaño original para enfatizar características centrales y adaptarse a diversas escalas de objeto.          | float  | 1.0         | 0.1 - 1.0
+|===
+
+=== Evaluación de modelos
+
+La evaluación de modelos de detección de objetos es crucial para medir su rendimiento y precisión en tareas de inferencia. YOLO11 proporciona una variedad de métricas de evaluación integradas para evaluar la precisión y el rendimiento de los modelos en conjuntos de datos de prueba.
+
+.Las métricas de evaluación disponibles en YOLO11 son:
+* **mAP:** Promedio de precisión media (mAP) para la detección de objetos, calculado como el promedio de las puntuaciones de precisión media para cada clase.
+* **AP:** Precisión media (AP) para cada clase, calculada como el área bajo la curva de precisión-recall (AP-R).
+* **AR:** Recuperación media (AR) para cada clase, calculada como el área bajo la curva de recuperación-precisión (AR-P).
+* **AP50:** Precisión media (AP50) para cada clase, calculada como la precisión media a un umbral de IoU del 50%.
+* **AP75:** Precisión media (AP75) para cada clase, calculada como la precisión media a un umbral de IoU del 75%.
+
+.Estas son las funcionalidades destacadas ofrecidas por el modo Val de YOLO11:
+* **Configuración automática:** Los modelos recuerdan sus configuraciones de entrenamiento para una validación sencilla.
+* **Soporte para múltiples métricas:** Evalúa tu modelo en función de una variedad de métricas de precisión.
+* **Interfaz de línea de comandos y API de Python:** Elige entre la interfaz de línea de comandos o la API de Python según tus preferencias para la validación.
+* **Compatibilidad de datos:** Funciona perfectamente con los conjuntos de datos utilizados durante la fase de entrenamiento, así como con conjuntos de datos personalizados.
+
+
+.Un ejemplo de evaluación de un modelo de YoLo11 con python:
+[source,python]
+----
+from ultralytics import YOLO
+
+# Load a model
+model = YOLO("yolo11n.pt")  # load an official model
+model = YOLO("path/to/best.pt")  # load a custom model
+
+# Validate the model
+metrics = model.val()  # no arguments needed, dataset and settings remembered
+metrics.box.map  # map50-95
+metrics.box.map50  # map50
+metrics.box.map75  # map75
+metrics.box.maps  # a list contains map50-95 of each category
+----
+
+.Un ejemplo de evaluación de un modelo de YoLo11 en línea de comandos:
+[source,shell]
+----
+yolo detect val model=yolo11n.pt  # val official model
+yolo detect val model=path/to/best.pt  # val custom model
+----
+
+.Parámetros de evaluación de YoLo11
+[cols="1,5,1,1", options="header"]
+|===
+| Parámetro   | descripcion                                                                                                                                                                           | tipo       | por defecto
+| data        | Especifica la ruta al archivo de configuración del conjunto de datos (por ejemplo, coco8.yaml). Este archivo incluye rutas a los datos de validación, nombres de clases y número de clases. | str        | None
+| imgsz       | Define el tamaño de las imágenes de entrada. Todas las imágenes se redimensionan a esta dimensión antes del procesamiento.                                               | int        | 640
+| batch       | Establece el número de imágenes por lote. El valor debe ser un entero positivo.                                                                                    | int        | 16
+| save_json   | Si es True, guarda los resultados en un archivo JSON para análisis adicional o integración con otras herramientas.                                                   | bool       | False
+| save_hybrid | Si es True, guarda una versión híbrida de las etiquetas que combina las anotaciones originales con predicciones adicionales del modelo. Solo funciona con modelos de detección. | bool       | False
+| conf        | Establece el umbral mínimo de confianza para las detecciones. Las detecciones con confianza inferior a este umbral se descartan.                                        | float      | 0.001
+| iou         | Establece el umbral de Intersección sobre Unión (IoU) para la Supresión de No Máximos (NMS). Ayuda a reducir detecciones duplicadas.                                  | float      | 0.6
+| max_det     | Limita el número máximo de detecciones por imagen. Útil en escenas densas para prevenir detecciones excesivas.                                                         | int        | 300
+| half        | Activa el cómputo en mitad de precisión (FP16), reduciendo el uso de memoria y potencialmente aumentando la velocidad con un impacto mínimo en la precisión.           | bool       | True
+| device      | Especifica el dispositivo para validación (cpu, cuda:0, etc.). Permite flexibilidad en el uso de recursos CPU o GPU.                                                  | str        | None
+| dnn         | Si es True, utiliza el módulo DNN de OpenCV para la inferencia del modelo ONNX, ofreciendo una alternativa a los métodos de inferencia de PyTorch.                    | bool       | False
+| plots       | Cuando es True, genera y guarda gráficos de las predicciones frente a la verdad de referencia para la evaluación visual del rendimiento del modelo.                    | bool       | False
+| rect        | Si es True, utiliza inferencia rectangular para el procesamiento por lotes, reduciendo el relleno y potencialmente aumentando la velocidad y eficiencia.              | bool       | True
+| split       | Determina la división del conjunto de datos a utilizar para la validación (val, test o train). Permite flexibilidad en la elección del segmento de datos para evaluar el rendimiento. | str        | 'val'
+| project     | Nombre del directorio del proyecto donde se guardan las salidas de la validación.                                                                                   | str        | None
+| name        | Nombre de la corrida de validación. Se utiliza para crear un subdirectorio dentro de la carpeta del proyecto, donde se almacenan los registros y salidas de la validación. | str        | None
+|===
+
+.Un ejemplo de evaluación de un modelo de YoLo11 con parámetros personalizados:
+[source,python]
+----
+from ultralytics import YOLO
+
+# Load a model
+model = YOLO("yolo11n.pt")  # load an official model
+
+# Validate the model with custom parameters
+
+metrics = model.val(data="coco8.yaml", imgsz=640, batch=16, save_json=True, conf=0.001, iou=0.6, max_det=300, half=True, device=None, dnn=False, plots=False, rect=True, split='val', project=None, name=None)
+----
+
+=== Exportación de modelos
+
+La exportación de modelos de detección de objetos es esencial para implementarlos en aplicaciones de producción y entornos de inferencia en tiempo real. YOLO11 proporciona una variedad de opciones para exportar modelos en diferentes formatos y plataformas, incluyendo ONNX, TorchScript, TensorFlow y CoreML.
+
+Los modelos mejor optimizados para la ejecución en CPU son los modelos exportados en formato ONNX, que pueden ser implementados en una variedad de entornos de producción, incluyendo servidores web, aplicaciones móviles y dispositivos IoT.
+
+Los modelos más recomendables para ejecución en GPU son los modelos exportados en formato TorchScript, que pueden ser implementados en entornos de producción que requieren una alta velocidad y rendimiento, como aplicaciones de visión artificial en tiempo real.
+
+.Las características notables de la exportación de modelos en YOLO11 son:
+* **Exportación en múltiples formatos:** Exporta modelos en formatos populares como ONNX, TorchScript, TensorFlow y CoreML para su implementación en diferentes plataformas.
+* **Optimización de modelos:** Optimiza los modelos exportados para una ejecución eficiente en CPU y GPU, maximizando la velocidad y el rendimiento.
+* **Compatibilidad con PyTorch:** Exporta modelos en formato TorchScript para su implementación en entornos de producción que requieren una alta velocidad y rendimiento.
+* **Interfaz de línea de comandos y API de Python:** Elige entre la interfaz de línea de comandos o la API de Python según tus preferencias para la exportación de modelos.
+
+.Un ejemplo de exportación de un modelo de YoLo11 en formato ONNX:
+[source,python]
+----
+from ultralytics import YOLO
+
+# Load a model
+model = YOLO("yolo11n.pt")  # load an official model
+model = YOLO("path/to/best.pt")  # load a custom trained model
+
+# Export the model
+model.export(format="onnx")
+----
+
+== Exportación de modelos: Parámetros de exportación
+
+[cols="1,5,1,1", options="header"]
+|===
+| parámetros | descripción | tipo | por defecto
+| format     | Formato de destino para el modelo exportado, por ejemplo, 'onnx', 'torchscript', 'tensorflow', u otros, definiendo la compatibilidad con diversos entornos de despliegue. | str | 'torchscript'
+| imgsz      | Tamaño deseado de la imagen para la entrada del modelo. Puede ser un entero para imágenes cuadradas o una tupla (alto, ancho) para dimensiones específicas. | int o tuple | 640
+| keras      | Habilita la exportación en formato Keras para TensorFlow SavedModel, proporcionando compatibilidad con TensorFlow serving y APIs. | bool | False
+| optimize   | Aplica optimizaciones para dispositivos móviles al exportar a TorchScript, potencialmente reduciendo el tamaño del modelo y mejorando el rendimiento. | bool | False
+| half       | Activa la cuantización FP16 (precisión reducida), reduciendo el tamaño del modelo y acelerando la inferencia en hardware compatible. | bool | False
+| int8       | Activa la cuantización INT8, comprimiendo aún más el modelo y acelerando la inferencia con pérdida mínima de precisión, principalmente para dispositivos edge. | bool | False
+| dynamic    | Permite tamaños de entrada dinámicos para exportaciones a ONNX, TensorRT y OpenVINO, incrementando la flexibilidad en el manejo de dimensiones variables. | bool | False
+| simplify   | Simplifica el grafo del modelo para exportaciones a ONNX con onnxslim, potencialmente mejorando el rendimiento y la compatibilidad. | bool | True
+| opset      | Especifica la versión del conjunto de operaciones (opset) de ONNX para asegurar la compatibilidad con distintos parsers y entornos de ejecución. Si no se especifica, se usa la última versión soportada. | int | None
+| workspace  | Establece el tamaño máximo de espacio de trabajo en GiB para optimizaciones en TensorRT, equilibrando uso de memoria y rendimiento; usa None para asignación automática hasta el máximo del dispositivo. | float o None | None
+| nms        | Añade la Supresión de No Máximos (NMS) al modelo exportado cuando es soportado, mejorando la eficiencia en el post-procesamiento de detecciones. | bool | False
+| batch      | Especifica el tamaño de lote de inferencia para el modelo exportado o el número máximo de imágenes que el modelo procesará simultáneamente en modo predict. | int | 1
+| device     | Especifica el dispositivo para la exportación: GPU (device=0), CPU (device=cpu), MPS para Apple Silicon (device=mps) o DLA para NVIDIA Jetson (device=dla:0 o device=dla:1). | str | None
+| data       | Ruta al archivo de configuración del conjunto de datos (por defecto, 'coco8.yaml'), esencial para la cuantización. | str | 'coco8.yaml'
+|===
+
+.Los formatos de exportación de modelos soportados en YOLO11 son:
+[cols="1,1,5", options="header"]
+|===
+| Formato         | Modelo                        | Argumentos
+
+| PyTorch         | yolo11n.pt                    | -
+| TorchScript     | yolo11n.torchscript           | imgsz, optimize, nms, batch
+| ONNX            | yolo11n.onnx                  | imgsz, half, dynamic, simplify, opset, nms, batch
+| OpenVINO        | yolo11n_openvino_model/       | imgsz, half, dynamic, int8, nms, batch, data
+| TensorRT        | yolo11n.engine                | imgsz, half, dynamic, simplify, workspace, int8, nms, batch, data
+| CoreML          | yolo11n.mlpackage             | imgsz, half, int8, nms, batch
+| TF SavedModel   | yolo11n_saved_model/          | imgsz, keras, int8, nms, batch
+| TF GraphDef     | yolo11n.pb                    | imgsz, batch
+| TF Lite         | yolo11n.tflite                | imgsz, half, int8, nms, batch, data
+| TF Edge TPU     | yolo11n_edgetpu.tflite         | imgsz
+| TF.js           | yolo11n_web_model/            | imgsz, half, int8, nms, batch
+| PaddlePaddle    | yolo11n_paddle_model/         | imgsz, batch
+| MNN             | yolo11n.mnn                   | imgsz, batch, int8, half
+| NCNN            | yolo11n_ncnn_model/           | imgsz, half, batch
+| IMX500          | yolov8n_imx_model/            | imgsz, int8, data
+| RKNN            | yolo11n_rknn_model/           | imgsz, batch, name
+|===

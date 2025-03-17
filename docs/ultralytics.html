@@ -1,0 +1,2733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.23">
+<title>Visión artificial con Python</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment the following line when using as a custom stylesheet */
+/* @import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"; */
+html{font-family:sans-serif;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+b,strong{font-weight:bold}
+abbr{font-size:.9em}
+abbr[title]{cursor:help;border-bottom:1px dotted #dddddf;text-decoration:none}
+dfn{font-style:italic}
+hr{height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type=checkbox],input[type=radio]{padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,::before,::after{box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;line-height:1;position:relative;cursor:auto;-moz-tab-size:4;-o-tab-size:4;tab-size:4;word-wrap:anywhere;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ul.square{list-style-type:square}
+ul.circle ul:not([class]),ul.disc ul:not([class]),ul.square ul:not([class]){list-style:inherit}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:1px solid #dedede;word-wrap:normal}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre).nobreak{word-wrap:normal}
+:not(pre).nowrap{white-space:nowrap}
+:not(pre).pre-wrap{white-space:pre-wrap}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;border-radius:3px;box-shadow:0 1px 0 rgba(0,0,0,.2),inset 0 0 0 .1em #fff;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin:0 auto;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border:1px solid #e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:none;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:hsla(0,0%,100%,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details{margin-left:1.25rem}
+details>summary{cursor:pointer;display:block;position:relative;line-height:1.6;margin-bottom:.625rem;outline:none;-webkit-tap-highlight-color:transparent}
+details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"";border:solid transparent;border-left:solid;border-width:.3em 0 .3em .5em;position:absolute;top:.5em;left:-1.25rem;transform:translateX(15%)}
+details[open]>summary::before{border:solid transparent;border-top:solid;border-width:.5em .3em 0;transform:translateY(15%)}
+details>summary::after{content:"";width:1.25rem;height:1em;position:absolute;top:.3em;left:-1.25rem}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class=paragraph]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
+.sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:first-child,.sidebarblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child,.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos,pre.pygments .linenos{border-right:1px solid;opacity:.35;padding-right:.5em;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+pre.pygments span.linenos{display:inline-block;margin-right:.75em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans-serif;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;font-size:.85rem;text-align:left;margin-right:0}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content{margin-bottom:1.25em;word-wrap:anywhere}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>*>tr>*{border-width:1px}
+table.grid-cols>*>tr>*{border-width:0 1px}
+table.grid-rows>*>tr>*{border-width:1px 0}
+table.frame-all{border-width:1px}
+table.frame-ends{border-width:1px 0}
+table.frame-sides{border-width:0 1px}
+table.frame-none>colgroup+*>:first-child>*,table.frame-sides>colgroup+*>:first-child>*{border-top-width:0}
+table.frame-none>:last-child>:last-child>*,table.frame-sides>:last-child>:last-child>*{border-bottom-width:0}
+table.frame-none>*>tr>:first-child,table.frame-ends>*>tr>:first-child{border-left-width:0}
+table.frame-none>*>tr>:last-child,table.frame-ends>*>tr>:last-child{border-right-width:0}
+table.stripes-all>*>tr,table.stripes-odd>*>tr:nth-of-type(odd),table.stripes-even>*>tr:nth-of-type(even),table.stripes-hover>*>tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+li>p:empty:only-child::before{content:"";display:inline-block}
+ul.checklist>li>p:first-child{margin-left:-1em}
+ul.checklist>li>p:first-child>.fa-square-o:first-child,ul.checklist>li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist>li>p:first-child>input[type=checkbox]:first-child{margin-right:.25em}
+ul.inline{display:flex;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+td.hdlist2{word-wrap:anywhere}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);border-radius:50%;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,td.hdlist1,span.alt,summary{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]{border-bottom:1px dotted}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#header,#content,#footnotes,#footer{max-width:none}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media amzn-kf8,print{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>Visión artificial con Python</h1>
+<div id="toc" class="toc">
+<div id="toctitle">Índice</div>
+<ul class="sectlevel1">
+<li><a href="#_introducción_a_la_visión_artificial">Introducción a la visión artificial</a></li>
+<li><a href="#_bibliotecas_de_visión_artificial_en_python">Bibliotecas de visión artificial en Python</a></li>
+<li><a href="#_procesamiento_de_imágenes_con_yolo">Procesamiento de imágenes con YoLo</a></li>
+<li><a href="#_instalación_de_yolo">Instalación de YoLo</a></li>
+<li><a href="#_uso_de_yolo_con_el_cliente_de_línea_de_comandos">Uso de YoLo con el cliente de línea de comandos</a>
+<ul class="sectlevel2">
+<li><a href="#_task">task</a></li>
+<li><a href="#_mode">mode</a></li>
+<li><a href="#_args">args</a></li>
+<li><a href="#_archivos_de_configuración">Archivos de configuración</a></li>
+</ul>
+</li>
+<li><a href="#_ejemplos_de_uso_de_yolo">Ejemplos de uso de YoLo</a></li>
+<li><a href="#_yolo_con_python">YoLo con Python</a></li>
+<li><a href="#_tareas_de_visión_artificial_soportadas_por_yolo11_de_ultralytics">Tareas de visión artificial soportadas por YoLo11 de Ultralytics</a>
+<ul class="sectlevel2">
+<li><a href="#_detección_de_objetos">Detección de objetos</a></li>
+<li><a href="#_entrenamiento_de_modelos">Entrenamiento de modelos</a></li>
+<li><a href="#_evaluación_de_modelos">Evaluación de modelos</a></li>
+<li><a href="#_exportación_de_modelos">Exportación de modelos</a></li>
+</ul>
+</li>
+<li><a href="#_exportación_de_modelos_parámetros_de_exportación">Exportación de modelos: Parámetros de exportación</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_introducción_a_la_visión_artificial">Introducción a la visión artificial</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>La visión artificial es una disciplina que se encarga de desarrollar algoritmos y técnicas para que las máquinas puedan interpretar y entender el mundo visual que las rodea.</p>
+</div>
+<div class="ulist">
+<div class="title">Existen varias disciplinas dentro de la visión artificial:</div>
+<ul>
+<li>
+<p>Detección de objetos</p>
+</li>
+<li>
+<p>Segmentación de imágenes</p>
+</li>
+<li>
+<p>Clasificación de imágenes</p>
+</li>
+<li>
+<p>Reconocimiento facial</p>
+</li>
+<li>
+<p>Detección de movimiento y seguimiento de objetos/patrones</p>
+</li>
+<li>
+<p>Reconstrucción 3D</p>
+</li>
+<li>
+<p>Y algunas más&#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_bibliotecas_de_visión_artificial_en_python">Bibliotecas de visión artificial en Python</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Python es uno de los lenguajes más utilizados en el campo de la visión artificial, gracias a la gran cantidad de bibliotecas y herramientas que existen para trabajar con imágenes y vídeos.</p>
+</div>
+<div class="ulist">
+<div class="title">Algunas de las bibliotecas más populares son:</div>
+<ul>
+<li>
+<p>OpenCV</p>
+</li>
+<li>
+<p>Pillow</p>
+</li>
+<li>
+<p>Scikit-Image</p>
+</li>
+<li>
+<p>SimpleCV</p>
+</li>
+<li>
+<p>YoLo</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_procesamiento_de_imágenes_con_yolo">Procesamiento de imágenes con YoLo</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>YoLo (You Only Look Once) es un algoritmo de detección de objetos en imágenes y vídeos que se caracteriza por ser muy rápido y eficiente.</p>
+</div>
+<div class="paragraph">
+<p>Los modeloes de YoLo11 preentrenados se muestran aquí. Los modelos Detect, Segment y Pose están preentrenados en el dataset COCO, mientras que los modelos Classify están preentrenados en el dataset ImageNet.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Versiones actuales de los modelos de YoLo11:</caption>
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2858%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Model</th>
+<th class="tableblock halign-left valign-top">size (pixels)</th>
+<th class="tableblock halign-left valign-top">mAPval 50-95</th>
+<th class="tableblock halign-left valign-top">Speed CPU ONNX (ms)</th>
+<th class="tableblock halign-left valign-top">Speed T4 TensorRT10 (ms)</th>
+<th class="tableblock halign-left valign-top">params (M)</th>
+<th class="tableblock halign-left valign-top">FLOPs (B)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">YOLO11n</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">640</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">39.5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">56.1 ± 0.8</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.5 ± 0.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.6</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6.5</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">YOLO11s</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">640</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">47.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">90.0 ± 1.2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.5 ± 0.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">21.5</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">YOLO11m</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">640</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">51.5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">183.2 ± 2.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.7 ± 0.1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">20.1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">68.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">YOLO11l</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">640</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">53.4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">238.6 ± 1.4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6.2 ± 0.1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">25.3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">86.9</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">YOLO11x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">640</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">54.7</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">462.8 ± 6.7</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">11.3 ± 0.2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">56.9</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">194.9</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_instalación_de_yolo">Instalación de YoLo</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="title">Hay varias formas de instalar YoLo, pero la más sencilla es a través de pip:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># Install the ultralytics package from PyPI
+pip install ultralytics</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Otra forma de instalar YoLo es clonando el repositorio de GitHub y luego instalando el paquete en modo editable:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># Install the ultralytics package using conda
+conda install -c conda-forge ultralytics</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Para instalar el paquete en modo editable, primero clonamos el repositorio de ultralytics y luego instalamos el paquete:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># Clone the ultralytics repository
+git clone https://github.com/ultralytics/ultralytics
+
+# Navigate to the cloned directory
+cd ultralytics
+
+# Install the package in editable mode for development
+pip install -e .</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Para instalar YoLo con Docker, primero debemos clonar el repositorio de ultralytics y luego construir la imagen de Docker:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># Set image name as a variable
+t=ultralytics/ultralytics:latest
+
+# Pull the latest ultralytics image from Docker Hub
+docker pull $t
+
+# Run the ultralytics image in a container with GPU support
+docker run -it --ipc=host --gpus all $t  # all GPUs
+docker run -it --ipc=host --gpus '"device=2,3"' $t  # specify GPUs</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_uso_de_yolo_con_el_cliente_de_línea_de_comandos">Uso de YoLo con el cliente de línea de comandos</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Una vez instalado el paquete de ultralytics, podemos utilizar el cliente de línea de comandos para ejecutar el algoritmo de YoLo en imágenes y vídeos.</p>
+</div>
+<div class="paragraph">
+<p>La estrucutra de comandos es la siguiente:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># Usage: yolo &lt;task&gt; &lt;mode&gt; &lt;args&gt;
+yolo detect --source image.jpg
+yolo train --data data.yaml --cfg model.yaml</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_task">task</h3>
+<div class="paragraph">
+<p>El argumento <code>task</code> especifica la tarea que queremos realizar con YoLo. Puede ser <code>detect</code> para detectar objetos en una imagen o vídeo, o <code>train</code> para entrenar un modelo de YoLo. No es necesario especificar la tarea si se utiliza el comando <code>yolo</code> sin argumentos, YoLo puede inferir la tarea automáticamente según el modelo y los datos proporcionados.</p>
+</div>
+<div class="ulist">
+<div class="title">Las tareas disponibles son:</div>
+<ul>
+<li>
+<p><code>detect</code>: Detectar objetos en una imagen o vídeo</p>
+</li>
+<li>
+<p><code>classify</code>: Clasificar una imagen en categorías predefinidas</p>
+</li>
+<li>
+<p><code>segment</code>: Segmentar una imagen en regiones de interés</p>
+</li>
+<li>
+<p><code>pose</code>: Detectar la pose de una persona en una imagen</p>
+</li>
+<li>
+<p><code>obb</code>: Detectar objetos en una imagen con bounding boxes orientadas</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_mode">mode</h3>
+<div class="paragraph">
+<p>El argumento <code>mode</code> especifica el modo de ejecución de la tarea. El modo es un parámetro obligatorio. Los modos disponibles dependen de la tarea seleccionada.</p>
+</div>
+<div class="ulist">
+<div class="title">Los modos disponibles son:</div>
+<ul>
+<li>
+<p><code>train</code>: Entrenar un modelo de YoLo</p>
+</li>
+<li>
+<p><code>val</code>: Validar un modelo de YoLo</p>
+</li>
+<li>
+<p><code>predict</code>: Predecir objetos en una imagen o vídeo</p>
+</li>
+<li>
+<p><code>export</code>: Exportar un modelo de YoLo a un formato específico</p>
+</li>
+<li>
+<p><code>track</code>: Seguimiento de objetos en un vídeo</p>
+</li>
+<li>
+<p><code>benchmark</code>: Medir el rendimiento de un modelo de YoLo</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_args">args</h3>
+<div class="paragraph">
+<p>Los argumentos <code>args</code> son los parámetros específicos de cada tarea y modo. Estos argumentos pueden variar según la tarea y el modo seleccionados. Por ejemplo, para la tarea <code>detect</code> en el modo <code>predict</code>, el argumento es la ruta de la imagen o vídeo que queremos procesar.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_archivos_de_configuración">Archivos de configuración</h3>
+<div class="paragraph">
+<p>En el proceso de entrenamiento de un modelo de YoLo, es bastante común utilizar archivos de configuración para definir los hiperparámetros del modelo, los datos de entrenamiento y otros parámetros específicos.</p>
+</div>
+<div class="listingblock">
+<div class="title">Para definir el archivo de configuración de los datos de entrenamiento, utilizamos el siguiente comando:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># Create a data configuration file for training
+yolo copy-cfg
+yolo cfg=default_copy.yaml imgsz=320</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ejemplos_de_uso_de_yolo">Ejemplos de uso de YoLo</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="title">Para detectar objetos en una imagen, utilizamos el siguiente comando:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># Detect objects in an image using YoLo
+yolo detect source='image.jpg'
+
+# Detect objects in an image with a specific model and confidence threshold
+yolo predict model=yolo11n.pt imgsz=640 conf=0.25</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Para entrenar un modelo de YoLo, utilizamos el siguiente comando:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># Train a YoLo model using the COCO dataset and specific configuration file with 100 epochs and image size of 640
+yolo detect train data=coco8.yaml model=yolo11n.pt epochs=100 imgsz=640
+
+# Train a YoLo model using the COCO dataset and specific configuration file with 100 epochs and image size of 640
+yolo detect train data=coco8.yaml model=yolo11n.pt epochs=100 imgsz=640</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Para validar un modelo de YoLo, utilizamos el siguiente comando:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># Validate a YoLo model using the COCO dataset and specific configuration file
+yolo detect val model=yolo11n.pt</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Para predecir objetos en una imagen o vídeo, utilizamos el siguiente comando:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># Predict objects in an image using YoLo with a specific model
+yolo detect predict model=yolo11n.pt source='https://ultralytics.com/images/bus.jpg'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Para exportar un modelo de YoLo a un formato específico, utilizamos el siguiente comando:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># Export a YoLo model to a specific format
+yolo detect export model=yolo11n.pt format=onnx</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. En la siguiente tabla se muestran los formatos de exportación soportados por YoLo:</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Format</th>
+<th class="tableblock halign-left valign-top">Format Argument</th>
+<th class="tableblock halign-left valign-top">Model</th>
+<th class="tableblock halign-left valign-top">Metadata</th>
+<th class="tableblock halign-left valign-top">Arguments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PyTorch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yolo11n.pt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TorchScript</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">torchscript</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yolo11n.torchscript</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">imgsz, optimize, nms, batch</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ONNX</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">onnx</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yolo11n.onnx</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">imgsz, half, dynamic, simplify, opset, nms, batch</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OpenVINO</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">openvino</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yolo11n_openvino_model/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">imgsz, half, dynamic, int8, nms, batch, data</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TensorRT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">engine</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yolo11n.engine</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">imgsz, half, dynamic, simplify, workspace, int8, nms, batch, data</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CoreML</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">coreml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yolo11n.mlpackage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">imgsz, half, int8, nms, batch</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TF SavedModel</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">saved_model</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yolo11n_saved_model/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">imgsz, keras, int8, nms, batch</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TF GraphDef</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pb</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yolo11n.pb</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">❌</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">imgsz, batch</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TF Lite</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">tflite</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yolo11n.tflite</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">imgsz, half, int8, nms, batch, data</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TF Edge TPU</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">edgetpu</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yolo11n_edgetpu.tflite</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">imgsz</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TF.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">tfjs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yolo11n_web_model/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">imgsz, half, int8, nms, batch</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PaddlePaddle</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">paddle</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yolo11n_paddle_model/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">imgsz, batch</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MNN</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">mnn</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yolo11n.mnn</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">imgsz, batch, int8, half</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NCNN</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ncnn</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yolo11n_ncnn_model/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">imgsz, half, batch</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IMX500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">imx500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yolo11n_imx_model/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">imgsz, int8, data</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RKNN</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">rknn</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yolo11n_rknn_model/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">imgsz, batch, name</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_yolo_con_python">YoLo con Python</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Además de utilizar YoLo desde la línea de comandos, también podemos utilizarlo desde Python para integrarlo en nuestras aplicaciones y proyectos.</p>
+</div>
+<div class="paragraph">
+<p>La versión actual de YoLo es compatible con Python 3.6 o superior. Para utilizar YoLo en Python, primero debemos importar el paquete <code>ultralytics</code> y luego cargar el modelo de YoLo que queremos utilizar.</p>
+</div>
+<div class="listingblock">
+<div class="title">Para importar el paquete <code>ultralytics</code> con pip:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">pip install ultralytics</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">En el siguiente ejemplo, creamos un nuevo modelo de YoLo desde cero y luego cargamos un modelo personalizado:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from ultralytics import YOLO
+
+# Create a new YOLO model from scratch
+model = YOLO("yolo11n.yaml")
+
+# Load a custom YOLO model
+model = YOLO("custom_model.pt")</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tareas_de_visión_artificial_soportadas_por_yolo11_de_ultralytics">Tareas de visión artificial soportadas por YoLo11 de Ultralytics</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_detección_de_objetos">Detección de objetos</h3>
+<div class="paragraph">
+<p>La detección es la tarea principal soportada por YoLo11. Implica detectar objetos en una imagen o fotograma de vídeo y dibujar cuadros delimitadores alrededor de ellos. Los objetos detectados se clasifican en diferentes categorías basadas en sus características. YoLo11 puede detectar múltiples objetos en una sola imagen o fotograma de vídeo con alta precisión y velocidad.</p>
+</div>
+<div class="ulist">
+<div class="title">El modo de predicción de YoLo11 está diseñado para ser robusto y versátil, con las siguientes características:</div>
+<ul>
+<li>
+<p>Compatibilidad con múltiples fuentes de datos: en forma de imágenes individuales, una colección de imágenes, archivos de vídeo o transmisiones de vídeo en tiempo real.</p>
+</li>
+<li>
+<p>Modo de streaming: la función de streaming para generar un generador eficiente en memoria de objetos de resultados. Active esto configurando stream=True en el método de llamada del predictor.</p>
+</li>
+<li>
+<p>Procesamiento por lotes: la capacidad de procesar varias imágenes o fotogramas de vídeo en un solo lote, acelerando aún más el tiempo de inferencia.</p>
+</li>
+<li>
+<p>Integración sencilla: Integra fácilmente con pipelines de datos existentes y otros componentes de software, gracias a su API flexible.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Un ejemplo de detección de objetos en una imagen con YoLo11:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from ultralytics import YOLO
+
+# Carga el modelo preentrenado de YoLo11n
+model = YOLO("yolo11n.pt")  # pretrained YOLO11n model
+
+# Ejecuta la detección de objetos en imágenes
+results = model(["image1.jpg", "image2.jpg"])
+
+# Procesa los resultados
+for result in results:
+    boxes = result.boxes  # boxes de los objetos detectados
+    masks = result.masks  # Máscaras de segmentación de los objetos detectados
+    keypoints = result.keypoints  # Puntos clave de los objetos detectados
+    probs = result.probs  # Probabilidades de los objetos detectados
+    obb = result.obb  # Bounding boxes orientadas de los objetos detectados
+    result.show()  # muestra los resultados
+    result.save(filename="result" + str(result.idx) + ".jpg")</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 3. Fuentes de Imagen para Procesamiento con YoLo</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Fuente</th>
+<th class="tableblock halign-left valign-top">Ejemplo</th>
+<th class="tableblock halign-left valign-top">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">imagen</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">'image.jpg'</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Archivo de imagen individual.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">URL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">'https://ultralytics.com/images/bus.jpg'</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">URL a una imagen.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">screenshot</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">'screen'</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Capturar una captura de pantalla.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PIL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Image.open('image.jpg')</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Formato HWC con canales RGB.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OpenCV</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cv2.imread('image.jpg')</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Formato HWC con canales BGR uint8 (0-255).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">numpy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">np.zeros640,1280,3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Formato HWC con canales BGR uint8 (0-255).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">torch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">torch.zeros(16,3,320,640)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Formato BCHW con canales RGB float32 (0.0-1.0).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CSV</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">'sources.csv'</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Archivo CSV que contiene rutas a imágenes, videos o directorios.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">video ✅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">'video.mp4'</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Archivo de video en formatos como MP4, AVI, etc.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">directorio ✅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">'path/'</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ruta a un directorio que contiene imágenes o videos.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">glob ✅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">'path/*.jpg'</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Patrón glob para coincidir con múltiples archivos. Use el carácter * como comodín.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">YouTube ✅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">'https://youtu.be/LNwODJXcvt4'</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">URL a un video de YouTube.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">stream ✅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">'rtsp://example.com/media.mp4'</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">URL para protocolos de streaming como RTSP, RTMP, TCP o una dirección IP.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">multi-stream ✅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">'list.streams'</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Archivo de texto *.streams con una URL de stream por línea, es decir, 8 streams se ejecutarán en lote de 8.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">webcam ✅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Índice del dispositivo de cámara conectado para ejecutar la inferencia.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 4. Parámetros de inferencia de YoLo11</caption>
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 66.6666%;">
+<col style="width: 16.6668%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Argumento</th>
+<th class="tableblock halign-left valign-top">Descripción</th>
+<th class="tableblock halign-left valign-top">Por defecto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">fuente</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Especifica la fuente de datos para la inferencia. Puede ser una ruta de imagen, archivo de video, directorio, URL o ID de dispositivo para transmisiones en vivo. Soporta una amplia gama de formatos y fuentes, permitiendo una aplicación flexible en diferentes tipos de entrada.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">'ultralytics/assets'</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">conf</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Establece el umbral mínimo de confianza para las detecciones. Los objetos detectados con una confianza inferior a este umbral serán descartados. Ajustar este valor puede ayudar a reducir falsos positivos.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.25</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">iou</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Umbral de Intersección sobre Unión (IoU) para la Supresión de No Máximos (NMS). Valores más bajos resultan en menos detecciones al eliminar cajas superpuestas, lo cual es útil para reducir duplicados.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.7</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">imgsz</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Define el tamaño de la imagen para la inferencia. Puede ser un entero (640) para redimensionamiento cuadrado o una tupla (alto, ancho). Un tamaño adecuado puede mejorar la precisión de la detección y la velocidad de procesamiento.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">640</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">half</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Activa la inferencia en mitad de precisión (FP16), lo que puede acelerar la inferencia en GPUs compatibles con un impacto mínimo en la precisión.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">False</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">device</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Especifica el dispositivo para la inferencia (por ejemplo, cpu, cuda:0 o 0). Permite seleccionar entre la CPU, una GPU específica u otros dispositivos de cómputo para la ejecución del modelo.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">batch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Especifica el tamaño del lote para la inferencia (solo funciona cuando la fuente es un directorio, archivo de video o un archivo .txt). Un tamaño de lote mayor puede proporcionar mayor rendimiento, acortando el tiempo total requerido para la inferencia.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">max_det</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Número máximo de detecciones permitidas por imagen. Limita la cantidad total de objetos que el modelo puede detectar en una sola inferencia, evitando salidas excesivas en escenas densas.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">300</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">vid_stride</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Intervalo de frames para entradas de video. Permite omitir frames para acelerar el procesamiento a costa de la resolución temporal. Un valor de 1 procesa cada frame, valores mayores omiten frames.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">stream_buffer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Determina si se deben encolar los frames entrantes para transmisiones de video. Si es False, se descartan los frames antiguos para acomodar los nuevos (optimizado para aplicaciones en tiempo real). Si es True, encola los nuevos frames en un búfer, asegurando que no se omitan frames, pero puede causar latencia si los FPS de inferencia son inferiores a los FPS del stream.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">False</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">visualize</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Activa la visualización de características del modelo durante la inferencia, proporcionando información sobre lo que el modelo "ve". Útil para depuración e interpretación del modelo.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">False</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">augment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Activa la augmentación en tiempo de prueba (TTA) para las predicciones, lo que puede mejorar la robustez de la detección a costa de la velocidad de inferencia.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">False</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">agnostic_nms</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Activa la Supresión de No Máximos sin distinción de clases, que fusiona cajas superpuestas de diferentes clases. Útil en escenarios de detección multiclase donde es común la superposición de clases.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">False</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">classes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Filtra las predicciones a un conjunto de IDs de clase. Solo se retornarán las detecciones pertenecientes a las clases especificadas, lo cual es útil para enfocarse en objetos relevantes en tareas de detección multiclase.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">retina_masks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Devuelve máscaras de segmentación de alta resolución. Las máscaras (masks.data) coincidirán con el tamaño original de la imagen si está activado; de lo contrario, tendrán el tamaño utilizado durante la inferencia.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">False</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">embed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Especifica las capas de las cuales extraer vectores de características o embeddings. Útil para tareas posteriores como clustering o búsqueda de similitud.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">project</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nombre del directorio del proyecto donde se guardan los resultados de predicción si se activa la opción de guardar.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nombre de la ejecución de la predicción. Se utiliza para crear un subdirectorio dentro del proyecto, donde se almacenan los resultados de predicción si se activa la opción de guardar.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 5. parámetros de visualización de YoLo11</caption>
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 66.6666%;">
+<col style="width: 16.6668%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Argumento</th>
+<th class="tableblock halign-left valign-top">Descripción</th>
+<th class="tableblock halign-left valign-top">Por defecto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">show</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Si es True, muestra las imágenes o videos anotados en una ventana. Útil para retroalimentación visual inmediata durante el desarrollo o pruebas.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">False</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">save</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Habilita guardar las imágenes o videos anotados en archivo. Útil para documentación, análisis adicional o para compartir resultados. Por defecto es True al usar CLI y False en Python.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">False or True</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">save_frames</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cuando se procesan videos, guarda frames individuales como imágenes. Útil para extraer frames específicos o para análisis detallado cuadro por cuadro.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">False</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">save_txt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Guarda resultados de detección en un archivo de texto, siguiendo el formato [clase] [x_centro] [y_centro] [ancho] [alto] [confianza]. Útil para integración con otras herramientas de análisis.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">False</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">save_conf</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Incluye las puntuaciones de confianza en los archivos de texto guardados. Mejora el detalle disponible para el postprocesamiento y análisis.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">False</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">save_crop</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Guarda imágenes recortadas de las detecciones. Útil para aumento de dataset, análisis o para crear conjuntos de datos enfocados en objetos específicos.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">False</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">show_labels</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Muestra las etiquetas para cada detección en la salida visual. Proporciona comprensión inmediata de los objetos detectados.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">True</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">show_conf</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Muestra la puntuación de confianza para cada detección junto a la etiqueta. Ofrece información sobre la certeza del modelo en cada detección.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">True</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">show_boxes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dibuja cuadros delimitadores alrededor de los objetos detectados. Esencial para la identificación y localización visual de objetos en imágenes o videos.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">True</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">line_width</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Especifica el grosor de las líneas para los cuadros delimitadores. Si es None, el ancho se ajusta automáticamente según el tamaño de la imagen.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 6. Formatos soportados por YoLo11</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Imágenes</th>
+<th class="tableblock halign-left valign-top">Videos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">.bmp</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">.asf</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">.dng</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">.avi</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">.jpeg</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">.gif</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">.jpg</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">.m4v</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">.mpo</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">.mkv</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">.png</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">.mov</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">.tif</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">.mp4</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">.tiff</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">.mpeg</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">.webp</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">.mpg</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">.pfm</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">.ts</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">.HEIC</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">.wmv</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">.webm</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect3">
+<h4 id="_resultados_de_la_detección_de_objetos_en_yolo11">Resultados de la detección de objetos en YoLo11</h4>
+<div class="paragraph">
+<p>Los resultados de la detección de objetos en YoLo11 se devuelven como una lista de objetos <code>Result</code> que contienen información sobre los objetos detectados en una imagen o vídeo.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 7. Cada objeto <code>Result</code> contiene los siguientes atributos:</caption>
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 28.5714%;">
+<col style="width: 57.1429%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Atributo</th>
+<th class="tableblock halign-left valign-top">Tipo</th>
+<th class="tableblock halign-left valign-top">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">orig_img</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">numpy.ndarray</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">La imagen original como un array de numpy.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">orig_shape</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">tupla</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">La forma original de la imagen en formato (alto, ancho).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boxes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boxes, opcional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un objeto Boxes que contiene las cajas delimitadoras de las detecciones.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">masks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Masks, opcional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un objeto Masks que contiene las máscaras de las detecciones.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">probs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Probs, opcional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un objeto Probs que contiene las probabilidades de cada clase para la tarea de clasificación.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keypoints</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Keypoints, opcional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un objeto Keypoints que contiene los puntos clave detectados para cada objeto.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">obb</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OBB, opcional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un objeto OBB que contiene las cajas delimitadoras orientadas.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">speed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">dict</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un diccionario con las velocidades de preprocesamiento, inferencia y postprocesamiento en milisegundos por imagen.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">names</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">dict</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un diccionario que mapea los índices de clase a los nombres de clase.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">path</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">str</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">La ruta al archivo de imagen.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">save_dir</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">str, opcional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Directorio donde se guardan los resultados.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="ulist">
+<div class="title">Los métodos disponibles en el objeto <code>Result</code> son:</div>
+<ul>
+<li>
+<p>update(): Actualiza el objeto Results con nuevos datos de detección (boxes, masks, probs, obb, keypoints).</p>
+</li>
+<li>
+<p>cpu(): Devuelve una copia del objeto Results con todos los tensores movidos a la memoria de la CPU.</p>
+</li>
+<li>
+<p>numpy(): Devuelve una copia del objeto Results con todos los tensores convertidos a arreglos de numpy.</p>
+</li>
+<li>
+<p>cuda(): Devuelve una copia del objeto Results con todos los tensores movidos a la memoria de la GPU.</p>
+</li>
+<li>
+<p>to(): Devuelve una copia del objeto Results con los tensores movidos al dispositivo y tipo de dato especificados.</p>
+</li>
+<li>
+<p>new(): Crea un nuevo objeto Results con la misma imagen, ruta, nombres y atributos de velocidad.</p>
+</li>
+<li>
+<p>plot(): Dibuja los resultados de detección sobre una imagen RGB de entrada y devuelve la imagen anotada.</p>
+</li>
+<li>
+<p>show(): Muestra la imagen con los resultados de inferencia anotados.</p>
+</li>
+<li>
+<p>save(): Guarda la imagen de resultados anotados en un archivo y devuelve el nombre del archivo.</p>
+</li>
+<li>
+<p>verbose(): Devuelve una cadena de registro para cada tarea, detallando los resultados de detección y clasificación.</p>
+</li>
+<li>
+<p>save_txt(): Guarda los resultados de detección en un archivo de texto y devuelve la ruta del archivo guardado.</p>
+</li>
+<li>
+<p>save_crop(): Guarda imágenes recortadas de las detecciones en un directorio especificado.</p>
+</li>
+<li>
+<p>summary(): Convierte los resultados de inferencia a un diccionario resumido con normalización opcional.</p>
+</li>
+<li>
+<p>to_df(): Convierte los resultados de detección a un DataFrame de Pandas.</p>
+</li>
+<li>
+<p>to_csv(): Convierte los resultados de detección a formato CSV y devuelve una cadena.</p>
+</li>
+<li>
+<p>to_xml(): Convierte los resultados de detección a formato XML y devuelve una cadena.</p>
+</li>
+<li>
+<p>to_html(): Convierte los resultados de detección a formato HTML y devuelve una cadena.</p>
+</li>
+<li>
+<p>to_json(): Convierte los resultados de detección a formato JSON y devuelve una cadena.</p>
+</li>
+<li>
+<p>to_sql(): Convierte los resultados de detección a un formato compatible con SQL y guarda los datos en una base de datos.</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">El objeto <code>Result</code> también tiene los siguientes atributos:</div>
+<ul>
+<li>
+<p><code>boxes</code>: Un objeto <code>Boxes</code> que contiene las cajas delimitadoras de las detecciones.</p>
+</li>
+<li>
+<p><code>masks</code>: Un objeto <code>Masks</code> que contiene las máscaras de las detecciones.</p>
+</li>
+<li>
+<p><code>probs</code>: Un objeto <code>Probs</code> que contiene las probabilidades de cada clase para la tarea de clasificación.</p>
+</li>
+<li>
+<p><code>keypoints</code>: Un objeto <code>Keypoints</code> que contiene los puntos clave detectados para cada objeto, se suele utilizar en tareas de estimación de pose.</p>
+</li>
+<li>
+<p><code>obb</code>: Un objeto <code>OBB</code> que contiene las cajas delimitadoras orientadas.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Ejemplo de objeto <code>Boxes</code>:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from ultralytics import YOLO
+
+# Load a pretrained YOLO11n model
+model = YOLO("yolo11n.pt")
+
+# Run inference on an image
+results = model("https://ultralytics.com/images/bus.jpg")  # results list
+
+# View results
+for r in results:
+    print(r.boxes)  # print the Boxes object containing the detection bounding boxes</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Ejemplo de objeto <code>Masks</code>:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from ultralytics import YOLO
+
+# Load a pretrained YOLO11n-seg Segment model
+model = YOLO("yolo11n-seg.pt")
+
+# Run inference on an image
+results = model("https://ultralytics.com/images/bus.jpg")  # results list
+
+# View results
+for r in results:
+    print(r.masks)  # print the Masks object containing the detected instance masks</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Ejemplo de objeto <code>Keypoints</code>:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from ultralytics import YOLO
+
+# Load a pretrained YOLO11n-pose Pose model
+model = YOLO("yolo11n-pose.pt")
+
+# Run inference on an image
+results = model("https://ultralytics.com/images/bus.jpg")  # results list
+
+# View results
+for r in results:
+    print(r.keypoints)  # print the Keypoints object containing the detected keypoints</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Ejemplo de objeto <code>Probs</code>:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from ultralytics import YOLO
+
+# Load a pretrained YOLO11n-cls Classify model
+model = YOLO("yolo11n-cls.pt")
+
+# Run inference on an image
+results = model("https://ultralytics.com/images/bus.jpg")  # results list
+
+# View results
+for r in results:
+    print(r.probs)  # print the Probs object containing the detected class probabilities</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Ejemplo de objeto <code>OBB</code>:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from ultralytics import YOLO
+
+# Load a pretrained YOLO11n model
+model = YOLO("yolo11n-obb.pt")
+
+# Run inference on an image
+results = model("https://ultralytics.com/images/boats.jpg")  # results list
+
+# View results
+for r in results:
+    print(r.obb)  # print the OBB object containing the oriented detection bounding boxes</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_visualización_de_resultados">Visualización de resultados</h4>
+<div class="paragraph">
+<p>El método plot() en objetos Results facilita la visualización de predicciones superponiendo objetos detectados (como cuadros delimitadores, máscaras, puntos clave y probabilidades) sobre la imagen original. Este método devuelve la imagen anotada como un array de NumPy, lo que permite una fácil visualización o guardado.</p>
+</div>
+<div class="listingblock">
+<div class="title">Ejemplo básico de visualización de resultados:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from PIL import Image
+
+from ultralytics import YOLO
+
+# Load a pretrained YOLO11n model
+model = YOLO("yolo11n.pt")
+
+# Run inference on 'bus.jpg'
+results = model(["https://ultralytics.com/images/bus.jpg", "https://ultralytics.com/images/zidane.jpg"])  # results list
+
+# Visualize the results
+for i, r in enumerate(results):
+    # Plot results image
+    im_bgr = r.plot()  # BGR-order numpy array
+    * **im_rgb **= Image.fromarray(im_bgr[..., :-1])  # RGB-order PIL image== Parámetros de anotación de imagen
+
+    # Show results to screen (in supported environments)
+    r.show()
+
+    # Save results to disk
+    r.save(filename=f"results{i}.jpg")</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 8. El método plot() admite varios argumentos opcionales para personalizar la visualización de los resultados:</caption>
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 57.1428%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2858%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">argumento</th>
+<th class="tableblock halign-left valign-top">descripción</th>
+<th class="tableblock halign-left valign-top">tipo</th>
+<th class="tableblock halign-left valign-top">por defecto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">conf</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Incluir las puntuaciones de confianza de detección.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">True</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">line_width</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Grosor de línea de los cuadros delimitadores. Se escala con el tamaño de la imagen si es None.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">float</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">font_size</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tamaño de fuente del texto. Se escala con el tamaño de la imagen si es None.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">float</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">font</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nombre de la fuente para anotaciones de texto.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">str</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">'Arial.ttf'</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pil</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Devolver la imagen como un objeto PIL Image.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">False</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">img</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Imagen alternativa para trazar. Utiliza la imagen original si es None.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">numpy.ndarray</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">im_gpu</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Imagen acelerada por GPU para trazar máscaras más rápido. Forma: (1, 3, 640, 640).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">torch.Tensor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">kpt_radius</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Radio para los puntos clave dibujados.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">kpt_line</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conectar puntos clave con líneas.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">True</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">labels</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Incluir etiquetas de clase en las anotaciones.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">True</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boxes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Superponer cuadros delimitadores en la imagen.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">True</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">masks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Superponer máscaras sobre la imagen.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">True</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">probs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Incluir probabilidades de clasificación.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">True</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">show</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mostrar la imagen anotada directamente usando el visor de imágenes predeterminado.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">False</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">save</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Guardar la imagen anotada en un archivo especificado por filename.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">False</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">filename</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ruta y nombre del archivo para guardar la imagen anotada si save es True.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">str</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">color_mode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Especificar el modo de color, por ejemplo, 'instance' o 'class'.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">str</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">'class'</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_inferencia_con_multi_threading">Inferencia con multi-threading</h4>
+<div class="paragraph">
+<p>Garantizar la seguridad de los hilos durante la inferencia es crucial cuando se ejecutan múltiples modelos de YoLo en paralelo en diferentes hilos. La inferencia segura para hilos garantiza que las predicciones de cada hilo estén aisladas y no interfieran entre sí, evitando condiciones de carrera y asegurando salidas consistentes y confiables.</p>
+</div>
+<div class="paragraph">
+<p>Hay varias formas de garantizar la seguridad de los hilos durante la inferencia con YoLo11. Una de las formas más comunes es instanciar un modelo de YoLo localmente dentro de cada hilo, lo que garantiza que cada hilo tenga su propia instancia de modelo y no comparta recursos con otros hilos.</p>
+</div>
+<div class="paragraph">
+<p>La librería threading de Python proporciona una forma sencilla de crear hilos seguros para la inferencia con YoLo11. Al instanciar un modelo de YoLo localmente dentro de cada hilo, podemos garantizar que cada hilo tenga su propia instancia de modelo y no comparta recursos con otros hilos.</p>
+</div>
+<div class="paragraph">
+<p>Existen otras librerías para gestionar hilos en Python, como concurrent.futures y multiprocessing, que también pueden utilizarse para garantizar la seguridad de los hilos durante la inferencia con YoLo11.</p>
+</div>
+<div class="listingblock">
+<div class="title">Un ejemplo de inferencia segura para hilos con YoLo11:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from threading import Thread
+
+from ultralytics import YOLO
+
+
+def thread_safe_predict(model, image_path):
+    """Performs thread-safe prediction on an image using a locally instantiated YOLO model."""
+    model = YOLO(model)
+    results = model.predict(image_path)
+    # Process results
+
+
+# Starting threads that each have their own model instance
+Thread(target=thread_safe_predict, args=("yolo11n.pt", "image1.jpg")).start()
+Thread(target=thread_safe_predict, args=("yolo11n.pt", "image2.jpg")).start()</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_uso_de_streams_en_yolo11">Uso de Streams en YoLo11</h4>
+<div class="paragraph">
+<p>El uso de streams en YoLo11 es una forma eficiente de procesar múltiples fuentes de datos, como imágenes, videos o transmisiones en tiempo real. Los streams permiten procesar datos de forma continua y en tiempo real, lo que es útil para aplicaciones que requieren una baja latencia y un alto rendimiento.</p>
+</div>
+<div class="paragraph">
+<p>Hay varias formas de utilizar streams en YoLo11. Una forma común es utilizar la función stream() en un modelo de YoLo para procesar datos de forma continua y en tiempo real. La función stream() acepta una fuente de datos, como una URL de video o una transmisión en tiempo real, y devuelve un generador que produce resultados de detección en tiempo real.</p>
+</div>
+<div class="paragraph">
+<p>Existen otras herramientas y librerías que pueden utilizarse para trabajar con streams en Python, como OpenCV, PyAV y ffmpeg, que proporcionan funcionalidades avanzadas para procesar y manipular streams de video y audio.</p>
+</div>
+<div class="listingblock">
+<div class="title">Un ejemplo que utiliza OpenCV (cv2) y YoLo para ejecutar inferencias en los fotogramas de un vídeo</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import cv2
+from ultralytics import YOLO
+
+# Load a pretrained YOLO11n model
+model = YOLO("yolo11n.pt")
+
+# Open a video stream
+cap = cv2.VideoCapture("video.mp4")
+
+# Process video frames
+while cap.isOpened():
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    # Run inference on the frame
+    results = model(frame)
+
+    # Visualize the results on the frame
+    annotated_frame = results[0].plot()
+
+    # Display the annotated frame
+    cv2.imshow("YOLO Inference", annotated_frame)
+
+    # Break the loop if 'q' is pressed
+    if cv2.waitKey(1) &amp; 0xFF == ord("q"):
+        break
+
+# Release the video stream and close the window
+cap.release()
+cv2.destroyAllWindows()</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_entrenamiento_de_modelos">Entrenamiento de modelos</h3>
+<div class="paragraph">
+<p>Entrenar un modelo de deep learning implica alimentarlo con datos y ajustar sus parámetros para que pueda hacer predicciones precisas. El modo de entrenamiento en Ultralytics YOLO11 está diseñado para el entrenamiento efectivo y eficiente de modelos de detección de objetos, aprovechando al máximo las capacidades de hardware modernas.</p>
+</div>
+<div class="ulist">
+<div class="title">Las características notables del modo de entrenamiento de YoLo11 son:</div>
+<ul>
+<li>
+<p><strong>Descarga automática de conjuntos de datos:</strong> Los conjuntos de datos estándar como COCO, VOC e ImageNet se descargan automáticamente en el primer uso.</p>
+</li>
+<li>
+<p><strong>Soporte para múltiples GPUs:</strong> Escala tus esfuerzos de entrenamiento de forma transparente en varias GPUs para acelerar el proceso.</p>
+</li>
+<li>
+<p><strong>Configuración de hiperparámetros:</strong> La opción de modificar los hiperparámetros a través de archivos de configuración YAML o argumentos de CLI.</p>
+</li>
+<li>
+<p><strong>Visualización y monitorización:</strong> Seguimiento en tiempo real de las métricas de entrenamiento y visualización del proceso de aprendizaje para obtener mejores conocimientos.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Un ejemplo de entrenamiento de un modelo de YoLo11:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from ultralytics import YOLO
+
+# Load a model
+model = YOLO("yolo11n.yaml")  # build a new model from YAML
+model = YOLO("yolo11n.pt")  # load a pretrained model (recommended for training)
+model = YOLO("yolo11n.yaml").load("yolo11n.pt")  # build from YAML and transfer weights
+
+# Train the model
+results = model.train(data="coco8.yaml", epochs=100, imgsz=640)</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">El mismo ejemplo de entrenamiento de un modelo de YoLo11 en línea de comandos:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># Build a new model from YAML and start training from scratch
+yolo detect train data=coco8.yaml model=yolo11n.yaml epochs=100 imgsz=640
+
+# Start training from a pretrained *.pt model
+yolo detect train data=coco8.yaml model=yolo11n.pt epochs=100 imgsz=640
+
+# Build a new model from YAML, transfer pretrained weights to it and start training
+yolo detect train data=coco8.yaml model=yolo11n.yaml pretrained=yolo11n.pt epochs=100 imgsz=640</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">En el caso de continuar un entrenamiento previo, se puede utilizar el argumento <code>resume</code> para cargar un punto de control previo y continuar el entrenamiento desde ese punto:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from ultralytics import YOLO
+
+# Load a model
+model = YOLO("path/to/last.pt")  # load a partially trained model
+
+# Resume training
+results = model.train(resume=True)</code></pre>
+</div>
+</div>
+<div class="ulist">
+<div class="title">Tabla de argumentos de entrenamiento de YoLo11</div>
+<ul>
+<li>
+<p><strong>model:</strong> Especifica el archivo del modelo para el entrenamiento. Acepta una ruta hacia un modelo preentrenado (.pt) o un archivo de configuración (.yaml). Esencial para definir la estructura o inicializar los pesos.</p>
+</li>
+<li>
+<p><strong>data:</strong> Ruta al archivo de configuración del conjunto de datos (por ejemplo, coco8.yaml). Este archivo contiene parámetros específicos del dataset, incluyendo rutas a datos, nombres de clases y número de clases.</p>
+</li>
+<li>
+<p><strong>epochs:</strong> Número total de épocas de entrenamiento. Cada época representa una pasada completa sobre el conjunto de datos. Ajustar este valor puede afectar la duración y el rendimiento del modelo.</p>
+</li>
+<li>
+<p><strong>time:</strong> Tiempo máximo de entrenamiento en horas. Si se establece, anula el argumento epochs, permitiendo que el entrenamiento se detenga automáticamente después de la duración especificada. Útil para escenarios de entrenamiento con limitación de tiempo.</p>
+</li>
+<li>
+<p><strong>patience:</strong> Número de épocas a esperar sin mejora en las métricas de validación antes de detener el entrenamiento anticipadamente. Ayuda a prevenir el sobreajuste.</p>
+</li>
+<li>
+<p><strong>batch:</strong> Tamaño de lote, con tres modos: puede definirse como entero (por ejemplo, 16), o en modo automático para utilizar el 60% de la memoria GPU (batch=-1), o con una fracción especificada (por ejemplo, 0.70).</p>
+</li>
+<li>
+<p><strong>imgsz:</strong> Tamaño objetivo de la imagen para el entrenamiento. Todas las imágenes se redimensionan a esta dimensión antes de ingresar al modelo, lo que afecta la precisión y la complejidad computacional.</p>
+</li>
+<li>
+<p><strong>save:</strong> Habilita el guardado de puntos de control y de los pesos finales del modelo durante el entrenamiento. Útil para reanudar el entrenamiento o para la implementación del modelo.</p>
+</li>
+<li>
+<p><strong>save_period:</strong> Frecuencia (en épocas) para guardar los puntos de control del modelo. Un valor de -1 deshabilita esta función.</p>
+</li>
+<li>
+<p><strong>cache:</strong> Activa el almacenamiento en caché de las imágenes del conjunto de datos en memoria (True/ram), en disco (disk) o lo deshabilita (False). Mejora la velocidad de entrenamiento al reducir las operaciones de I/O, a costa de mayor uso de memoria.</p>
+</li>
+<li>
+<p><strong>device:</strong> Especifica el/los dispositivo(s) computacional(es) para el entrenamiento: una única GPU (device=0), múltiples GPUs (device=0,1), CPU (device=cpu) o MPS para Apple silicon (device=mps).</p>
+</li>
+<li>
+<p><strong>workers:</strong> Número de hilos para la carga de datos (por cada RANK en entrenamientos multi-GPU). Influye en la velocidad del preprocesamiento y de la alimentación del modelo.</p>
+</li>
+<li>
+<p><strong>project:</strong> Nombre del directorio del proyecto donde se guardan los resultados del entrenamiento, permitiendo una organización de los experimentos.</p>
+</li>
+<li>
+<p><strong>name:</strong> Nombre de la corrida de entrenamiento. Se utiliza para crear un subdirectorio dentro del proyecto, donde se almacenan los registros y salidas del entrenamiento.</p>
+</li>
+<li>
+<p><strong>exist_ok:</strong> Si es True, permite sobrescribir un directorio de proyecto ya existente. Útil para experimentación iterativa sin tener que borrar resultados previos.</p>
+</li>
+<li>
+<p><strong>pretrained:</strong> Determina si se debe iniciar el entrenamiento a partir de un modelo preentrenado. Puede ser un valor booleano o una ruta a un modelo específico, lo que mejora la eficiencia y el rendimiento.</p>
+</li>
+<li>
+<p><strong>optimizer:</strong> Elección del optimizador para el entrenamiento. Opciones como SGD, Adam, AdamW, NAdam, RAdam, RMSProp, etc., o 'auto' para selección automática según la configuración del modelo. Afecta la velocidad de convergencia y la estabilidad.</p>
+</li>
+<li>
+<p><strong>seed:</strong> Establece la semilla aleatoria para el entrenamiento, garantizando la reproducibilidad de los resultados con las mismas configuraciones.</p>
+</li>
+<li>
+<p><strong>deterministic:</strong> Obliga al uso de algoritmos deterministas, asegurando reproducibilidad aunque pueda afectar el rendimiento y la velocidad al restringir algoritmos no deterministas.</p>
+</li>
+<li>
+<p><strong>single_cls:</strong> Trata todas las clases en conjuntos de datos multiclase como una única clase durante el entrenamiento. Útil para tareas de clasificación binaria o cuando se enfoca en la presencia de un objeto en lugar de su clasificación.</p>
+</li>
+<li>
+<p><strong>classes:</strong> Especifica una lista de IDs de clases sobre las cuales entrenar. Útil para filtrar y centrarse únicamente en ciertas clases.</p>
+</li>
+<li>
+<p><strong>rect:</strong> Activa el entrenamiento rectangular, optimizando la composición del lote para minimizar el relleno. Puede mejorar la eficiencia y velocidad, aunque puede afectar la precisión.</p>
+</li>
+<li>
+<p><strong>multi_scale:</strong> Habilita el entrenamiento multi-escalar aumentando o disminuyendo imgsz hasta un factor de 0.5 durante el entrenamiento, para lograr mayor precisión en la inferencia con múltiples tamaños.</p>
+</li>
+<li>
+<p><strong>cos_lr:</strong> Utiliza un planificador de tasa de aprendizaje cosenoidal, ajustando la tasa de aprendizaje siguiendo una curva cosenoidal a lo largo de las épocas para gestionar mejor la convergencia.</p>
+</li>
+<li>
+<p><strong>close_mosaic:</strong> Desactiva la técnica de data augmentation mosaic en las últimas N épocas (por defecto, 10) para estabilizar el entrenamiento antes de finalizar. Un valor de 0 deshabilita esta función.</p>
+</li>
+<li>
+<p><strong>resume:</strong> Reanuda el entrenamiento desde el último punto de control guardado, cargando automáticamente los pesos del modelo, el estado del optimizador y el contador de épocas.</p>
+</li>
+<li>
+<p><strong>amp:</strong> Habilita el entrenamiento con Precisión Mixta Automática (AMP), reduciendo el uso de memoria y acelerando el entrenamiento con un impacto mínimo en la precisión.</p>
+</li>
+<li>
+<p><strong>fraction:</strong> Especifica la fracción del conjunto de datos a utilizar para el entrenamiento. Permite entrenar con un subconjunto del dataset completo, lo cual es útil para experimentos o con recursos limitados.</p>
+</li>
+<li>
+<p><strong>profile:</strong> Activa el perfilado de velocidades ONNX y TensorRT durante el entrenamiento, útil para optimizar la implementación del modelo.</p>
+</li>
+<li>
+<p><strong>freeze:</strong> Congela las primeras N capas del modelo o capas especificadas por índice, reduciendo la cantidad de parámetros entrenables. Útil para fine-tuning o aprendizaje por transferencia.</p>
+</li>
+<li>
+<p><strong>lr0:</strong> Tasa de aprendizaje inicial (por ejemplo, SGD=1E-2, Adam=1E-3). Es crucial para el proceso de optimización, ya que influye en la rapidez con que se actualizan los pesos.</p>
+</li>
+<li>
+<p><strong>lrf:</strong> Tasa de aprendizaje final, definida como una fracción de la tasa inicial (lr0 * lrf), empleada junto con planificadores para ajustar la tasa a lo largo del tiempo.</p>
+</li>
+<li>
+<p><strong>momentum:</strong> Factor de momentum para optimizadores como SGD o beta1 para Adam, que influye en cómo se incorporan gradientes pasados en la actualización actual.</p>
+</li>
+<li>
+<p><strong>weight_decay:</strong> Término de regularización L2 que penaliza pesos grandes para evitar el sobreajuste.</p>
+</li>
+<li>
+<p><strong>warmup_epochs:</strong> Número de épocas para el calentamiento de la tasa de aprendizaje, aumentando gradualmente desde un valor bajo hasta la tasa inicial para estabilizar el entrenamiento.</p>
+</li>
+<li>
+<p><strong>warmup_momentum:</strong> Momentum inicial durante la fase de calentamiento, que se ajusta gradualmente hasta el valor configurado.</p>
+</li>
+<li>
+<p><strong>warmup_bias_lr:</strong> Tasa de aprendizaje para los parámetros de sesgo durante la fase de calentamiento, ayudando a estabilizar el entrenamiento en las primeras épocas.</p>
+</li>
+<li>
+<p><strong>box:</strong> Peso del componente de pérdida asociado a la predicción de las cajas delimitadoras, determinando la importancia de predecir con precisión las coordenadas.</p>
+</li>
+<li>
+<p><strong>cls:</strong> Peso de la pérdida de clasificación en la función de pérdida total, afectando la relevancia de predecir correctamente las clases en relación a otros componentes.</p>
+</li>
+<li>
+<p><strong>dfl:</strong> Peso de la pérdida focal de distribución, utilizado en algunas versiones de YOLO para lograr una clasificación más fina.</p>
+</li>
+<li>
+<p><strong>pose:</strong> Peso de la pérdida de pose en modelos entrenados para estimación de pose, determinando la importancia de predecir correctamente los puntos clave.</p>
+</li>
+<li>
+<p><strong>kobj:</strong> Peso de la pérdida de objetividad en la detección de puntos clave en modelos de pose, balanceando la confianza en la detección con la precisión de la pose.</p>
+</li>
+<li>
+<p><strong>nbs:</strong> Tamaño de lote nominal utilizado para la normalización de la pérdida.</p>
+</li>
+<li>
+<p><strong>overlap_mask:</strong> Determina si las máscaras de objeto deben fusionarse en una sola o mantenerse separadas. En caso de solapamiento, la máscara más pequeña se superpone a la mayor.</p>
+</li>
+<li>
+<p><strong>mask_ratio:</strong> Ratio de reducción para las máscaras de segmentación, afectando su resolución durante el entrenamiento.</p>
+</li>
+<li>
+<p><strong>dropout:</strong> Tasa de dropout para la regularización en tareas de clasificación, evitando el sobreajuste mediante la omisión aleatoria de unidades durante el entrenamiento.</p>
+</li>
+<li>
+<p><strong>val:</strong> Habilita la validación durante el entrenamiento, permitiendo evaluar periódicamente el rendimiento del modelo en un conjunto de datos separado.</p>
+</li>
+<li>
+<p><strong>plots:</strong> Genera y guarda gráficos de las métricas de entrenamiento y validación, proporcionando insights visuales sobre el progreso y rendimiento del modelo.</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="_formato_coco_common_objects_in_context">Formato COCO (Common Objects in Context)</h4>
+<div class="paragraph">
+<p>El formato COCO es un estándar (basado en JSON originalmente, y actualmente en YAML) ampliamente utilizado para la anotación y evaluación de datos en tareas de visión artificial. Es comúnmente empleado en detección de objetos, segmentación de instancias y detección de keypoints, gracias a su estructura flexible y detallada.</p>
+</div>
+<div class="ulist">
+<div class="title">Las características clave del formato COCO son:</div>
+<ul>
+<li>
+<p>COCO contiene 330K imágenes, con 200K imágenes que tienen anotaciones para tareas de detección de objetos, segmentación y descripción de subtítulos.</p>
+</li>
+<li>
+<p>El dataset comprende 80 categorías de objetos, incluyendo objetos comunes como coches, bicicletas y animales, así como categorías más específicas como paraguas, bolsos y equipamiento deportivo.</p>
+</li>
+<li>
+<p>Las anotaciones incluyen cajas delimitadoras de objetos, máscaras de segmentación y subtítulos para cada imagen.</p>
+</li>
+<li>
+<p>COCO proporciona métricas de evaluación estandarizadas como la Precisión Media (mAP) para la detección de objetos, y la Recuperación Media (mAR) para tareas de segmentación, lo que lo hace adecuado para comparar el rendimiento de los modelos.</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">El dataset COCO se divide en tres datasets:</div>
+<ul>
+<li>
+<p>Train2017: Este subconjunto contiene 118K imágenes para entrenar modelos de detección de objetos, segmentación y descripción de subtítulos.</p>
+</li>
+<li>
+<p>Val2017: Este subconjunto tiene 5K imágenes utilizadas para validación durante el entrenamiento del modelo.</p>
+</li>
+<li>
+<p>Test2017: Este subconjunto consta de 20K imágenes utilizadas para pruebas y evaluación de los modelos entrenados. Las anotaciones de referencia para este subconjunto no están disponibles públicamente, y los resultados se envían al servidor de evaluación de COCO para su evaluación de rendimiento.</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">El archivo COCO en su formato YAML contiene las siguientes secciones:</div>
+<ul>
+<li>
+<p><strong>path:</strong> Ruta al directorio de datos de COCO.</p>
+</li>
+<li>
+<p><strong>train:</strong> Ruta al archivo de anotaciones de entrenamiento.</p>
+</li>
+<li>
+<p><strong>val:</strong> Ruta al archivo de anotaciones de validación.</p>
+</li>
+<li>
+<p><strong>test:</strong> Ruta al archivo de anotaciones de prueba.</p>
+</li>
+<li>
+<p><strong>nc:</strong> Número de clases en el dataset.</p>
+</li>
+<li>
+<p><strong>names:</strong> Lista de nombres de clases en el dataset.</p>
+</li>
+<li>
+<p><strong>download:</strong> Script de descarga del dataset COCO.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Un ejemplo de archivo COCO en formato YAML:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">path: /path/to/coco128
+train: /path/to/coco/train2017.yaml
+val: /path/to/coco/val2017.yaml
+test: /path/to/coco/test2017.yaml
+names:
+0: person
+1: bicycle
+...
+78: hair drier
+79: toothbrush
+
+# Download script/URL (optional)
+download: https://github.com/ultralytics/assets/releases/download/v0.0.0/coco128.zip</code></pre>
+</div>
+</div>
+<div class="ulist">
+<div class="title">Colecciones de datos COCO predefinidas en YoLo11:</div>
+<ul>
+<li>
+<p><strong>coco128:</strong> Un subconjunto de 128 clases de COCO, que incluye las 80 clases de COCO y 48 clases adicionales de Open Images, Visual Genome y CrowdHuman.</p>
+</li>
+<li>
+<p><strong>coco8:</strong> Un subconjunto de 8 clases de COCO, que incluye las clases más comunes de COCO como personas, coches, bicicletas y animales.</p>
+</li>
+<li>
+<p><strong>coco80:</strong> El conjunto completo de 80 clases de COCO, que incluye una amplia variedad de objetos comunes y específicos.</p>
+</li>
+<li>
+<p><strong>LVIS:</strong> El dataset de Large Vocabulary Instance Segmentation (LVIS) contiene 2M instancias de 1,203 clases, con anotaciones de segmentación de instancias y detección de objetos.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_aumentación_de_datos">Aumentación de datos</h4>
+<div class="paragraph">
+<p>Las técnicas de aumentación de datos son esenciales para mejorar la generalización y robustez de los modelos de deep learning, especialmente en tareas de visión artificial. YOLO11 proporciona una amplia gama de técnicas de aumentación de datos integradas para mejorar la diversidad y calidad de los datos de entrenamiento.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 9. La siguiente tabla muestra las técnicas de aumentación de datos disponibles en YOLO11:</caption>
+<colgroup>
+<col style="width: 18.1818%;">
+<col style="width: 45.4545%;">
+<col style="width: 9.0909%;">
+<col style="width: 9.0909%;">
+<col style="width: 18.1819%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Argumento</th>
+<th class="tableblock halign-left valign-top">Descripción</th>
+<th class="tableblock halign-left valign-top">Tipo</th>
+<th class="tableblock halign-left valign-top">Por defecto</th>
+<th class="tableblock halign-left valign-top">Rango</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hsv_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ajusta el tono de la imagen por una fracción de la rueda de colores, introduciendo variabilidad cromática.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">float</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.015</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.0 - 1.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hsv_s</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Modifica la saturación de la imagen por una fracción, afectando la intensidad de los colores.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">float</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.7</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.0 - 1.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hsv_v</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Modifica el valor (brillo) de la imagen por una fracción, ayudando al modelo a funcionar bien bajo diversas condiciones de iluminación.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">float</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.0 - 1.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">degrees</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Rota la imagen aleatoriamente dentro del rango de grados especificado, mejorando la capacidad de reconocer objetos en diversas orientaciones.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">float</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-180 - +180</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">translate</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Traslada la imagen horizontal y verticalmente por una fracción del tamaño, ayudando a detectar objetos parcialmente visibles.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">float</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.0 - 1.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">scale</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Escala la imagen por un factor, simulando objetos a diferentes distancias de la cámara.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">float</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&gt;= 0.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">shear</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cizalla la imagen por un grado especificado, imitando el efecto de ver objetos desde ángulos distintos.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">float</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-180 - +180</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">perspective</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Aplica una transformación de perspectiva aleatoria a la imagen, realzando la capacidad del modelo para entender objetos en 3D.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">float</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.0 - 0.001</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">flipud</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Invierte verticalmente la imagen con la probabilidad especificada, aumentando la variabilidad sin alterar las características del objeto.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">float</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.0 - 1.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">fliplr</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Invierte horizontalmente la imagen con la probabilidad indicada, útil para reconocer objetos simétricos y ampliar la diversidad del dataset.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">float</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.0 - 1.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bgr</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Invierte los canales de la imagen de RGB a BGR con la probabilidad dada, aumentando la robustez frente a errores en el orden de canales.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">float</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.0 - 1.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">mosaic</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Combina cuatro imágenes de entrenamiento en una, simulando diversas composiciones y relaciones entre objetos.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">float</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.0 - 1.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">mixup</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fusiona dos imágenes y sus etiquetas para crear una imagen compuesta, potenciando la generalización mediante la introducción de ruido.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">float</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.0 - 1.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">copy_paste</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Copia y pega objetos entre imágenes para aumentar las instancias y aprender sobre oclusiones (requiere etiquetas de segmentación).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">float</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.0 - 1.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">copy_paste_mode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Selecciona el método de augmentación Copy-Paste entre las opciones disponibles ("flip", "mixup").</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">str</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">'flip'</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">auto_augment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Aplica automáticamente una política de augmentación predefinida (randaugment, autoaugment, augmix) para diversificar características visuales.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">str</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">'randaugment'</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">erasing</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Borra aleatoriamente una porción de la imagen durante el entrenamiento, incentivando al modelo a enfocarse en características menos evidentes.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">float</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.0 - 0.9</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">crop_fraction</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Recorta la imagen a una fracción de su tamaño original para enfatizar características centrales y adaptarse a diversas escalas de objeto.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">float</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.1 - 1.0</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_evaluación_de_modelos">Evaluación de modelos</h3>
+<div class="paragraph">
+<p>La evaluación de modelos de detección de objetos es crucial para medir su rendimiento y precisión en tareas de inferencia. YOLO11 proporciona una variedad de métricas de evaluación integradas para evaluar la precisión y el rendimiento de los modelos en conjuntos de datos de prueba.</p>
+</div>
+<div class="ulist">
+<div class="title">Las métricas de evaluación disponibles en YOLO11 son:</div>
+<ul>
+<li>
+<p><strong>mAP:</strong> Promedio de precisión media (mAP) para la detección de objetos, calculado como el promedio de las puntuaciones de precisión media para cada clase.</p>
+</li>
+<li>
+<p><strong>AP:</strong> Precisión media (AP) para cada clase, calculada como el área bajo la curva de precisión-recall (AP-R).</p>
+</li>
+<li>
+<p><strong>AR:</strong> Recuperación media (AR) para cada clase, calculada como el área bajo la curva de recuperación-precisión (AR-P).</p>
+</li>
+<li>
+<p><strong>AP50:</strong> Precisión media (AP50) para cada clase, calculada como la precisión media a un umbral de IoU del 50%.</p>
+</li>
+<li>
+<p><strong>AP75:</strong> Precisión media (AP75) para cada clase, calculada como la precisión media a un umbral de IoU del 75%.</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Estas son las funcionalidades destacadas ofrecidas por el modo Val de YOLO11:</div>
+<ul>
+<li>
+<p><strong>Configuración automática:</strong> Los modelos recuerdan sus configuraciones de entrenamiento para una validación sencilla.</p>
+</li>
+<li>
+<p><strong>Soporte para múltiples métricas:</strong> Evalúa tu modelo en función de una variedad de métricas de precisión.</p>
+</li>
+<li>
+<p><strong>Interfaz de línea de comandos y API de Python:</strong> Elige entre la interfaz de línea de comandos o la API de Python según tus preferencias para la validación.</p>
+</li>
+<li>
+<p><strong>Compatibilidad de datos:</strong> Funciona perfectamente con los conjuntos de datos utilizados durante la fase de entrenamiento, así como con conjuntos de datos personalizados.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Un ejemplo de evaluación de un modelo de YoLo11 con python:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from ultralytics import YOLO
+
+# Load a model
+model = YOLO("yolo11n.pt")  # load an official model
+model = YOLO("path/to/best.pt")  # load a custom model
+
+# Validate the model
+metrics = model.val()  # no arguments needed, dataset and settings remembered
+metrics.box.map  # map50-95
+metrics.box.map50  # map50
+metrics.box.map75  # map75
+metrics.box.maps  # a list contains map50-95 of each category</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Un ejemplo de evaluación de un modelo de YoLo11 en línea de comandos:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">yolo detect val model=yolo11n.pt  # val official model
+yolo detect val model=path/to/best.pt  # val custom model</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 10. Parámetros de evaluación de YoLo11</caption>
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 62.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parámetro</th>
+<th class="tableblock halign-left valign-top">descripcion</th>
+<th class="tableblock halign-left valign-top">tipo</th>
+<th class="tableblock halign-left valign-top">por defecto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">data</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Especifica la ruta al archivo de configuración del conjunto de datos (por ejemplo, coco8.yaml). Este archivo incluye rutas a los datos de validación, nombres de clases y número de clases.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">str</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">imgsz</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Define el tamaño de las imágenes de entrada. Todas las imágenes se redimensionan a esta dimensión antes del procesamiento.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">640</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">batch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Establece el número de imágenes por lote. El valor debe ser un entero positivo.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">save_json</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Si es True, guarda los resultados en un archivo JSON para análisis adicional o integración con otras herramientas.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">False</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">save_hybrid</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Si es True, guarda una versión híbrida de las etiquetas que combina las anotaciones originales con predicciones adicionales del modelo. Solo funciona con modelos de detección.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">False</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">conf</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Establece el umbral mínimo de confianza para las detecciones. Las detecciones con confianza inferior a este umbral se descartan.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">float</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.001</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">iou</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Establece el umbral de Intersección sobre Unión (IoU) para la Supresión de No Máximos (NMS). Ayuda a reducir detecciones duplicadas.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">float</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.6</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">max_det</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Limita el número máximo de detecciones por imagen. Útil en escenas densas para prevenir detecciones excesivas.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">300</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">half</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Activa el cómputo en mitad de precisión (FP16), reduciendo el uso de memoria y potencialmente aumentando la velocidad con un impacto mínimo en la precisión.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">True</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">device</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Especifica el dispositivo para validación (cpu, cuda:0, etc.). Permite flexibilidad en el uso de recursos CPU o GPU.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">str</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">dnn</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Si es True, utiliza el módulo DNN de OpenCV para la inferencia del modelo ONNX, ofreciendo una alternativa a los métodos de inferencia de PyTorch.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">False</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">plots</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cuando es True, genera y guarda gráficos de las predicciones frente a la verdad de referencia para la evaluación visual del rendimiento del modelo.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">False</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">rect</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Si es True, utiliza inferencia rectangular para el procesamiento por lotes, reduciendo el relleno y potencialmente aumentando la velocidad y eficiencia.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">True</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">split</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Determina la división del conjunto de datos a utilizar para la validación (val, test o train). Permite flexibilidad en la elección del segmento de datos para evaluar el rendimiento.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">str</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">'val'</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">project</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nombre del directorio del proyecto donde se guardan las salidas de la validación.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">str</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nombre de la corrida de validación. Se utiliza para crear un subdirectorio dentro de la carpeta del proyecto, donde se almacenan los registros y salidas de la validación.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">str</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">Un ejemplo de evaluación de un modelo de YoLo11 con parámetros personalizados:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from ultralytics import YOLO
+
+# Load a model
+model = YOLO("yolo11n.pt")  # load an official model
+
+# Validate the model with custom parameters
+
+metrics = model.val(data="coco8.yaml", imgsz=640, batch=16, save_json=True, conf=0.001, iou=0.6, max_det=300, half=True, device=None, dnn=False, plots=False, rect=True, split='val', project=None, name=None)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_exportación_de_modelos">Exportación de modelos</h3>
+<div class="paragraph">
+<p>La exportación de modelos de detección de objetos es esencial para implementarlos en aplicaciones de producción y entornos de inferencia en tiempo real. YOLO11 proporciona una variedad de opciones para exportar modelos en diferentes formatos y plataformas, incluyendo ONNX, TorchScript, TensorFlow y CoreML.</p>
+</div>
+<div class="paragraph">
+<p>Los modelos mejor optimizados para la ejecución en CPU son los modelos exportados en formato ONNX, que pueden ser implementados en una variedad de entornos de producción, incluyendo servidores web, aplicaciones móviles y dispositivos IoT.</p>
+</div>
+<div class="paragraph">
+<p>Los modelos más recomendables para ejecución en GPU son los modelos exportados en formato TorchScript, que pueden ser implementados en entornos de producción que requieren una alta velocidad y rendimiento, como aplicaciones de visión artificial en tiempo real.</p>
+</div>
+<div class="ulist">
+<div class="title">Las características notables de la exportación de modelos en YOLO11 son:</div>
+<ul>
+<li>
+<p><strong>Exportación en múltiples formatos:</strong> Exporta modelos en formatos populares como ONNX, TorchScript, TensorFlow y CoreML para su implementación en diferentes plataformas.</p>
+</li>
+<li>
+<p><strong>Optimización de modelos:</strong> Optimiza los modelos exportados para una ejecución eficiente en CPU y GPU, maximizando la velocidad y el rendimiento.</p>
+</li>
+<li>
+<p><strong>Compatibilidad con PyTorch:</strong> Exporta modelos en formato TorchScript para su implementación en entornos de producción que requieren una alta velocidad y rendimiento.</p>
+</li>
+<li>
+<p><strong>Interfaz de línea de comandos y API de Python:</strong> Elige entre la interfaz de línea de comandos o la API de Python según tus preferencias para la exportación de modelos.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Un ejemplo de exportación de un modelo de YoLo11 en formato ONNX:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from ultralytics import YOLO
+
+# Load a model
+model = YOLO("yolo11n.pt")  # load an official model
+model = YOLO("path/to/best.pt")  # load a custom trained model
+
+# Export the model
+model.export(format="onnx")</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_exportación_de_modelos_parámetros_de_exportación">Exportación de modelos: Parámetros de exportación</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 62.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">parámetros</th>
+<th class="tableblock halign-left valign-top">descripción</th>
+<th class="tableblock halign-left valign-top">tipo</th>
+<th class="tableblock halign-left valign-top">por defecto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">format</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Formato de destino para el modelo exportado, por ejemplo, 'onnx', 'torchscript', 'tensorflow', u otros, definiendo la compatibilidad con diversos entornos de despliegue.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">str</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">'torchscript'</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">imgsz</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tamaño deseado de la imagen para la entrada del modelo. Puede ser un entero para imágenes cuadradas o una tupla (alto, ancho) para dimensiones específicas.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int o tuple</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">640</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keras</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Habilita la exportación en formato Keras para TensorFlow SavedModel, proporcionando compatibilidad con TensorFlow serving y APIs.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">False</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optimize</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Aplica optimizaciones para dispositivos móviles al exportar a TorchScript, potencialmente reduciendo el tamaño del modelo y mejorando el rendimiento.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">False</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">half</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Activa la cuantización FP16 (precisión reducida), reduciendo el tamaño del modelo y acelerando la inferencia en hardware compatible.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">False</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int8</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Activa la cuantización INT8, comprimiendo aún más el modelo y acelerando la inferencia con pérdida mínima de precisión, principalmente para dispositivos edge.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">False</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">dynamic</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Permite tamaños de entrada dinámicos para exportaciones a ONNX, TensorRT y OpenVINO, incrementando la flexibilidad en el manejo de dimensiones variables.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">False</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">simplify</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Simplifica el grafo del modelo para exportaciones a ONNX con onnxslim, potencialmente mejorando el rendimiento y la compatibilidad.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">True</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">opset</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Especifica la versión del conjunto de operaciones (opset) de ONNX para asegurar la compatibilidad con distintos parsers y entornos de ejecución. Si no se especifica, se usa la última versión soportada.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">workspace</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Establece el tamaño máximo de espacio de trabajo en GiB para optimizaciones en TensorRT, equilibrando uso de memoria y rendimiento; usa None para asignación automática hasta el máximo del dispositivo.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">float o None</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">nms</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Añade la Supresión de No Máximos (NMS) al modelo exportado cuando es soportado, mejorando la eficiencia en el post-procesamiento de detecciones.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">False</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">batch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Especifica el tamaño de lote de inferencia para el modelo exportado o el número máximo de imágenes que el modelo procesará simultáneamente en modo predict.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">device</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Especifica el dispositivo para la exportación: GPU (device=0), CPU (device=cpu), MPS para Apple Silicon (device=mps) o DLA para NVIDIA Jetson (device=dla:0 o device=dla:1).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">str</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">data</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ruta al archivo de configuración del conjunto de datos (por defecto, 'coco8.yaml'), esencial para la cuantización.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">str</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">'coco8.yaml'</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 11. Los formatos de exportación de modelos soportados en YOLO11 son:</caption>
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 71.4286%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Formato</th>
+<th class="tableblock halign-left valign-top">Modelo</th>
+<th class="tableblock halign-left valign-top">Argumentos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PyTorch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yolo11n.pt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TorchScript</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yolo11n.torchscript</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">imgsz, optimize, nms, batch</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ONNX</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yolo11n.onnx</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">imgsz, half, dynamic, simplify, opset, nms, batch</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OpenVINO</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yolo11n_openvino_model/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">imgsz, half, dynamic, int8, nms, batch, data</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TensorRT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yolo11n.engine</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">imgsz, half, dynamic, simplify, workspace, int8, nms, batch, data</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CoreML</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yolo11n.mlpackage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">imgsz, half, int8, nms, batch</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TF SavedModel</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yolo11n_saved_model/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">imgsz, keras, int8, nms, batch</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TF GraphDef</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yolo11n.pb</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">imgsz, batch</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TF Lite</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yolo11n.tflite</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">imgsz, half, int8, nms, batch, data</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TF Edge TPU</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yolo11n_edgetpu.tflite</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">imgsz</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TF.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yolo11n_web_model/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">imgsz, half, int8, nms, batch</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PaddlePaddle</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yolo11n_paddle_model/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">imgsz, batch</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MNN</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yolo11n.mnn</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">imgsz, batch, int8, half</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NCNN</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yolo11n_ncnn_model/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">imgsz, half, batch</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IMX500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yolov8n_imx_model/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">imgsz, int8, data</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RKNN</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yolo11n_rknn_model/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">imgsz, batch, name</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2025-03-17 07:53:14 +0100
+</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
+<script>
+if (!hljs.initHighlighting.called) {
+  hljs.initHighlighting.called = true
+  ;[].slice.call(document.querySelectorAll('pre.highlight > code[data-lang]')).forEach(function (el) { hljs.highlightBlock(el) })
+}
+</script>
+</body>
+</html>

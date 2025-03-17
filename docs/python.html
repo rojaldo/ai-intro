@@ -1,0 +1,4297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.23">
+<title>Python</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment the following line when using as a custom stylesheet */
+/* @import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"; */
+html{font-family:sans-serif;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+b,strong{font-weight:bold}
+abbr{font-size:.9em}
+abbr[title]{cursor:help;border-bottom:1px dotted #dddddf;text-decoration:none}
+dfn{font-style:italic}
+hr{height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type=checkbox],input[type=radio]{padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,::before,::after{box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;line-height:1;position:relative;cursor:auto;-moz-tab-size:4;-o-tab-size:4;tab-size:4;word-wrap:anywhere;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ul.square{list-style-type:square}
+ul.circle ul:not([class]),ul.disc ul:not([class]),ul.square ul:not([class]){list-style:inherit}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:1px solid #dedede;word-wrap:normal}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre).nobreak{word-wrap:normal}
+:not(pre).nowrap{white-space:nowrap}
+:not(pre).pre-wrap{white-space:pre-wrap}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;border-radius:3px;box-shadow:0 1px 0 rgba(0,0,0,.2),inset 0 0 0 .1em #fff;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin:0 auto;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border:1px solid #e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:none;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:hsla(0,0%,100%,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details{margin-left:1.25rem}
+details>summary{cursor:pointer;display:block;position:relative;line-height:1.6;margin-bottom:.625rem;outline:none;-webkit-tap-highlight-color:transparent}
+details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"";border:solid transparent;border-left:solid;border-width:.3em 0 .3em .5em;position:absolute;top:.5em;left:-1.25rem;transform:translateX(15%)}
+details[open]>summary::before{border:solid transparent;border-top:solid;border-width:.5em .3em 0;transform:translateY(15%)}
+details>summary::after{content:"";width:1.25rem;height:1em;position:absolute;top:.3em;left:-1.25rem}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class=paragraph]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
+.sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:first-child,.sidebarblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child,.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos,pre.pygments .linenos{border-right:1px solid;opacity:.35;padding-right:.5em;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+pre.pygments span.linenos{display:inline-block;margin-right:.75em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans-serif;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;font-size:.85rem;text-align:left;margin-right:0}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content{margin-bottom:1.25em;word-wrap:anywhere}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>*>tr>*{border-width:1px}
+table.grid-cols>*>tr>*{border-width:0 1px}
+table.grid-rows>*>tr>*{border-width:1px 0}
+table.frame-all{border-width:1px}
+table.frame-ends{border-width:1px 0}
+table.frame-sides{border-width:0 1px}
+table.frame-none>colgroup+*>:first-child>*,table.frame-sides>colgroup+*>:first-child>*{border-top-width:0}
+table.frame-none>:last-child>:last-child>*,table.frame-sides>:last-child>:last-child>*{border-bottom-width:0}
+table.frame-none>*>tr>:first-child,table.frame-ends>*>tr>:first-child{border-left-width:0}
+table.frame-none>*>tr>:last-child,table.frame-ends>*>tr>:last-child{border-right-width:0}
+table.stripes-all>*>tr,table.stripes-odd>*>tr:nth-of-type(odd),table.stripes-even>*>tr:nth-of-type(even),table.stripes-hover>*>tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+li>p:empty:only-child::before{content:"";display:inline-block}
+ul.checklist>li>p:first-child{margin-left:-1em}
+ul.checklist>li>p:first-child>.fa-square-o:first-child,ul.checklist>li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist>li>p:first-child>input[type=checkbox]:first-child{margin-right:.25em}
+ul.inline{display:flex;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+td.hdlist2{word-wrap:anywhere}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);border-radius:50%;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,td.hdlist1,span.alt,summary{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]{border-bottom:1px dotted}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#header,#content,#footnotes,#footer{max-width:none}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media amzn-kf8,print{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>Python</h1>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_módulo_0_introducción_a_python">Módulo 0: Introducción a Python</a>
+<ul class="sectlevel2">
+<li><a href="#_0_1_qué_es_python">0.1. ¿Qué es Python?</a>
+<ul class="sectlevel3">
+<li><a href="#_historia_y_características_de_python">Historia y características de Python.</a></li>
+<li><a href="#_instalación_y_configuración_del_entorno">Instalación y configuración del entorno.</a></li>
+</ul>
+</li>
+<li><a href="#_0_2_introducción_a_los_entornos_virtuales">0.2 Introducción a los Entornos Virtuales</a>
+<ul class="sectlevel3">
+<li><a href="#_qué_son_los_entornos_virtuales">¿Qué son los entornos virtuales?</a></li>
+</ul>
+</li>
+<li><a href="#_0_2_2_ventajas_de_usar_entornos_virtuales">0.2.2. Ventajas de Usar Entornos Virtuales</a>
+<ul class="sectlevel3">
+<li><a href="#_aislamiento_de_proyectos">Aislamiento de proyectos</a></li>
+</ul>
+</li>
+<li><a href="#_0_2_3_entornos_virtuales_comunes">0.2.3. Entornos Virtuales Comunes</a>
+<ul class="sectlevel3">
+<li><a href="#_venv">venv</a></li>
+<li><a href="#_virtualenv">virtualenv</a></li>
+<li><a href="#_conda">conda</a></li>
+<li><a href="#_poetry">Poetry</a></li>
+</ul>
+</li>
+<li><a href="#_0_2_4_instalación_de_paquetes_en_entornos_virtuales">0.2.4. Instalación de Paquetes en Entornos Virtuales</a></li>
+<li><a href="#_0_2_5_desactivación_y_eliminación_de_entornos_virtuales">0.2.5. Desactivación y Eliminación de Entornos Virtuales</a>
+<ul class="sectlevel3">
+<li><a href="#_desactivación_del_entorno_virtual">Desactivación del entorno virtual</a></li>
+<li><a href="#_eliminación_del_entorno_virtual">Eliminación del entorno virtual</a></li>
+</ul>
+</li>
+<li><a href="#_0_2_6_buenas_prácticas_para_el_uso_de_entornos_virtuales">0.2.6. Buenas Prácticas para el Uso de Entornos Virtuales</a></li>
+<li><a href="#_0_3_jupyter">0.3. Jupyter</a>
+<ul class="sectlevel3">
+<li><a href="#_qué_es_jupyter">¿Qué es Jupyter?</a></li>
+<li><a href="#_instalación_de_jupyter">Instalación de Jupyter</a></li>
+<li><a href="#_creación_y_lanzamiento_de_un_notebook">Creación y Lanzamiento de un Notebook</a></li>
+<li><a href="#_uso_de_notebooks">Uso de Notebooks</a></li>
+<li><a href="#_guardar_y_compartir_notebooks">Guardar y Compartir Notebooks</a></li>
+<li><a href="#_extensiones_de_jupyter">Extensiones de Jupyter</a></li>
+<li><a href="#_integración_con_entornos_virtuales">Integración con Entornos Virtuales</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_modulo_1_variables_y_estructuras_de_datos">Modulo 1: Variables y Estructuras de Datos</a>
+<ul class="sectlevel2">
+<li><a href="#_introducción">Introducción</a></li>
+<li><a href="#_1_1_tipos_de_variables_en_python">1.1. Tipos de Variables en Python</a>
+<ul class="sectlevel3">
+<li><a href="#_1_1_1_tipos_nativos_de_python">1.1.1 Tipos Nativos de Python</a></li>
+<li><a href="#_1_1_2_declaración_de_variables">1.1.2 Declaración de Variables</a></li>
+</ul>
+</li>
+<li><a href="#_1_2_manejo_de_cadenas_str">1.2. Manejo de Cadenas (str)</a>
+<ul class="sectlevel3">
+<li><a href="#_1_2_1_creación_de_cadenas">1.2.1 Creación de Cadenas</a></li>
+<li><a href="#_1_2_2_indexación_y_slicing_de_cadenas">1.2.2 Indexación y Slicing de Cadenas</a></li>
+<li><a href="#_1_2_3_métodos_comunes_para_cadenas">1.2.3 Métodos Comunes para Cadenas</a></li>
+<li><a href="#_1_2_4_formateo_de_cadenas">1.2.4 Formateo de Cadenas</a></li>
+</ul>
+</li>
+<li><a href="#_1_3_buenas_prácticas_con_cadenas_y_tipos_de_datos">1.3. Buenas Prácticas con Cadenas y Tipos de Datos</a>
+<ul class="sectlevel3">
+<li><a href="#_1_3_1_evitar_concatenaciones_repetidas">1.3.1 Evitar Concatenaciones Repetidas</a></li>
+<li><a href="#_1_3_2_validaciones_y_conversión_oportuna_de_tipos">1.3.2 Validaciones y Conversión Oportuna de Tipos</a></li>
+</ul>
+</li>
+<li><a href="#_1_4_resumen_y_ejercicios_prácticos">1.4. Resumen y Ejercicios Prácticos</a></li>
+</ul>
+</li>
+<li><a href="#_módulo_2_estructuras_de_control">Módulo 2: Estructuras de Control</a>
+<ul class="sectlevel2">
+<li><a href="#_2_1_condicionales">2.1. Condicionales</a>
+<ul class="sectlevel3">
+<li><a href="#_uso_de_if_elif_y_else">Uso de <code>if</code>, <code>elif</code> y <code>else</code>.</a></li>
+<li><a href="#_ejemplos_prácticos">Ejemplos prácticos.</a></li>
+</ul>
+</li>
+<li><a href="#_2_2_bucles">2.2. Bucles</a>
+<ul class="sectlevel3">
+<li><a href="#_bucles_for_y_while">Bucles <code>for</code> y <code>while</code>.</a></li>
+<li><a href="#_control_de_bucles_break_continue_y_pass">Control de bucles: <code>break</code>, <code>continue</code> y <code>pass</code>.</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_módulo_3_estructuras_de_datos">Módulo 3: Estructuras de Datos</a>
+<ul class="sectlevel2">
+<li><a href="#_3_1_listas">3.1. Listas</a>
+<ul class="sectlevel3">
+<li><a href="#_creación_de_listas">Creación de Listas</a></li>
+<li><a href="#_acceso_a_elementos_de_una_lista">Acceso a Elementos de una Lista</a></li>
+<li><a href="#_modificación_de_elementos">Modificación de Elementos</a></li>
+<li><a href="#_métodos_comunes_de_listas">Métodos Comunes de Listas</a></li>
+<li><a href="#_iteración_sobre_listas">Iteración sobre Listas</a></li>
+<li><a href="#_listas_anidadas">Listas Anidadas</a></li>
+</ul>
+</li>
+<li><a href="#_3_2_tuplas">3.2. Tuplas</a>
+<ul class="sectlevel3">
+<li><a href="#_características_y_usos">Características y usos.</a></li>
+</ul>
+</li>
+<li><a href="#_3_3_diccionarios">3.3. Diccionarios</a>
+<ul class="sectlevel3">
+<li><a href="#_creación_de_diccionarios">Creación de Diccionarios</a></li>
+<li><a href="#_acceso_a_valores">Acceso a Valores</a></li>
+<li><a href="#_modificación_de_valores">Modificación de Valores</a></li>
+<li><a href="#_agregar_y_eliminar_elementos">Agregar y Eliminar Elementos</a></li>
+<li><a href="#_métodos_comunes_de_diccionarios">Métodos Comunes de Diccionarios</a></li>
+<li><a href="#_comprobación_de_claves">Comprobación de Claves</a></li>
+<li><a href="#_iteración_sobre_diccionarios">Iteración sobre Diccionarios</a></li>
+<li><a href="#_diccionarios_anidados">Diccionarios Anidados</a></li>
+<li><a href="#_resumen">Resumen</a></li>
+</ul>
+</li>
+<li><a href="#_3_4_conjuntos">3.4. Conjuntos</a>
+<ul class="sectlevel3">
+<li><a href="#_definición_y_operaciones">Definición y operaciones.</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_módulo_4_funciones_y_módulos">Módulo 4: Funciones y Módulos</a>
+<ul class="sectlevel2">
+<li><a href="#_4_1_definición_y_llamada_de_funciones">4.1. Definición y Llamada de Funciones</a>
+<ul class="sectlevel3">
+<li><a href="#_definición_de_funciones">Definición de Funciones</a></li>
+<li><a href="#_llamada_a_funciones">Llamada a Funciones</a></li>
+<li><a href="#_funciones_sin_parámetros">Funciones sin Parámetros</a></li>
+<li><a href="#_parámetros_predeterminados">Parámetros Predeterminados</a></li>
+<li><a href="#_argumentos_posicionales_y_nombrados">Argumentos Posicionales y Nombrados</a></li>
+<li><a href="#_funciones_con_cantidad_variable_de_argumentos">Funciones con Cantidad Variable de Argumentos</a></li>
+</ul>
+</li>
+<li><a href="#_4_2_funciones_lambda">4.2. Funciones Lambda</a>
+<ul class="sectlevel3">
+<li><a href="#_sintaxis_de_las_funciones_lambda">Sintaxis de las Funciones Lambda</a></li>
+<li><a href="#_ejemplo_de_una_función_lambda">Ejemplo de una Función Lambda</a></li>
+<li><a href="#_uso_de_funciones_lambda_con_map">Uso de Funciones Lambda con <code>map()</code></a></li>
+<li><a href="#_uso_de_funciones_lambda_con_filter">Uso de Funciones Lambda con <code>filter()</code></a></li>
+<li><a href="#_uso_de_funciones_lambda_con_sorted">Uso de Funciones Lambda con <code>sorted()</code></a></li>
+<li><a href="#_ventajas_y_desventajas">Ventajas y Desventajas</a></li>
+</ul>
+</li>
+<li><a href="#_4_3_funciones_lambda_y_métodos_de_listas">4.3. Funciones Lambda y Métodos de Listas</a>
+<ul class="sectlevel3">
+<li><a href="#_uso_de_funciones_lambda_con_el_método_sort">Uso de Funciones Lambda con el Método <code>sort()</code></a></li>
+<li><a href="#_uso_de_funciones_lambda_con_el_método_append">Uso de Funciones Lambda con el Método <code>append()</code></a></li>
+<li><a href="#_uso_de_funciones_lambda_con_el_método_filter">Uso de Funciones Lambda con el Método <code>filter()</code></a></li>
+<li><a href="#_uso_de_funciones_lambda_con_el_método_map">Uso de Funciones Lambda con el Método <code>map()</code></a></li>
+<li><a href="#_uso_de_funciones_lambda_con_el_método_reduce">Uso de Funciones Lambda con el Método <code>reduce()</code></a></li>
+<li><a href="#_resumen_2">Resumen</a></li>
+</ul>
+</li>
+<li><a href="#_4_4_módulos_y_paquetes">4.4. Módulos y paquetes</a>
+<ul class="sectlevel3">
+<li><a href="#_importación_de_módulos_y_creación_de_módulos_propios">Importación de módulos y creación de módulos propios.</a></li>
+</ul>
+</li>
+<li><a href="#_4_5_ejercicios_prácticos">4.5 Ejercicios Prácticos</a></li>
+</ul>
+</li>
+<li><a href="#_ejercicios_sobre_funciones_y_funciones_lambda">Ejercicios sobre Funciones y Funciones Lambda</a></li>
+<li><a href="#_módulo_5_manejo_de_archivos">Módulo 5: Manejo de Archivos</a>
+<ul class="sectlevel2">
+<li><a href="#_5_1_lectura_y_escritura_de_archivos">5.1. Lectura y escritura de archivos</a>
+<ul class="sectlevel3">
+<li><a href="#_archivos_de_texto_y_binarios">Archivos de texto y binarios.</a></li>
+</ul>
+</li>
+<li><a href="#_5_2_manejo_de_excepciones">5.2. Manejo de Excepciones</a>
+<ul class="sectlevel3">
+<li><a href="#_introducción_a_las_excepciones">Introducción a las Excepciones</a></li>
+<li><a href="#_sintaxis_del_manejo_de_excepciones">Sintaxis del Manejo de Excepciones</a></li>
+<li><a href="#_ejemplo_de_manejo_de_excepciones">Ejemplo de Manejo de Excepciones</a></li>
+<li><a href="#_captura_de_múltiples_excepciones">Captura de Múltiples Excepciones</a></li>
+<li><a href="#_excepciones_personalizadas">Excepciones Personalizadas</a></li>
+<li><a href="#_resumen_3">Resumen</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_módulo_6_programación_orientada_a_objetos_oop">Módulo 6: Programación Orientada a Objetos (OOP)</a>
+<ul class="sectlevel2">
+<li><a href="#_6_1_clases_y_objetos">6.1. Clases y Objetos</a>
+<ul class="sectlevel3">
+<li><a href="#_definición_de_clases">Definición de Clases</a></li>
+<li><a href="#_creación_de_objetos">Creación de Objetos</a></li>
+<li><a href="#_atributos_de_clase_y_atributos_de_instancia">Atributos de Clase y Atributos de Instancia</a></li>
+<li><a href="#_diferencia_entre_y_en_nombres_de_atributos_privados">Diferencia entre _ y __ en Nombres de Atributos Privados</a></li>
+<li><a href="#_resumen_4">Resumen</a></li>
+</ul>
+</li>
+<li><a href="#_6_2_herencia">6.2. Herencia</a>
+<ul class="sectlevel3">
+<li><a href="#_definición_de_una_subclase">Definición de una Subclase</a></li>
+<li><a href="#_atributos_y_métodos_de_la_superclase">Atributos y Métodos de la Superclase</a></li>
+<li><a href="#_herencia_múltiple">Herencia Múltiple</a></li>
+<li><a href="#_resumen_5">Resumen</a></li>
+</ul>
+</li>
+<li><a href="#_6_3_encapsulamiento">6.3. Encapsulamiento</a>
+<ul class="sectlevel3">
+<li><a href="#_uso_de_modificadores_de_acceso">Uso de modificadores de acceso.</a></li>
+</ul>
+</li>
+<li><a href="#_6_4_polimorfismo">6.4. Polimorfismo</a>
+<ul class="sectlevel3">
+<li><a href="#_tipos_de_polimorfismo">Tipos de Polimorfismo</a></li>
+<li><a href="#_ejemplo_de_polimorfismo_en_tiempo_de_ejecución">Ejemplo de Polimorfismo en Tiempo de Ejecución</a></li>
+<li><a href="#_ejemplo_de_polimorfismo_con_herencia">Ejemplo de Polimorfismo con Herencia</a></li>
+<li><a href="#_resumen_6">Resumen</a></li>
+</ul>
+</li>
+<li><a href="#_6_6_interfaces">6.6 Interfaces</a>
+<ul class="sectlevel3">
+<li><a href="#_uso_de_clases_abstractas_como_interfaces">Uso de Clases Abstractas como Interfaces</a></li>
+<li><a href="#_ejemplo_de_interfaz_en_python">Ejemplo de Interfaz en Python</a></li>
+<li><a href="#_explicación_del_código">Explicación del Código</a></li>
+<li><a href="#_ventajas_del_uso_de_interfaces_con_clases_abstractas">Ventajas del Uso de Interfaces con Clases Abstractas</a></li>
+<li><a href="#_conclusión">Conclusión</a></li>
+</ul>
+</li>
+<li><a href="#_6_6_ejercicios_prácticos">6.6. Ejercicios Prácticos</a></li>
+</ul>
+</li>
+<li><a href="#_módulo_7_librerías_y_frameworks">Módulo 7: Librerías y Frameworks</a>
+<ul class="sectlevel2">
+<li><a href="#_7_1_introducción_a_librerías_de_python">7.1. Introducción a Librerías de Python</a>
+<ul class="sectlevel3">
+<li><a href="#_qué_es_una_librería_en_python">¿Qué es una Librería en Python?</a></li>
+<li><a href="#_uso_de_librerías_estándar">Uso de Librerías Estándar</a></li>
+<li><a href="#_importación_de_funciones_específicas">Importación de Funciones Específicas</a></li>
+<li><a href="#_1_os">1. <code>os</code></a></li>
+<li><a href="#_2_sys">2. <code>sys</code></a></li>
+<li><a href="#_3_math">3. <code>math</code></a></li>
+<li><a href="#_4_datetime">4. <code>datetime</code></a></li>
+<li><a href="#_5_random">5. <code>random</code></a></li>
+<li><a href="#_6_re">6. <code>re</code></a></li>
+<li><a href="#_7_json">7. <code>json</code></a></li>
+<li><a href="#_8_csv">8. <code>csv</code></a></li>
+<li><a href="#_9_collections">9. <code>collections</code></a></li>
+<li><a href="#_10_itertools">10. <code>itertools</code></a></li>
+<li><a href="#_11_functools">11. <code>functools</code></a></li>
+<li><a href="#_12_hashlib">12. <code>hashlib</code></a></li>
+<li><a href="#_13_subprocess">13. <code>subprocess</code></a></li>
+<li><a href="#_14_urllib">14. <code>urllib</code></a></li>
+<li><a href="#_15_argparse">15. <code>argparse</code></a></li>
+<li><a href="#_16_logging">16. <code>logging</code></a></li>
+<li><a href="#_17_threading">17. <code>threading</code></a></li>
+<li><a href="#_18_socket">18. <code>socket</code></a></li>
+<li><a href="#_19_configparser">19. <code>configparser</code></a></li>
+<li><a href="#_20_sqlite3">20. <code>sqlite3</code></a></li>
+<li><a href="#_instalación_y_uso_de_librerías_externas">Instalación y Uso de Librerías Externas</a></li>
+<li><a href="#_documentación_y_búsqueda_de_librerías">Documentación y Búsqueda de Librerías</a></li>
+</ul>
+</li>
+<li><a href="#_7_2_introducción_a_librerías_populares">7.2. Introducción a librerías populares</a>
+<ul class="sectlevel3">
+<li><a href="#_requests">requests</a></li>
+<li><a href="#_pillow">Pillow</a></li>
+<li><a href="#_numpy_pandas_y_matplotlib">NumPy, Pandas y Matplotlib.</a></li>
+</ul>
+</li>
+<li><a href="#_7_2_frameworks_para_desarrollo_web">7.2. Frameworks para desarrollo web</a>
+<ul class="sectlevel3">
+<li><a href="#_flask_y_django">Flask y Django.</a></li>
+</ul>
+</li>
+<li><a href="#_ejericios_sobre_librerías_y_frameworks">Ejericios sobre Librerías y Frameworks</a></li>
+</ul>
+</li>
+<li><a href="#_módulo_8_recursos_adicionales">Módulo 8: Recursos Adicionales</a>
+<ul class="sectlevel2">
+<li><a href="#_8_1_documentación_y_tutoriales">8.1. Documentación y tutoriales</a>
+<ul class="sectlevel3">
+<li><a href="#_recursos_en_línea_para_seguir_aprendiendo">Recursos en línea para seguir aprendiendo.</a></li>
+</ul>
+</li>
+<li><a href="#_8_2_comunidades_y_foros">8.2. Comunidades y foros</a>
+<ul class="sectlevel3">
+<li><a href="#_dónde_encontrar_ayuda_y_colaborar_con_otros_desarrolladores">Dónde encontrar ayuda y colaborar con otros desarrolladores.</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_módulo_0_introducción_a_python">Módulo 0: Introducción a Python</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_0_1_qué_es_python">0.1. ¿Qué es Python?</h3>
+<div class="sect3">
+<h4 id="_historia_y_características_de_python">Historia y características de Python.</h4>
+<div class="paragraph">
+<p>Python es un lenguaje de programación interpretado, de alto nivel y de propósito general. Fue creado por Guido van Rossum y se lanzó por primera vez en 1991. Algunas de sus características más destacadas incluyen:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Sencillez y legibilidad</strong>: La sintaxis de Python es clara y fácil de aprender, lo que lo convierte en un buen lenguaje para principiantes.</p>
+</li>
+<li>
+<p><strong>Amplia comunidad y ecosistema</strong>: Python tiene una gran comunidad que contribuye con una vasta cantidad de bibliotecas y frameworks.</p>
+</li>
+<li>
+<p><strong>Multiparadigma</strong>: Soporta programación orientada a objetos, programación funcional y programación imperativa.</p>
+</li>
+<li>
+<p><strong>Portabilidad</strong>: Python se puede ejecutar en múltiples plataformas (Windows, macOS, Linux) sin modificaciones.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_instalación_y_configuración_del_entorno">Instalación y configuración del entorno.</h4>
+<div class="paragraph">
+<p>Para comenzar a programar en Python, primero necesitas instalarlo en tu sistema. A continuación, se describen los pasos básicos para la instalación:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Descargar Python</strong>:
+Visita el sitio oficial de Python: [<a href="https://www.python.org/downloads/" class="bare">https://www.python.org/downloads/</a>](<a href="https://www.python.org/downloads/" class="bare">https://www.python.org/downloads/</a>) y descarga la última versión.</p>
+</li>
+<li>
+<p><strong>Instalar Python</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>En Windows, ejecuta el instalador y asegúrate de seleccionar la opción "Add Python to PATH".</p>
+</li>
+<li>
+<p>En macOS, puedes usar Homebrew: <code>brew install python</code>.</p>
+</li>
+<li>
+<p>En Linux, puedes instalar Python utilizando el gestor de paquetes de tu distribución, por ejemplo: <code>sudo apt install python3</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Verificar la instalación</strong>:
+Abre una terminal o consola de comandos y ejecuta:
+[source, bash]
+----
+python --version
+----
+o
+[source, bash]
+----
+python3 --version
+----
+Esto debería mostrar la versión instalada de Python.</p>
+</li>
+<li>
+<p><strong>Instalar un entorno de desarrollo</strong>:
+Puedes utilizar un entorno de desarrollo integrado (IDE) como PyCharm, VSCode o simplemente un editor de texto como Sublime Text.</p>
+</li>
+<li>
+<p><strong>Instalar un entorno virtual (opcional)</strong>:
+Es recomendable utilizar entornos virtuales para proyectos de Python. Éstos permiten aislar las dependencias de un proyecto de otros proyectos y del sistema.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_0_2_introducción_a_los_entornos_virtuales">0.2 Introducción a los Entornos Virtuales</h3>
+<div class="sect3">
+<h4 id="_qué_son_los_entornos_virtuales">¿Qué son los entornos virtuales?</h4>
+<div class="paragraph">
+<p>Los entornos virtuales son herramientas que permiten crear un espacio aislado para proyectos de Python, evitando conflictos de dependencias y asegurando que cada proyecto tenga sus propias bibliotecas y configuraciones.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_0_2_2_ventajas_de_usar_entornos_virtuales">0.2.2. Ventajas de Usar Entornos Virtuales</h3>
+<div class="sect3">
+<h4 id="_aislamiento_de_proyectos">Aislamiento de proyectos</h4>
+<div class="paragraph">
+<p>Cada proyecto puede tener sus propias versiones de bibliotecas, lo que evita problemas de compatibilidad.
+==== Gestión de dependencias
+Facilita la instalación y actualización de paquetes sin afectar otros proyectos.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_0_2_3_entornos_virtuales_comunes">0.2.3. Entornos Virtuales Comunes</h3>
+<div class="sect3">
+<h4 id="_venv">venv</h4>
+<div class="paragraph">
+<p><code>venv</code> es el módulo estándar para crear entornos virtuales en Python 3.</p>
+</div>
+<div class="paragraph">
+<p><strong>Ejemplo de creación y activación de un entorno virtual con <code>venv</code></strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Crear un entorno virtual
+python -m venv mi_entorno
+
+# Activar el entorno virtual en Windows
+mi_entorno\Scripts\activate
+
+# Activar el entorno virtual en macOS/Linux
+source mi_entorno/bin/activate</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_virtualenv">virtualenv</h4>
+<div class="paragraph">
+<p><code>virtualenv</code> es una herramienta más antigua que permite crear entornos virtuales y es compatible con versiones anteriores de Python.</p>
+</div>
+<div class="paragraph">
+<p><strong>Ejemplo de instalación, creación y activación de un entorno virtual con <code>virtualenv</code></strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Instalación de virtualenv
+pip install virtualenv
+
+# Crear un entorno virtual
+virtualenv mi_entorno
+
+# Activar el entorno virtual en Windows
+mi_entorno\Scripts\activate
+
+# Activar el entorno virtual en macOS/Linux
+source mi_entorno/bin/activate</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_conda">conda</h4>
+<div class="paragraph">
+<p><code>conda</code> es un gestor de paquetes y entornos que se utiliza principalmente en la distribución Anaconda, pero también puede usarse independientemente.</p>
+</div>
+<div class="paragraph">
+<p><strong>Ejemplo de creación y activación de un entorno virtual con <code>conda</code></strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Crear un entorno virtual
+conda create --name mi_entorno python=3.9
+
+# Activar el entorno virtual
+conda activate mi_entorno</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_poetry">Poetry</h4>
+<div class="paragraph">
+<p><code>Poetry</code> es una herramienta de gestión de dependencias y entornos que simplifica el manejo de paquetes en proyectos de Python.</p>
+</div>
+<div class="paragraph">
+<p><strong>Ejemplo de instalación, creación y activación de un entorno virtual con <code>Poetry</code></strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Instalación de Poetry
+pip install poetry
+
+# Crear un nuevo proyecto y un entorno virtual
+poetry new mi_proyecto
+cd mi_proyecto
+
+# Activar el entorno virtual de Poetry
+poetry shell</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Instalación de paquetes con Poetry</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Instalar un paquete
+poetry add numpy</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_0_2_4_instalación_de_paquetes_en_entornos_virtuales">0.2.4. Instalación de Paquetes en Entornos Virtuales</h3>
+<div class="paragraph">
+<p>Una vez activado el entorno virtual, puedes instalar paquetes utilizando <code>pip</code>, <code>conda</code> o <code>poetry</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Ejemplo de instalación de un paquete</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Instalar un paquete con pip
+pip install numpy
+
+# Instalar un paquete con conda
+conda install numpy
+
+# Instalar un paquete con poetry
+poetry add numpy</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_0_2_5_desactivación_y_eliminación_de_entornos_virtuales">0.2.5. Desactivación y Eliminación de Entornos Virtuales</h3>
+<div class="sect3">
+<h4 id="_desactivación_del_entorno_virtual">Desactivación del entorno virtual</h4>
+<div class="paragraph">
+<p>Para desactivar el entorno virtual y volver al entorno global, puedes usar el siguiente comando:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Desactivar el entorno virtual
+deactivate  # Para venv y virtualenv
+conda deactivate  # Para conda
+exit  # Para Poetry</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_eliminación_del_entorno_virtual">Eliminación del entorno virtual</h4>
+<div class="paragraph">
+<p>Para eliminar un entorno virtual, simplemente elimina la carpeta del entorno.</p>
+</div>
+<div class="paragraph">
+<p><strong>Ejemplo de eliminación de un entorno virtual</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Eliminar un entorno creado con venv o virtualenv
+rm -rf mi_entorno  # Para macOS/Linux
+rmdir /S mi_entorno  # Para Windows
+
+# Eliminar un entorno creado con conda
+conda env remove --name mi_entorno
+
+# Eliminar un entorno creado con poetry
+poetry env remove python</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_0_2_6_buenas_prácticas_para_el_uso_de_entornos_virtuales">0.2.6. Buenas Prácticas para el Uso de Entornos Virtuales</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Crear un nuevo entorno virtual para cada proyecto.</p>
+</li>
+<li>
+<p>Mantener un archivo <code>requirements.txt</code> o usar <code>pyproject.toml</code> para facilitar la instalación de dependencias.</p>
+</li>
+<li>
+<p>Usar versiones específicas de Python y bibliotecas para garantizar la compatibilidad.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_0_3_jupyter">0.3. Jupyter</h3>
+<div class="sect3">
+<h4 id="_qué_es_jupyter">¿Qué es Jupyter?</h4>
+<div class="paragraph">
+<p>Jupyter es una herramienta de código abierto que permite crear y compartir documentos que contienen código en vivo, ecuaciones, visualizaciones y texto explicativo. Es muy popular en el ámbito de la ciencia de datos, aprendizaje automático y análisis de datos.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_instalación_de_jupyter">Instalación de Jupyter</h4>
+<div class="paragraph">
+<p>Jupyter se puede instalar fácilmente utilizando <code>pip</code> o <code>conda</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Ejemplo de instalación con pip</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Instalar Jupyter Notebook
+pip install notebook</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Ejemplo de instalación con conda</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Instalar Jupyter Notebook
+conda install notebook</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_creación_y_lanzamiento_de_un_notebook">Creación y Lanzamiento de un Notebook</h4>
+<div class="paragraph">
+<p>Una vez que Jupyter esté instalado, puedes crear y lanzar un nuevo notebook.</p>
+</div>
+<div class="paragraph">
+<p><strong>Ejemplo de cómo iniciar Jupyter Notebook</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Iniciar el servidor de Jupyter Notebook
+jupyter notebook</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Esto abrirá una nueva ventana del navegador con la interfaz de Jupyter, donde podrás crear un nuevo notebook seleccionando "New" y luego "Python 3".</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_uso_de_notebooks">Uso de Notebooks</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Celdas de código</strong>: Permiten ejecutar código de Python y ver los resultados directamente en el notebook.</p>
+</li>
+<li>
+<p><strong>Celdas de texto</strong>: Permiten añadir explicaciones utilizando Markdown, lo que facilita la documentación y el análisis de resultados.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Ejemplo de una celda de código</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Celda de código para sumar dos números
+a = 5
+b = 10
+suma = a + b
+suma  # Salida: 15</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Ejemplo de una celda de texto usando Markdown</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-markdown hljs" data-lang="markdown"># Este es un título en Markdown
+
+Aquí puedes explicar los resultados del código anterior. Markdown permite incluir **negritas**, *cursivas* y listas:
+
+- Elemento 1
+- Elemento 2</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_guardar_y_compartir_notebooks">Guardar y Compartir Notebooks</h4>
+<div class="paragraph">
+<p>Los notebooks se guardan con la extensión <code>.ipynb</code>. Puedes compartir el archivo <code>.ipynb</code> con otros usuarios, quienes podrán abrirlo en su propio entorno de Jupyter.</p>
+</div>
+<div class="paragraph">
+<p><strong>Exportar Notebooks</strong>:
+Puedes exportar tu notebook a diferentes formatos, como HTML o PDF, utilizando la opción "Download as" en el menú "File".</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_extensiones_de_jupyter">Extensiones de Jupyter</h4>
+<div class="paragraph">
+<p>Jupyter Notebook tiene muchas extensiones que pueden mejorar su funcionalidad. Algunas de las más populares son:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Jupyter Notebook Extensions</strong>: Un conjunto de extensiones para agregar características adicionales a los notebooks.</p>
+</li>
+<li>
+<p><strong>Nbextensions</strong>: Una colección de extensiones que permiten mejorar la interfaz de usuario y la experiencia de trabajo con Jupyter.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Ejemplo de instalación de extensiones de Jupyter</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Instalar Jupyter Nbextensions
+pip install jupyter_contrib_nbextensions
+
+# Habilitar las extensiones
+jupyter contrib nbextension install --user</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_integración_con_entornos_virtuales">Integración con Entornos Virtuales</h4>
+<div class="paragraph">
+<p>Es recomendable ejecutar Jupyter en un entorno virtual para evitar conflictos con dependencias. Al activar el entorno virtual antes de iniciar Jupyter, el kernel de Jupyter usará las bibliotecas y configuraciones específicas de ese entorno.</p>
+</div>
+<div class="paragraph">
+<p><strong>Ejemplo de integración</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Activar el entorno virtual
+source mi_entorno/bin/activate  # Para macOS/Linux
+mi_entorno\Scripts\activate  # Para Windows
+
+# Iniciar Jupyter Notebook
+jupyter notebook</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_modulo_1_variables_y_estructuras_de_datos">Modulo 1: Variables y Estructuras de Datos</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_introducción">Introducción</h3>
+<div class="paragraph">
+<p>Este módulo está diseñado para que los estudiantes aprendan sobre los diferentes tipos de variables nativas que existen en Python. Se abordarán también las técnicas para manejar estos tipos, con especial énfasis en el trabajo con cadenas de texto, así como los métodos nativos que Python ofrece para manipularlas.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_1_1_tipos_de_variables_en_python">1.1. Tipos de Variables en Python</h3>
+<div class="paragraph">
+<p>Este capítulo presenta los tipos de datos básicos que Python maneja de forma nativa.</p>
+</div>
+<div class="sect3">
+<h4 id="_1_1_1_tipos_nativos_de_python">1.1.1 Tipos Nativos de Python</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>int</strong>: Representa números enteros.</p>
+</li>
+<li>
+<p><strong>float</strong>: Números de punto flotante (decimales).</p>
+</li>
+<li>
+<p><strong>str</strong>: Cadenas de texto.</p>
+</li>
+<li>
+<p><strong>bool</strong>: Valores booleanos (<code>True</code> o <code>False</code>).</p>
+</li>
+<li>
+<p><strong>None</strong>: Representa un valor nulo o indefinido.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_1_1_2_declaración_de_variables">1.1.2 Declaración de Variables</h4>
+<div class="paragraph">
+<p>Explicación sobre cómo declarar variables y asignarles valores.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Ejemplo de declaración de variables
+edad = 30  # int
+altura = 1.75  # float
+nombre = "Carlos"  # str
+es_estudiante = False  # bool</code></pre>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_1_1_3_conversión_entre_tipos_de_datos">1.1.3 Conversión entre Tipos de Datos</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Uso de funciones para conversión entre tipos (<code>int()</code>, <code>float()</code>, <code>str()</code>, etc.)</p>
+</li>
+<li>
+<p>Conversión implícita y explícita.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Conversión entre tipos
+edad = "30"
+edad_entero = int(edad)  # Conversión de str a int
+altura = 1.75
+altura_texto = str(altura)  # Conversión de float a str</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_1_2_manejo_de_cadenas_str">1.2. Manejo de Cadenas (str)</h3>
+<div class="paragraph">
+<p>En este capítulo, se estudia en profundidad el tipo <code>str</code> y sus capacidades. Las cadenas de texto en Python son secuencias inmutables que pueden manipularse utilizando diversos métodos.</p>
+</div>
+<div class="sect3">
+<h4 id="_1_2_1_creación_de_cadenas">1.2.1 Creación de Cadenas</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Cadenas comillas simples, dobles (cadena de texto).</p>
+</li>
+<li>
+<p>Cadenas con comillas triples (multi-línea)</p>
+</li>
+<li>
+<p>fstrings (cadenas formateadas).</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Cadenas con comillas simples, dobles y triples
+cadena1 = 'Hola'
+cadena2 = "Mundo"
+fstring = f"{cadena1} {cadena2}"
+cadena_multilinea = '''Esta es
+una cadena de
+múltiples líneas'''</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_1_2_2_indexación_y_slicing_de_cadenas">1.2.2 Indexación y Slicing de Cadenas</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Acceso a caracteres individuales mediante índices.</p>
+</li>
+<li>
+<p>Uso de slicing para extraer subcadenas.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Indexación y slicing
+nombre = "Python"
+primera_letra = nombre[0]  # 'P'
+subcadena = nombre[1:4]  # 'yth'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_1_2_3_métodos_comunes_para_cadenas">1.2.3 Métodos Comunes para Cadenas</h4>
+<div class="paragraph">
+<p>Explicación de los métodos más utilizados para trabajar con cadenas en Python.</p>
+</div>
+<div class="sect4">
+<h5 id="_1_2_3_1_métodos_de_modificación_de_cadenas">1.2.3.1 Métodos de Modificación de Cadenas</h5>
+<div class="ulist">
+<ul>
+<li>
+<p><code>upper()</code>, <code>lower()</code>: Convertir cadenas a mayúsculas o minúsculas.</p>
+</li>
+<li>
+<p><code>capitalize()</code>: Capitalizar la primera letra.</p>
+</li>
+<li>
+<p><code>strip()</code>: Eliminar espacios en blanco iniciales y finales.</p>
+</li>
+<li>
+<p><code>replace()</code>: Reemplazar subcadenas dentro de una cadena.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">texto = "   hola mundo   "
+texto_modificado = texto.strip().replace("mundo", "Python").capitalize()
+# 'Hola Python'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_1_2_3_2_métodos_de_búsqueda_y_validación">1.2.3.2 Métodos de Búsqueda y Validación</h5>
+<div class="ulist">
+<ul>
+<li>
+<p><code>find()</code>: Buscar la posición de una subcadena.</p>
+</li>
+<li>
+<p><code>startswith()</code>, <code>endswith()</code>: Verificar si una cadena comienza o termina con una subcadena.</p>
+</li>
+<li>
+<p><code>isdigit()</code>, <code>isalpha()</code>, <code>isspace()</code>: Métodos para validar el contenido de una cadena.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">texto = "Python3"
+posicion = texto.find("3")  # Retorna la posición de '3', que es 6
+es_numero = texto.isdigit()  # False, ya que contiene letras</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_1_2_4_formateo_de_cadenas">1.2.4 Formateo de Cadenas</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Uso de <code>f-strings</code> (f"{variable}").</p>
+</li>
+<li>
+<p>Métodos clásicos: <code>format()</code> y el operador <code>%</code>.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Formateo de cadenas con f-strings
+nombre = "Carlos"
+edad = 30
+saludo = f"Hola, me llamo {nombre} y tengo {edad} años"
+# 'Hola, me llamo Carlos y tengo 30 años'</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_1_3_buenas_prácticas_con_cadenas_y_tipos_de_datos">1.3. Buenas Prácticas con Cadenas y Tipos de Datos</h3>
+<div class="paragraph">
+<p>Este capítulo proporciona recomendaciones para trabajar eficientemente con cadenas y variables de otros tipos en Python.</p>
+</div>
+<div class="sect3">
+<h4 id="_1_3_1_evitar_concatenaciones_repetidas">1.3.1 Evitar Concatenaciones Repetidas</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Uso de listas y <code>join()</code> en lugar de concatenaciones repetitivas en bucles.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Forma eficiente de concatenar
+partes = ["Hola", "a", "todos"]
+frase = " ".join(partes)
+# 'Hola a todos'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_1_3_2_validaciones_y_conversión_oportuna_de_tipos">1.3.2 Validaciones y Conversión Oportuna de Tipos</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Validar tipos de datos antes de convertir.</p>
+</li>
+<li>
+<p>Evitar conversiones innecesarias en código crítico de rendimiento.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Validación antes de conversión
+dato = "123"
+if dato.isdigit():
+    numero = int(dato)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_1_4_resumen_y_ejercicios_prácticos">1.4. Resumen y Ejercicios Prácticos</h3>
+<div class="olist arabic">
+<div class="title">Ejercicios Prácticos</div>
+<ol class="arabic">
+<li>
+<p>Declara tres variables: una para almacenar un nombre, otra para la edad y otra para la altura. Imprime los valores de las tres variables.</p>
+</li>
+<li>
+<p>Convierte una variable que contiene un número en formato texto (<code>"45"</code>) a tipo entero y multiplícalo por 2. Imprime el resultado.</p>
+</li>
+<li>
+<p>Utiliza un <code>f-string</code> para imprimir una oración que incluya las siguientes variables: nombre, edad y ciudad.</p>
+</li>
+<li>
+<p>Declara dos variables de tipo <code>str</code> que contengan tu nombre y apellido. Concáténalas en una tercera variable e imprime el resultado.</p>
+</li>
+<li>
+<p>Dada la cadena <code>"python es divertido"</code>, convierte todo el texto a mayúsculas y luego reemplaza la palabra <code>"divertido"</code> por <code>"increíble"</code>.</p>
+</li>
+<li>
+<p>Dada la cadena <code>"aprendiendo python"</code>, imprime el primer y último carácter de la cadena.</p>
+</li>
+<li>
+<p>Dada la cadena <code>"Programación en Python"</code>, usa slicing para extraer la palabra <code>"Python"</code> y guárdala en una nueva variable.</p>
+</li>
+<li>
+<p>Crea una variable con el valor <code>"12345"</code>. Verifica si todos los caracteres de la cadena son dígitos y muestra el resultado en consola.</p>
+</li>
+<li>
+<p>Dada la frase <code>"La vida es bella"</code>, reemplaza la palabra <code>"bella"</code> por <code>"genial"</code>.</p>
+</li>
+<li>
+<p>Dada la cadena <code>"   Hola Mundo   "</code>, elimina los espacios en blanco al principio y al final de la cadena.</p>
+</li>
+<li>
+<p>Dada la cadena <code>"Python"</code>, imprime la tercera letra empezando desde el final.</p>
+</li>
+<li>
+<p>Crea dos variables que contengan cadenas de texto diferentes. Compara si las dos cadenas son iguales o no y muestra el resultado.</p>
+</li>
+<li>
+<p>Dada la cadena <code>"elefante"</code>, cuenta cuántas veces aparece la letra <code>"e"</code> en la cadena.</p>
+</li>
+<li>
+<p>Dada la cadena <code>"hola mundo desde python"</code>, convierte la primera letra de cada palabra a mayúscula.</p>
+</li>
+<li>
+<p>Dada la cadena <code>"Python"</code>, imprime cuántos caracteres contiene.</p>
+</li>
+<li>
+<p>Dada la cadena <code>"Programar en Python es divertido"</code>, extrae la palabra <code>"Python"</code> usando slicing y métodos de indexación.</p>
+</li>
+<li>
+<p>Dada la cadena <code>"  "</code> (dos espacios en blanco), valida si está vacía o solo contiene espacios en blanco.</p>
+</li>
+<li>
+<p>Dada la cadena <code>"PYTHON ES GENIAL"</code>, convierte todos los caracteres a minúsculas.</p>
+</li>
+<li>
+<p>Dada la cadena <code>"Bienvenidos a Python"</code>, valida si empieza con la palabra <code>"Bienvenidos"</code>.</p>
+</li>
+<li>
+<p>Dada una lista de palabras <code>["Python", "es", "genial"]</code>, únelas en una sola cadena separadas por un espacio.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_módulo_2_estructuras_de_control">Módulo 2: Estructuras de Control</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_2_1_condicionales">2.1. Condicionales</h3>
+<div class="sect3">
+<h4 id="_uso_de_if_elif_y_else">Uso de <code>if</code>, <code>elif</code> y <code>else</code>.</h4>
+<div class="paragraph">
+<p>Las estructuras condicionales permiten ejecutar diferentes bloques de código según si una condición es verdadera o falsa. La sintaxis básica es la siguiente:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">if condicion:
+    # Código a ejecutar si la condición es verdadera
+elif otra_condicion:
+    # Código a ejecutar si la otra condición es verdadera
+else:
+    # Código a ejecutar si ninguna de las condiciones anteriores es verdadera</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Ejemplo</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">edad = 18
+
+if edad &lt; 18:
+    print("Eres menor de edad.")
+elif edad == 18:
+    print("Tienes exactamente 18 años.")
+else:
+    print("Eres mayor de edad.")</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_ejemplos_prácticos">Ejemplos prácticos.</h4>
+<div class="paragraph">
+<p>Veamos un ejemplo más práctico que evalúa la calificación de un estudiante:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">calificacion = 85
+
+if calificacion &gt;= 90:
+    print("A")
+elif calificacion &gt;= 80:
+    print("B")
+elif calificacion &gt;= 70:
+    print("C")
+elif calificacion &gt;= 60:
+    print("D")
+else:
+    print("F")</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Este código evalúa la calificación y asigna una letra según el rango correspondiente.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_2_2_bucles">2.2. Bucles</h3>
+<div class="sect3">
+<h4 id="_bucles_for_y_while">Bucles <code>for</code> y <code>while</code>.</h4>
+<div class="paragraph">
+<p>Los bucles permiten repetir un bloque de código varias veces. Python ofrece dos tipos principales de bucles: <code>for</code> y <code>while</code>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Bucle <code>for</code></strong>: Se utiliza para iterar sobre una secuencia (lista, tupla, cadena, etc.).</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>for i in range(5):
+    print(i)  # Imprime los números del 0 al 4</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Bucle <code>while</code></strong>: Continúa ejecutando el bloque de código mientras la condición sea verdadera.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>contador = 0
+while contador &lt; 5:
+    print(contador)
+    contador += 1  # Incrementa el contador</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_control_de_bucles_break_continue_y_pass">Control de bucles: <code>break</code>, <code>continue</code> y <code>pass</code>.</h4>
+<div class="paragraph">
+<p>Python permite controlar la ejecución de bucles mediante las palabras clave <code>break</code>, <code>continue</code> y <code>pass</code>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong><code>break</code></strong>: Sale del bucle inmediatamente.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>for i in range(10):
+    if i == 5:
+        break  # Sale del bucle cuando i es 5
+    print(i)  # Imprime 0 a 4</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong><code>continue</code></strong>: Salta a la siguiente iteración del bucle.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>for i in range(5):
+    if i == 2:
+        continue  # Salta el número 2
+    print(i)  # Imprime 0, 1, 3, 4</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong><code>pass</code></strong>: Se utiliza como un marcador de posición. No realiza ninguna acción y permite que el código siga ejecutándose.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>for i in range(5):
+    if i == 2:
+        pass  # No hace nada
+    print(i)  # Imprime 0, 1, 2, 3, 4</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Estas estructuras de control son fundamentales para controlar el flujo de un programa y realizar tareas repetitivas o condicionales en Python.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_módulo_3_estructuras_de_datos">Módulo 3: Estructuras de Datos</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_3_1_listas">3.1. Listas</h3>
+<div class="paragraph">
+<p>Las listas son una de las estructuras de datos más utilizadas en Python. Son colecciones ordenadas y mutables que permiten almacenar múltiples elementos en una sola variable. Las listas pueden contener elementos de diferentes tipos, incluidos otros tipos de listas.</p>
+</div>
+<div class="sect3">
+<h4 id="_creación_de_listas">Creación de Listas</h4>
+<div class="paragraph">
+<p>Las listas se definen utilizando corchetes <code>[]</code> y los elementos se separan por comas.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Definir una lista vacía
+lista_vacia = []
+
+# Definir una lista con elementos
+frutas = ["manzana", "banana", "naranja", "kiwi"]
+print(frutas)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_acceso_a_elementos_de_una_lista">Acceso a Elementos de una Lista</h4>
+<div class="paragraph">
+<p>Se puede acceder a los elementos de una lista mediante su índice, donde el primer elemento tiene el índice 0.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Acceder a elementos
+primera_fruta = frutas[0]  # 'manzana'
+ultima_fruta = frutas[-1]  # 'kiwi'
+print(primera_fruta, ultima_fruta)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_modificación_de_elementos">Modificación de Elementos</h4>
+<div class="paragraph">
+<p>Las listas son mutables, lo que significa que se pueden cambiar los elementos después de su creación.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Modificar un elemento
+frutas[1] = "fresa"
+print(frutas)  # ['manzana', 'fresa', 'naranja', 'kiwi']</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_métodos_comunes_de_listas">Métodos Comunes de Listas</h4>
+<div class="paragraph">
+<p>Python ofrece varios métodos para trabajar con listas:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>append()</code>: Agrega un elemento al final de la lista.</p>
+</li>
+<li>
+<p><code>insert()</code>: Inserta un elemento en una posición específica.</p>
+</li>
+<li>
+<p><code>remove()</code>: Elimina el primer elemento que coincide con el valor especificado.</p>
+</li>
+<li>
+<p><code>pop()</code>: Elimina y devuelve el elemento en la posición especificada (o el último si no se especifica).</p>
+</li>
+<li>
+<p><code>sort()</code>: Ordena los elementos de la lista.</p>
+</li>
+<li>
+<p><code>reverse()</code>: Invierte el orden de los elementos de la lista.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Ejemplos de uso de métodos:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Usar métodos de listas
+frutas.append("mora")  # Agregar al final
+print(frutas)  # ['manzana', 'fresa', 'naranja', 'kiwi', 'mora']
+
+frutas.insert(2, "cereza")  # Insertar en la posición 2
+print(frutas)  # ['manzana', 'fresa', 'cereza', 'naranja', 'kiwi', 'mora']
+
+frutas.remove("fresa")  # Eliminar 'fresa'
+print(frutas)  # ['manzana', 'cereza', 'naranja', 'kiwi', 'mora']
+
+ultima_fruta = frutas.pop()  # Eliminar y obtener el último elemento
+print(ultima_fruta)  # 'mora'
+print(frutas)  # ['manzana', 'cereza', 'naranja', 'kiwi']
+
+frutas.sort()  # Ordenar la lista
+print(frutas)  # ['cereza', 'kiwi', 'manzana', 'naranja']
+
+frutas.reverse()  # Invertir la lista
+print(frutas)  # ['naranja', 'manzana', 'kiwi', 'cereza']</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_iteración_sobre_listas">Iteración sobre Listas</h4>
+<div class="paragraph">
+<p>Se pueden usar bucles <code>for</code> para iterar sobre los elementos de una lista.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Iterar sobre una lista
+for fruta in frutas:
+    print(fruta)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_listas_anidadas">Listas Anidadas</h4>
+<div class="paragraph">
+<p>Las listas pueden contener otras listas como elementos, formando listas anidadas.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Definir una lista anidada
+lista_anidada = [
+    ["manzana", "banana"],
+    ["naranja", "kiwi"]
+]
+
+print(lista_anidada[0][1])  # Acceder a 'banana'</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_3_2_tuplas">3.2. Tuplas</h3>
+<div class="sect3">
+<h4 id="_características_y_usos">Características y usos.</h4>
+<div class="paragraph">
+<p>Las tuplas son colecciones ordenadas e inmutables de elementos. Se definen utilizando paréntesis <code>()</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Creación de tuplas</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">punto = (10, 20)  # Tupla de dos elementos
+coordenadas = (1, 2, 3)  # Tupla de tres elementos</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Características de las tuplas</strong>:
+- <strong>Inmutabilidad</strong>: Una vez creadas, no se pueden modificar (no puedes agregar, eliminar ni cambiar elementos).
+- <strong>Acceso</strong>: Puedes acceder a los elementos mediante índices, al igual que las listas.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">print(punto[0])  # Imprime 10</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Usos comunes</strong>:
+- Almacenar datos que no deben cambiar a lo largo del tiempo.
+- Usar como claves en diccionarios, ya que son inmutables.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_3_3_diccionarios">3.3. Diccionarios</h3>
+<div class="paragraph">
+<p>Los diccionarios son una estructura de datos en Python que permite almacenar pares de clave-valor. Son mutables y desordenados, lo que significa que no mantienen un orden específico de los elementos. Cada clave debe ser única dentro de un diccionario.</p>
+</div>
+<div class="sect3">
+<h4 id="_creación_de_diccionarios">Creación de Diccionarios</h4>
+<div class="paragraph">
+<p>Los diccionarios se definen utilizando llaves <code>{}</code> y los pares de clave-valor se separan por comas. Las claves y los valores se separan con dos puntos <code>:</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Definir un diccionario vacío
+diccionario_vacio = {}
+
+# Definir un diccionario con elementos
+persona = {
+    "nombre": "Juan",
+    "edad": 30,
+    "ciudad": "Madrid"
+}
+print(persona)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_acceso_a_valores">Acceso a Valores</h4>
+<div class="paragraph">
+<p>Se puede acceder a los valores de un diccionario utilizando su clave.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Acceder a valores
+nombre_persona = persona["nombre"]  # 'Juan'
+edad_persona = persona["edad"]  # 30
+print(nombre_persona, edad_persona)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_modificación_de_valores">Modificación de Valores</h4>
+<div class="paragraph">
+<p>Los diccionarios son mutables, lo que permite cambiar los valores asociados a las claves.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Modificar un valor
+persona["edad"] = 31
+print(persona)  # {'nombre': 'Juan', 'edad': 31, 'ciudad': 'Madrid'}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_agregar_y_eliminar_elementos">Agregar y Eliminar Elementos</h4>
+<div class="paragraph">
+<p>Se pueden agregar nuevos pares de clave-valor o eliminar existentes.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Agregar un nuevo elemento
+persona["profesion"] = "Ingeniero"
+print(persona)  # {'nombre': 'Juan', 'edad': 31, 'ciudad': 'Madrid', 'profesion': 'Ingeniero'}
+
+# Eliminar un elemento
+del persona["ciudad"]
+print(persona)  # {'nombre': 'Juan', 'edad': 31, 'profesion': 'Ingeniero'}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_métodos_comunes_de_diccionarios">Métodos Comunes de Diccionarios</h4>
+<div class="paragraph">
+<p>Python proporciona varios métodos útiles para trabajar con diccionarios:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>keys()</code>: Devuelve una vista de todas las claves en el diccionario.</p>
+</li>
+<li>
+<p><code>values()</code>: Devuelve una vista de todos los valores en el diccionario.</p>
+</li>
+<li>
+<p><code>items()</code>: Devuelve una vista de todos los pares clave-valor.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Ejemplos de uso de métodos:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Usar métodos de diccionarios
+claves = persona.keys()  # Obtener las claves
+valores = persona.values()  # Obtener los valores
+pares = persona.items()  # Obtener los pares clave-valor
+
+print(claves)  # dict_keys(['nombre', 'edad', 'profesion'])
+print(valores)  # dict_values(['Juan', 31, 'Ingeniero'])
+print(pares)  # dict_items([('nombre', 'Juan'), ('edad', 31), ('profesion', 'Ingeniero')])</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_comprobación_de_claves">Comprobación de Claves</h4>
+<div class="paragraph">
+<p>Se puede comprobar si una clave existe en un diccionario utilizando el operador <code>in</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Comprobar si una clave existe
+existe_nombre = "nombre" in persona  # True
+existe_ciudad = "ciudad" in persona  # False
+print(existe_nombre, existe_ciudad)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_iteración_sobre_diccionarios">Iteración sobre Diccionarios</h4>
+<div class="paragraph">
+<p>Se pueden usar bucles <code>for</code> para iterar sobre las claves, valores o pares clave-valor de un diccionario.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Iterar sobre un diccionario
+for clave, valor in persona.items():
+    print(f"{clave}: {valor}")</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_diccionarios_anidados">Diccionarios Anidados</h4>
+<div class="paragraph">
+<p>Los diccionarios pueden contener otros diccionarios como valores, formando diccionarios anidados.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Definir un diccionario anidado
+empresa = {
+    "nombre": "Tech Co",
+    "empleados": {
+        "1": {"nombre": "Juan", "edad": 30},
+        "2": {"nombre": "Ana", "edad": 25}
+    }
+}
+
+print(empresa["empleados"]["1"]["nombre"])  # 'Juan'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_resumen">Resumen</h4>
+<div class="paragraph">
+<p>Los diccionarios son una estructura poderosa en Python que permite almacenar datos en pares de clave-valor. Su mutabilidad y la facilidad para acceder y modificar datos los convierten en una herramienta esencial para el manejo de datos.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_3_4_conjuntos">3.4. Conjuntos</h3>
+<div class="sect3">
+<h4 id="_definición_y_operaciones">Definición y operaciones.</h4>
+<div class="paragraph">
+<p>Los conjuntos son colecciones desordenadas de elementos únicos. Se definen utilizando llaves <code>{}</code> o la función <code>set()</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Creación de conjuntos</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">conjunto = {1, 2, 3, 4, 5}  # Conjunto de números
+conjunto_vacio = set()  # Conjunto vacío</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Operaciones con conjuntos</strong>:
+- <strong>Agregar elementos</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">conjunto.add(6)  # Agrega el número 6</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Eliminar elementos</strong>:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>conjunto.remove(3)  # Elimina el número 3</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Operaciones matemáticas</strong>:
+Los conjuntos permiten realizar operaciones matemáticas como unión, intersección y diferencia.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>conjunto_a = {1, 2, 3}
+conjunto_b = {3, 4, 5}
+
+unidos = conjunto_a.union(conjunto_b)  # Unión
+interseccion = conjunto_a.intersection(conjunto_b)  # Intersección
+diferencia = conjunto_a.difference(conjunto_b)  # Diferencia</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Estas estructuras de datos son fundamentales para organizar y manipular información en Python de manera eficiente.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_módulo_4_funciones_y_módulos">Módulo 4: Funciones y Módulos</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_4_1_definición_y_llamada_de_funciones">4.1. Definición y Llamada de Funciones</h3>
+<div class="paragraph">
+<p>Las funciones son bloques de código reutilizables que realizan una tarea específica. En Python, se pueden definir funciones utilizando la palabra clave <code>def</code>, seguida del nombre de la función y paréntesis que pueden incluir parámetros.</p>
+</div>
+<div class="sect3">
+<h4 id="_definición_de_funciones">Definición de Funciones</h4>
+<div class="paragraph">
+<p>La sintaxis básica para definir una función es la siguiente:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">def nombre_de_la_funcion(parametro1, parametro2):
+    """Docstring: descripción de la función."""
+    # Código de la función
+    return resultado</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Ejemplo de definición de una función que suma dos números:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">def sumar(a, b):
+    """Devuelve la suma de a y b."""
+    return a + b</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_llamada_a_funciones">Llamada a Funciones</h4>
+<div class="paragraph">
+<p>Para llamar a una función, se utiliza su nombre seguido de paréntesis, pasando los argumentos necesarios.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">resultado = sumar(5, 3)  # Llamada a la función sumar
+print(resultado)  # 8</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_funciones_sin_parámetros">Funciones sin Parámetros</h4>
+<div class="paragraph">
+<p>También se pueden definir funciones que no requieren parámetros. En este caso, se pueden definir sin paréntesis o con paréntesis vacíos.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">def saludar():
+    """Imprime un saludo."""
+    print("¡Hola, mundo!")
+
+# Llamar a la función
+saludar()  # ¡Hola, mundo!</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_parámetros_predeterminados">Parámetros Predeterminados</h4>
+<div class="paragraph">
+<p>Es posible definir valores predeterminados para los parámetros de una función. Si no se proporciona un valor al llamar a la función, se utilizará el valor predeterminado.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">def saludar(nombre="invitado"):
+    """Imprime un saludo personalizado."""
+    print(f"¡Hola, {nombre}!")
+
+saludar()  # ¡Hola, invitado!
+saludar("Ana")  # ¡Hola, Ana!</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_argumentos_posicionales_y_nombrados">Argumentos Posicionales y Nombrados</h4>
+<div class="paragraph">
+<p>Al llamar a funciones, se pueden pasar argumentos de forma posicional o mediante nombres.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">def mostrar_info(nombre, edad):
+    """Muestra la información de una persona."""
+    print(f"Nombre: {nombre}, Edad: {edad}")
+
+# Argumentos posicionales
+mostrar_info("Juan", 30)  # Nombre: Juan, Edad: 30
+
+# Argumentos nombrados
+mostrar_info(edad=25, nombre="Ana")  # Nombre: Ana, Edad: 25</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_funciones_con_cantidad_variable_de_argumentos">Funciones con Cantidad Variable de Argumentos</h4>
+<div class="paragraph">
+<p>Las funciones pueden aceptar una cantidad variable de argumentos utilizando <code><strong>args</code> y <code></strong>*kwargs</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">def sumar_varios(*args):
+    """Devuelve la suma de todos los argumentos."""
+    return sum(args)
+
+resultado = sumar_varios(1, 2, 3, 4)
+print(resultado)  # 10
+
+def mostrar_info_varios(**kwargs):
+    """Muestra la información de varias personas."""
+    for clave, valor in kwargs.items():
+        print(f"{clave}: {valor}")
+
+mostrar_info_varios(Juan=30, Ana=25)  # Juan: 30, Ana: 25</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_4_2_funciones_lambda">4.2. Funciones Lambda</h3>
+<div class="paragraph">
+<p>Las funciones lambda en Python son funciones anónimas que se definen con la palabra clave <code>lambda</code>. Estas funciones son útiles para operaciones simples y se utilizan comúnmente cuando se necesita una función por un corto período de tiempo.</p>
+</div>
+<div class="sect3">
+<h4 id="_sintaxis_de_las_funciones_lambda">Sintaxis de las Funciones Lambda</h4>
+<div class="paragraph">
+<p>La sintaxis básica de una función lambda es la siguiente:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">lambda argumentos: expresión</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>La función toma argumentos y devuelve el resultado de la expresión.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_ejemplo_de_una_función_lambda">Ejemplo de una Función Lambda</h4>
+<div class="paragraph">
+<p>Un ejemplo básico de una función lambda que suma dos números:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">suma = lambda x, y: x + y
+resultado = suma(5, 3)  # Llamada a la función lambda
+print(resultado)  # 8</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_uso_de_funciones_lambda_con_map">Uso de Funciones Lambda con <code>map()</code></h4>
+<div class="paragraph">
+<p>Las funciones lambda son especialmente útiles con funciones de orden superior como <code>map()</code>, que aplica una función a todos los elementos de una lista.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">numeros = [1, 2, 3, 4, 5]
+cuadrados = list(map(lambda x: x ** 2, numeros))  # Elevar al cuadrado
+print(cuadrados)  # [1, 4, 9, 16, 25]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_uso_de_funciones_lambda_con_filter">Uso de Funciones Lambda con <code>filter()</code></h4>
+<div class="paragraph">
+<p>Las funciones lambda también se pueden usar con <code>filter()</code>, que filtra elementos de una lista en función de una condición.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">numeros = [1, 2, 3, 4, 5, 6]
+pares = list(filter(lambda x: x % 2 == 0, numeros))  # Filtrar números pares
+print(pares)  # [2, 4, 6]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_uso_de_funciones_lambda_con_sorted">Uso de Funciones Lambda con <code>sorted()</code></h4>
+<div class="paragraph">
+<p>Las funciones lambda se pueden utilizar como clave para ordenar listas de manera personalizada.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">personas = [
+    {"nombre": "Juan", "edad": 30},
+    {"nombre": "Ana", "edad": 25},
+    {"nombre": "Luis", "edad": 35}
+]
+
+# Ordenar por edad
+personas_ordenadas = sorted(personas, key=lambda p: p["edad"])
+print(personas_ordenadas)
+# [{'nombre': 'Ana', 'edad': 25}, {'nombre': 'Juan', 'edad': 30}, {'nombre': 'Luis', 'edad': 35}]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_ventajas_y_desventajas">Ventajas y Desventajas</h4>
+<div class="paragraph">
+<p>Las funciones lambda tienen varias ventajas y desventajas:</p>
+</div>
+<div class="paragraph">
+<p><strong>Ventajas:</strong>
+- Sintaxis concisa para funciones pequeñas.
+- Ideal para usar en situaciones temporales.</p>
+</div>
+<div class="paragraph">
+<p><strong>Desventajas:</strong>
+- Limitadas a una sola expresión.
+- Menos legibles que las funciones tradicionales si se usan en exceso.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_4_3_funciones_lambda_y_métodos_de_listas">4.3. Funciones Lambda y Métodos de Listas</h3>
+<div class="paragraph">
+<p>Las funciones lambda se pueden usar en combinación con los métodos de listas para realizar operaciones de manera más eficiente y concisa. Esto resulta especialmente útil en situaciones donde se requiere una función simple para procesar elementos de una lista.</p>
+</div>
+<div class="sect3">
+<h4 id="_uso_de_funciones_lambda_con_el_método_sort">Uso de Funciones Lambda con el Método <code>sort()</code></h4>
+<div class="paragraph">
+<p>El método <code>sort()</code> de las listas se utiliza para ordenar los elementos de una lista. Se puede pasar una función lambda como argumento a <code>key</code> para definir un criterio de ordenación personalizado.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">nombres = ["Juan", "Ana", "Luis", "Pedro"]
+
+# Ordenar por longitud del nombre
+nombres.sort(key=lambda x: len(x))
+print(nombres)  # ['Ana', 'Luis', 'Juan', 'Pedro']</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_uso_de_funciones_lambda_con_el_método_append">Uso de Funciones Lambda con el Método <code>append()</code></h4>
+<div class="paragraph">
+<p>Aunque <code>append()</code> no toma funciones como argumentos, se puede utilizar una función lambda junto con otras funciones para agregar elementos a una lista.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">numeros = []
+
+# Usar lambda para definir un valor y agregarlo a la lista
+for i in range(5):
+    numeros.append((lambda x: x * 2)(i))
+
+print(numeros)  # [0, 2, 4, 6, 8]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_uso_de_funciones_lambda_con_el_método_filter">Uso de Funciones Lambda con el Método <code>filter()</code></h4>
+<div class="paragraph">
+<p>El método <code>filter()</code> se puede utilizar para filtrar elementos de una lista en función de una condición definida por una función lambda. Aunque <code>filter()</code> no es un método de lista en sí, se utiliza comúnmente en conjunto con listas.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">numeros = [1, 2, 3, 4, 5, 6]
+
+# Filtrar números pares
+pares = list(filter(lambda x: x % 2 == 0, numeros))
+print(pares)  # [2, 4, 6]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_uso_de_funciones_lambda_con_el_método_map">Uso de Funciones Lambda con el Método <code>map()</code></h4>
+<div class="paragraph">
+<p>El método <code>map()</code> aplica una función a todos los elementos de una lista y devuelve un objeto iterable. Se puede utilizar una función lambda para transformar los elementos de manera sencilla.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">numeros = [1, 2, 3, 4]
+
+# Elevar al cuadrado cada número
+cuadrados = list(map(lambda x: x ** 2, numeros))
+print(cuadrados)  # [1, 4, 9, 16]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_uso_de_funciones_lambda_con_el_método_reduce">Uso de Funciones Lambda con el Método <code>reduce()</code></h4>
+<div class="paragraph">
+<p>El método <code>reduce()</code> (disponible en el módulo <code>functools</code>) se puede utilizar para aplicar una función cumulativa a los elementos de una lista. Se puede combinar con funciones lambda para realizar operaciones de agregación.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from functools import reduce
+
+numeros = [1, 2, 3, 4]
+
+# Sumar todos los números
+suma_total = reduce(lambda x, y: x + y, numeros)
+print(suma_total)  # 10</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_resumen_2">Resumen</h4>
+<div class="paragraph">
+<p>Las funciones lambda, al ser combinadas con los métodos de listas, permiten realizar operaciones de manera concisa y eficiente. Su uso junto con métodos como <code>sort()</code>, <code>map()</code>, <code>filter()</code>, y <code>reduce()</code> hace que el código sea más limpio y fácil de entender, especialmente para tareas de procesamiento de datos.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_4_4_módulos_y_paquetes">4.4. Módulos y paquetes</h3>
+<div class="sect3">
+<h4 id="_importación_de_módulos_y_creación_de_módulos_propios">Importación de módulos y creación de módulos propios.</h4>
+<div class="paragraph">
+<p>Los módulos son archivos que contienen funciones, clases y variables que puedes importar y utilizar en otros scripts. Los paquetes son colecciones de módulos.</p>
+</div>
+<div class="paragraph">
+<p><strong>Importación de módulos</strong>:
+Para utilizar un módulo, debes importarlo utilizando la palabra clave <code>import</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Ejemplo de importación</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import math  # Importa el módulo math
+
+print(math.sqrt(16))  # Salida: 4.0 (raíz cuadrada de 16)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>También puedes importar funciones específicas de un módulo:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from math import pi, sin  # Importa pi y sin del módulo math
+
+print(pi)  # Salida: 3.141592653589793
+print(sin(pi / 2))  # Salida: 1.0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Creación de módulos propios</strong>:
+Puedes crear tu propio módulo guardando funciones en un archivo <code>.py</code>. Por ejemplo, crea un archivo llamado <code>mi_modulo.py</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Contenido de mi_modulo.py
+def multiplicar(a, b):
+    return a * b</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Luego, puedes importar y usar este módulo en otro archivo:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import mi_modulo
+
+resultado = mi_modulo.multiplicar(3, 4)
+print(resultado)  # Salida: 12</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Los módulos y funciones son herramientas poderosas que te permiten organizar y reutilizar el código de manera eficiente.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_4_5_ejercicios_prácticos">4.5 Ejercicios Prácticos</h3>
+
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ejercicios_sobre_funciones_y_funciones_lambda">Ejercicios sobre Funciones y Funciones Lambda</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Definir una función que reciba un número y devuelva su cuadrado.</p>
+</li>
+<li>
+<p>Crear una función que tome dos números como argumentos y devuelva su suma.</p>
+</li>
+<li>
+<p>Escribir una función que reciba una lista de números y devuelva la suma de todos sus elementos.</p>
+</li>
+<li>
+<p>Definir una función que tome una cadena de texto y devuelva la misma cadena en mayúsculas.</p>
+</li>
+<li>
+<p>Crear una función que reciba un número y devuelva <code>True</code> si es par, y <code>False</code> si es impar.</p>
+</li>
+<li>
+<p>Escribir una función que tome una lista de nombres y devuelva la longitud del nombre más largo.</p>
+</li>
+<li>
+<p>Definir una función que reciba un diccionario y devuelva una lista con todas sus claves.</p>
+</li>
+<li>
+<p>Crear una función que tome una cadena y devuelva la cantidad de vocales que contiene.</p>
+</li>
+<li>
+<p>Escribir una función que reciba un número y devuelva una lista con todos los números primos hasta ese número.</p>
+</li>
+<li>
+<p>Definir una función que tome dos listas y devuelva una lista con los elementos comunes entre ambas.</p>
+</li>
+<li>
+<p>Crear una función lambda que reciba dos números y devuelva su producto.</p>
+</li>
+<li>
+<p>Definir una función lambda que tome una lista de números y devuelva una nueva lista con el doble de cada número.</p>
+</li>
+<li>
+<p>Escribir una función lambda que reciba una cadena y devuelva <code>True</code> si es un palíndromo, y <code>False</code> si no lo es.</p>
+</li>
+<li>
+<p>Crear una función lambda que reciba un número y devuelva su factorial.</p>
+</li>
+<li>
+<p>Escribir una función lambda que tome una lista de palabras y devuelva una lista con las palabras que tienen más de 5 letras.</p>
+</li>
+<li>
+<p>Usar funciones lambda para elevar al cubo cada número en una lista.</p>
+</li>
+<li>
+<p>Utilizar funciones lambda para obtener todos los números impares de una lista.</p>
+</li>
+<li>
+<p>Aplicar funciones lambda para ordenar una lista de tuplas por el segundo elemento.</p>
+</li>
+<li>
+<p>Combinar funciones lambda para calcular el producto de todos los elementos en una lista.</p>
+</li>
+<li>
+<p>Crear una lista de diccionarios y obtener una lista con solo los nombres de las personas en los diccionarios.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_módulo_5_manejo_de_archivos">Módulo 5: Manejo de Archivos</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_5_1_lectura_y_escritura_de_archivos">5.1. Lectura y escritura de archivos</h3>
+<div class="sect3">
+<h4 id="_archivos_de_texto_y_binarios">Archivos de texto y binarios.</h4>
+<div class="paragraph">
+<p>El manejo de archivos es una parte importante de la programación en Python. Puedes trabajar con archivos de texto y binarios para almacenar y recuperar datos.</p>
+</div>
+<div class="paragraph">
+<p><strong>Lectura de archivos de texto</strong>:
+Para leer un archivo de texto, puedes usar la función <code>open()</code> en modo de lectura (<code>'r'</code>). Asegúrate de cerrar el archivo después de usarlo, o utiliza la declaración <code>with</code> que se encarga de cerrarlo automáticamente.</p>
+</div>
+<div class="paragraph">
+<p><strong>Ejemplo de lectura</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Lee un archivo de texto
+with open('archivo.txt', 'r') as archivo:
+    contenido = archivo.read()  # Lee todo el contenido del archivo
+    print(contenido)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Escritura en archivos de texto</strong>:
+Para escribir en un archivo, abre el archivo en modo de escritura (<code>'w'</code>). Si el archivo no existe, se creará; si ya existe, se sobrescribirá.</p>
+</div>
+<div class="paragraph">
+<p><strong>Ejemplo de escritura</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Escribe en un archivo de texto
+with open('archivo.txt', 'w') as archivo:
+    archivo.write("Hola, mundo!\n")  # Escribe una línea en el archivo
+    archivo.write("Esta es otra línea.\n")</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Archivos binarios</strong>:
+Para trabajar con archivos binarios, usa los modos <code>'rb'</code> (lectura binaria) o <code>'wb'</code> (escritura binaria).</p>
+</div>
+<div class="paragraph">
+<p><strong>Ejemplo de lectura de un archivo binario</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">with open('archivo.bin', 'rb') as archivo:
+    contenido_binario = archivo.read()  # Lee el contenido binario del archivo
+    print(contenido_binario)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Ejemplo de escritura en un archivo binario</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">with open('archivo.bin', 'wb') as archivo:
+    datos = bytearray([120, 3, 255, 0, 100])  # Crea un array de bytes
+    archivo.write(datos)  # Escribe los datos binarios en el archivo</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_5_2_manejo_de_excepciones">5.2. Manejo de Excepciones</h3>
+<div class="paragraph">
+<p>El manejo de excepciones en Python permite gestionar errores y situaciones inesperadas que pueden surgir durante la ejecución de un programa. Esto ayuda a mantener la estabilidad del programa y a ofrecer una experiencia de usuario más controlada.</p>
+</div>
+<div class="sect3">
+<h4 id="_introducción_a_las_excepciones">Introducción a las Excepciones</h4>
+<div class="paragraph">
+<p>Las excepciones son eventos que pueden alterar el flujo normal de un programa. Python ofrece una manera de manejar estas situaciones mediante el uso de bloques <code>try</code>, <code>except</code>, <code>else</code>, y <code>finally</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_sintaxis_del_manejo_de_excepciones">Sintaxis del Manejo de Excepciones</h4>
+<div class="paragraph">
+<p>La estructura básica para manejar excepciones es la siguiente:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">try:
+    # Código que puede causar una excepción
+except TipoDeExcepcion:
+    # Código que se ejecuta si ocurre la excepción
+else:
+    # Código que se ejecuta si no ocurre ninguna excepción
+finally:
+    # Código que se ejecuta siempre, haya ocurrido o no una excepción</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_ejemplo_de_manejo_de_excepciones">Ejemplo de Manejo de Excepciones</h4>
+<div class="paragraph">
+<p>A continuación se muestra un ejemplo simple de manejo de excepciones al intentar convertir una cadena en un número entero:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">try:
+    numero = int(input("Introduce un número: "))
+    print(f"El número introducido es: {numero}")
+except ValueError:
+    print("¡Error! No se pudo convertir la cadena a un número.")
+finally:
+    print("Fin del programa.")</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_captura_de_múltiples_excepciones">Captura de Múltiples Excepciones</h4>
+<div class="paragraph">
+<p>Es posible capturar múltiples tipos de excepciones usando varias cláusulas <code>except</code>. También se puede usar una sola cláusula <code>except</code> para manejar varias excepciones.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">try:
+    resultado = 10 / int(input("Introduce un divisor: "))
+except ValueError:
+    print("¡Error! Se esperaba un número.")
+except ZeroDivisionError:
+    print("¡Error! No se puede dividir por cero.")
+except (TypeError, NameError):
+    print("¡Error! Tipo de dato no válido.")
+else:
+    print(f"El resultado es: {resultado}")
+finally:
+    print("Fin del programa.")</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_excepciones_personalizadas">Excepciones Personalizadas</h4>
+<div class="paragraph">
+<p>Puedes definir tus propias excepciones creando una clase que herede de <code>Exception</code>. Esto permite un manejo más específico de errores en tu programa.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">class MiExcepcion(Exception):
+    """Excepción personalizada."""
+    pass
+
+try:
+    raise MiExcepcion("Este es un error personalizado.")
+except MiExcepcion as e:
+    print(f"Se ha producido una excepción: {e}")</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_resumen_3">Resumen</h4>
+<div class="paragraph">
+<p>El manejo de excepciones es una parte fundamental de la programación en Python, ya que permite gestionar errores y mantener el control del flujo de ejecución del programa. Con el uso de bloques <code>try</code> y <code>except</code>, así como la posibilidad de definir excepciones personalizadas, los programadores pueden crear aplicaciones más robustas y amigables con el usuario.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_módulo_6_programación_orientada_a_objetos_oop">Módulo 6: Programación Orientada a Objetos (OOP)</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_6_1_clases_y_objetos">6.1. Clases y Objetos</h3>
+<div class="paragraph">
+<p>La programación orientada a objetos (OOP) es un paradigma de programación que utiliza "clases" y "objetos" para organizar el código. En Python, las clases son plantillas para crear objetos, que son instancias de clases.</p>
+</div>
+<div class="sect3">
+<h4 id="_definición_de_clases">Definición de Clases</h4>
+<div class="paragraph">
+<p>Una clase se define utilizando la palabra clave <code>class</code>, seguida del nombre de la clase y dos puntos. Las clases pueden contener atributos (variables) y métodos (funciones).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">class NombreDeLaClase:
+    """Docstring: descripción de la clase."""
+
+    def __init__(self, atributo1, atributo2):
+        """Constructor: inicializa los atributos de la clase."""
+        self.atributo1 = atributo1
+        self.atributo2 = atributo2
+
+    def metodo(self):
+        """Un método de la clase."""
+        pass</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_creación_de_objetos">Creación de Objetos</h4>
+<div class="paragraph">
+<p>Para crear un objeto a partir de una clase, se llama a la clase como si fuera una función, pasando los argumentos necesarios para el constructor.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">class Persona:
+    def __init__(self, nombre, edad):
+        self.nombre = nombre
+        self.edad = edad
+
+    def saludar(self):
+        print(f"¡Hola, mi nombre es {self.nombre} y tengo {self.edad} años!")
+
+# Crear un objeto de la clase Persona
+persona1 = Persona("Juan", 30)
+persona1.saludar()  # ¡Hola, mi nombre es Juan y tengo 30 años!</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_atributos_de_clase_y_atributos_de_instancia">Atributos de Clase y Atributos de Instancia</h4>
+<div class="paragraph">
+<p>Los atributos se pueden clasificar en atributos de instancia (específicos para cada objeto) y atributos de clase (compartidos entre todos los objetos de la clase).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">class Coche:
+    marca = "Toyota"  # Atributo de clase
+
+    def __init__(self, modelo):
+        self.modelo = modelo  # Atributo de instancia
+
+coche1 = Coche("Corolla")
+coche2 = Coche("Camry")
+
+print(coche1.marca)  # Toyota
+print(coche2.marca)  # Toyota
+print(coche1.modelo)  # Corolla
+print(coche2.modelo)  # Camry</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_diferencia_entre_y_en_nombres_de_atributos_privados">Diferencia entre _ y __ en Nombres de Atributos Privados</h4>
+<div class="paragraph">
+<p>En Python, el uso de un solo guion bajo (<code><em></code>) y dos guiones bajos (<code>_</em></code>) tiene diferentes implicaciones en cuanto al acceso y la visibilidad de los atributos y métodos dentro de las clases.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>_ (Guion Bajo Simple)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Un solo guion bajo se utiliza como una convención para indicar que un atributo o método es "privado" y no debería ser accedido directamente desde fuera de la clase. Sin embargo, esto es solo una convención y no impide el acceso.</p>
+</div>
+<div class="paragraph">
+<p>Esto significa que, aunque se recomienda no acceder directamente a estos atributos o métodos desde fuera de la clase, es técnicamente posible hacerlo.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">class Persona:
+    def __init__(self, nombre):
+        self._nombre = nombre  # Atributo "privado" por convención
+
+    def mostrar_nombre(self):
+        return self._nombre
+
+persona = Persona("Juan")
+print(persona._nombre)  # Acceso permitido, pero no recomendado</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>__ (Doble Guion Bajo)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Los atributos y métodos que comienzan con dos guiones bajos se utilizan para el <strong>name mangling</strong>, que es un mecanismo que cambia el nombre del atributo en tiempo de compilación para que sea menos accesible desde fuera de la clase. Esto significa que el nombre se convierte en <code>_NombreDeLaClase__nombre</code>, lo que lo hace menos propenso a colisiones con atributos de subclases.</p>
+</div>
+<div class="paragraph">
+<p>Este enfoque es más restrictivo y, aunque todavía es posible acceder a estos atributos desde fuera de la clase, es menos evidente y se considera una mala práctica hacerlo.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">class Persona:
+    def __init__(self, nombre):
+        self.__nombre = nombre  # Atributo privado con name mangling
+
+    def mostrar_nombre(self):
+        return self.__nombre
+
+persona = Persona("Juan")
+# print(persona.__nombre)  # Esto generaría un AttributeError
+print(persona._Persona__nombre)  # Acceso permitido, pero no recomendado</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_resumen_4">Resumen</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Usar un solo guion bajo (<code>_</code>) es una convención para indicar que un atributo es privado y no debería ser accedido directamente.</p>
+</li>
+<li>
+<p>Usar dos guiones bajos (<code>__</code>) activa el name mangling, lo que hace que el atributo sea más difícil de acceder desde fuera de la clase.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>En general, es recomendable seguir las convenciones de nombres y ser consciente de la intención detrás de cada uno para mantener la claridad y la integridad del código.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_2_herencia">6.2. Herencia</h3>
+<div class="paragraph">
+<p>La herencia es un concepto fundamental en la programación orientada a objetos que permite crear nuevas clases a partir de clases existentes. La nueva clase, conocida como <strong>subclase</strong> o <strong>clase hija</strong>, hereda los atributos y métodos de la clase base, o <strong>superclase</strong> o <strong>clase padre</strong>. Esto promueve la reutilización del código y la organización jerárquica de las clases.</p>
+</div>
+<div class="sect3">
+<h4 id="_definición_de_una_subclase">Definición de una Subclase</h4>
+<div class="paragraph">
+<p>Para definir una subclase, se utiliza la sintaxis de definición de clase, indicando la clase padre entre paréntesis. La subclase puede tener sus propios atributos y métodos, así como también puede sobrescribir los métodos de la clase padre.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">class Animal:
+    def __init__(self, nombre):
+        self.nombre = nombre
+
+    def hablar(self):
+        return "El animal hace un sonido."
+
+class Perro(Animal):  # Perro hereda de Animal
+    def hablar(self):  # Sobrescribe el método de la clase padre
+        return "¡Guau!"
+
+class Gato(Animal):  # Gato también hereda de Animal
+    def hablar(self):  # Sobrescribe el método de la clase padre
+        return "¡Miau!"
+
+perro = Perro("Rex")
+gato = Gato("Miau")
+
+print(perro.hablar())  # ¡Guau!
+print(gato.hablar())   # ¡Miau!</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_atributos_y_métodos_de_la_superclase">Atributos y Métodos de la Superclase</h4>
+<div class="paragraph">
+<p>La subclase tiene acceso a los atributos y métodos de la superclase. Se pueden llamar métodos de la clase padre usando la función <code>super()</code>, que permite acceder a los métodos de la superclase.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">class Vehiculo:
+    def __init__(self, marca):
+        self.marca = marca
+
+    def mostrar_info(self):
+        return f"Vehículo de marca: {self.marca}"
+
+class Coche(Vehiculo):
+    def __init__(self, marca, modelo):
+        super().__init__(marca)  # Llama al constructor de la clase padre
+        self.modelo = modelo
+
+    def mostrar_info(self):
+        return f"{super().mostrar_info()}, Modelo: {self.modelo}"
+
+coche = Coche("Toyota", "Corolla")
+print(coche.mostrar_info())  # Vehículo de marca: Toyota, Modelo: Corolla</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_herencia_múltiple">Herencia Múltiple</h4>
+<div class="paragraph">
+<p>Python permite la herencia múltiple, donde una clase puede heredar de múltiples superclases. Esto puede ser útil, pero también puede complicar el diseño, por lo que se debe usar con precaución.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">class Persona:
+    def __init__(self, nombre):
+        self.nombre = nombre
+
+class Estudiante:
+    def __init__(self, matricula):
+        self.matricula = matricula
+
+class EstudianteUniversitario(Persona, Estudiante):  # Herencia múltiple
+    def __init__(self, nombre, matricula):
+        Persona.__init__(self, nombre)
+        Estudiante.__init__(self, matricula)
+
+estudiante = EstudianteUniversitario("Juan", "123456")
+print(estudiante.nombre)    # Juan
+print(estudiante.matricula)  # 123456</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_resumen_5">Resumen</h4>
+<div class="paragraph">
+<p>La herencia es una característica muy importante de la programación orientada a objetos que permite crear jerarquías de clases y reutilizar código. Permite a las subclases heredar atributos y métodos de sus superclases, sobrescribir métodos cuando sea necesario, y facilita la organización de estructuras más complejas.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_3_encapsulamiento">6.3. Encapsulamiento</h3>
+<div class="sect3">
+<h4 id="_uso_de_modificadores_de_acceso">Uso de modificadores de acceso.</h4>
+<div class="paragraph">
+<p>El <strong>encapsulamiento</strong> se refiere a la práctica de restringir el acceso a ciertos atributos y métodos de una clase, protegiendo así la integridad del objeto.</p>
+</div>
+<div class="paragraph">
+<p>Python no tiene modificadores de acceso explícitos como otros lenguajes, pero utiliza convenciones para indicar la visibilidad de los atributos y métodos.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Atributos públicos</strong>: Se pueden acceder desde fuera de la clase.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>class Persona:
+    def __init__(self, nombre):
+        self.nombre = nombre  # Atributo público</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Atributos protegidos</strong>: Se indican con un guion bajo <code>_</code>. Indica que no deben ser accedidos directamente desde fuera de la clase, aunque no hay restricciones.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>class Empleado:
+    def __init__(self, nombre):
+        self._nombre = nombre  # Atributo protegido</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Atributos privados</strong>: Se indican con dos guiones bajos <code>__</code>. Python realiza un "name mangling" para evitar el acceso directo desde fuera de la clase.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>class Cliente:
+    def __init__(self, nombre):
+        self.__nombre = nombre  # Atributo privado
+
+    def get_nombre(self):
+        return self.__nombre  # Método para acceder al atributo privado
+
+# Creación de un objeto de la clase Cliente
+cliente = Cliente("Ana")
+print(cliente.get_nombre())  # Salida: Ana</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>El encapsulamiento es una característica fundamental de OOP que ayuda a mantener la coherencia de los objetos y protege los datos de accesos no deseados.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_4_polimorfismo">6.4. Polimorfismo</h3>
+<div class="paragraph">
+<p>El polimorfismo es un principio fundamental en la programación orientada a objetos que permite que diferentes clases proporcionen una implementación de un mismo método. Esto permite que se puedan utilizar objetos de diferentes clases de manera intercambiable, siempre y cuando tengan un método con el mismo nombre.</p>
+</div>
+<div class="sect3">
+<h4 id="_tipos_de_polimorfismo">Tipos de Polimorfismo</h4>
+<div class="paragraph">
+<p>El polimorfismo en Python se puede lograr principalmente de dos maneras:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Polimorfismo en tiempo de compilación</strong>: Esto se refiere a la sobrecarga de métodos, que no es soportada nativamente en Python. En su lugar, se puede utilizar la sobrecarga de funciones con argumentos opcionales.</p>
+</li>
+<li>
+<p><strong>Polimorfismo en tiempo de ejecución</strong>: Se refiere a la capacidad de una función o método para operar en diferentes tipos de objetos. Este es el tipo de polimorfismo más común en Python.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_ejemplo_de_polimorfismo_en_tiempo_de_ejecución">Ejemplo de Polimorfismo en Tiempo de Ejecución</h4>
+<div class="paragraph">
+<p>Para ilustrar el polimorfismo en Python, consideremos un ejemplo donde diferentes clases implementan un método con el mismo nombre.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">class Ave:
+    def hablar(self):
+        return "Pío"
+
+class Perro:
+    def hablar(self):
+        return "¡Guau!"
+
+class Gato:
+    def hablar(self):
+        return "¡Miau!"
+
+def hacer_hablar(animal):
+    print(animal.hablar())  # El método `hablar` se llama según la clase del objeto
+
+# Crear instancias de las clases
+ave = Ave()
+perro = Perro()
+gato = Gato()
+
+# Llamar a la función con diferentes tipos de objetos
+hacer_hablar(ave)   # Pío
+hacer_hablar(perro) # ¡Guau!
+hacer_hablar(gato)  # ¡Miau!</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_ejemplo_de_polimorfismo_con_herencia">Ejemplo de Polimorfismo con Herencia</h4>
+<div class="paragraph">
+<p>El polimorfismo también se puede demostrar mediante la herencia, donde una subclase sobrescribe un método de la superclase.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">class Figura:
+    def area(self):
+        raise NotImplementedError("Subclases deben implementar este método.")
+
+class Circulo(Figura):
+    def __init__(self, radio):
+        self.radio = radio
+
+    def area(self):
+        return 3.14 * (self.radio ** 2)
+
+class Cuadrado(Figura):
+    def __init__(self, lado):
+        self.lado = lado
+
+    def area(self):
+        return self.lado * self.lado
+
+def calcular_area(figura):
+    print(f"El área es: {figura.area()}")
+
+# Crear instancias de las clases
+circulo = Circulo(5)
+cuadrado = Cuadrado(4)
+
+# Calcular el área de diferentes figuras
+calcular_area(circulo)   # El área es: 78.5
+calcular_area(cuadrado)  # El área es: 16</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_resumen_6">Resumen</h4>
+<div class="paragraph">
+<p>El polimorfismo permite que diferentes clases implementen métodos con el mismo nombre, lo que facilita la interacción entre diferentes tipos de objetos. Este principio ayuda a construir sistemas más flexibles y reutilizables en programación orientada a objetos, permitiendo a los desarrolladores trabajar con diferentes tipos de objetos sin necesidad de conocer sus detalles internos.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_6_interfaces">6.6 Interfaces</h3>
+<div class="paragraph">
+<p>En Python, las interfaces no son una característica nativa del lenguaje como en algunos otros lenguajes de programación (como Java o C#). Sin embargo, puedes definir interfaces usando algunas técnicas comunes que proporcionan un comportamiento similar, como el uso de <strong>clases abstractas</strong> con el módulo <code>abc</code> (Abstract Base Classes). Las clases abstractas permiten definir métodos que deben ser implementados por las clases derivadas, proporcionando una estructura parecida a una interfaz.</p>
+</div>
+<div class="sect3">
+<h4 id="_uso_de_clases_abstractas_como_interfaces">Uso de Clases Abstractas como Interfaces</h4>
+<div class="paragraph">
+<p>El módulo <code>abc</code> de la biblioteca estándar de Python proporciona un modo de definir clases abstractas. Al definir una clase abstracta, puedes crear métodos que las clases derivadas deben implementar obligatoriamente. Para lograr esto, se utiliza el decorador <code>@abstractmethod</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_ejemplo_de_interfaz_en_python">Ejemplo de Interfaz en Python</h4>
+<div class="paragraph">
+<p>Aquí tienes un ejemplo de cómo se puede definir una interfaz para una figura geométrica, en la que las clases derivadas deben implementar los métodos para calcular el área y el perímetro.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from abc import ABC, abstractmethod
+
+# Definición de la interfaz
+class FiguraGeometrica(ABC):
+
+    @abstractmethod
+    def area(self):
+        pass
+
+    @abstractmethod
+    def perimetro(self):
+        pass
+
+# Implementación de la interfaz en una clase derivada
+class Circulo(FiguraGeometrica):
+
+    def __init__(self, radio):
+        self.radio = radio
+
+    def area(self):
+        return 3.1416 * self.radio ** 2
+
+    def perimetro(self):
+        return 2 * 3.1416 * self.radio
+
+class Rectangulo(FiguraGeometrica):
+
+    def __init__(self, ancho, alto):
+        self.ancho = ancho
+        self.alto = alto
+
+    def area(self):
+        return self.ancho * self.alto
+
+    def perimetro(self):
+        return 2 * (self.ancho + self.alto)
+
+# Crear instancias de las clases que implementan la interfaz
+circulo = Circulo(5)
+rectangulo = Rectangulo(3, 4)
+
+print(f"Área del círculo: {circulo.area()}")
+print(f"Perímetro del círculo: {circulo.perimetro()}")
+
+print(f"Área del rectángulo: {rectangulo.area()}")
+print(f"Perímetro del rectángulo: {rectangulo.perimetro()}")</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_explicación_del_código">Explicación del Código</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>FiguraGeometrica</strong>: Es una clase abstracta que define la interfaz. Tiene dos métodos abstractos <code>area()</code> y <code>perimetro()</code>. Estos métodos no tienen implementación y deben ser definidos en cualquier clase que herede de <code>FiguraGeometrica</code>.</p>
+</li>
+<li>
+<p><strong>Circulo y Rectangulo</strong>: Son clases concretas que heredan de <code>FiguraGeometrica</code> y deben implementar los métodos <code>area()</code> y <code>perimetro()</code>. Si no implementan estos métodos, Python lanzará un error.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_ventajas_del_uso_de_interfaces_con_clases_abstractas">Ventajas del Uso de Interfaces con Clases Abstractas</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Forzar implementación</strong>: Asegura que las clases derivadas implementen ciertos métodos.</p>
+</li>
+<li>
+<p><strong>Organización</strong>: Permite que las clases relacionadas compartan una estructura común, mejorando la organización y mantenibilidad del código.</p>
+</li>
+<li>
+<p><strong>Polimorfismo</strong>: Permite tratar objetos de diferentes clases de forma uniforme siempre que implementen la misma interfaz.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_conclusión">Conclusión</h4>
+<div class="paragraph">
+<p>En Python, las interfaces se implementan típicamente mediante <strong>clases abstractas</strong> utilizando el módulo <code>abc</code>. Este enfoque permite crear una "contrato" que las clases derivadas deben seguir, similar al comportamiento de las interfaces en otros lenguajes de programación. Aunque Python no tiene interfaces explícitas, este método proporciona suficiente flexibilidad para la mayoría de los casos.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_6_ejercicios_prácticos">6.6. Ejercicios Prácticos</h3>
+<div class="olist arabic">
+<div class="title">Ejecicios sobre Objetos</div>
+<ol class="arabic">
+<li>
+<p>Define una clase <code>Libro</code> con atributos <code>titulo</code>, <code>autor</code> y <code>anio_publicacion</code>. Crea un método que muestre la información del libro.</p>
+</li>
+<li>
+<p>Crea una clase <code>Coche</code> con atributos <code>marca</code>, <code>modelo</code> y <code>año</code>. Implementa un método que devuelva la edad del coche.</p>
+</li>
+<li>
+<p>Define una clase <code>Rectangulo</code> que acepte <code>base</code> y <code>altura</code> como atributos. Implementa métodos para calcular el área y el perímetro.</p>
+</li>
+<li>
+<p>Crea una clase <code>CuentaBancaria</code> con atributos <code>titular</code> y <code>saldo</code>. Implementa métodos para depositar y retirar dinero.</p>
+</li>
+<li>
+<p>Diseña una clase <code>Empleado</code> con atributos <code>nombre</code>, <code>puesto</code> y <code>salario</code>. Implementa un método que calcule el salario anual.</p>
+</li>
+<li>
+<p>Define una clase <code>Persona</code> con un método que muestre una presentación. Crea al menos dos objetos de la clase y llama al método.</p>
+</li>
+<li>
+<p>Crea una clase <code>Perro</code> que herede de una clase <code>Animal</code>. Implementa un método que haga que el perro ladre.</p>
+</li>
+<li>
+<p>Diseña una clase <code>CestaDeFrutas</code> que contenga una lista de frutas. Implementa métodos para agregar y eliminar frutas de la cesta.</p>
+</li>
+<li>
+<p>Crea una clase <code>Estudiante</code> que contenga atributos como <code>nombre</code>, <code>edad</code> y <code>notas</code>. Implementa un método para calcular la nota promedio.</p>
+</li>
+<li>
+<p>Define una clase <code>Circulo</code> con un atributo <code>radio</code>. Implementa métodos para calcular el área y la circunferencia.</p>
+</li>
+<li>
+<p>Crea una clase <code>Telefono</code> que tenga atributos <code>marca</code>, <code>modelo</code> y <code>numero</code>. Implementa un método para mostrar la información del teléfono.</p>
+</li>
+<li>
+<p>Diseña una clase <code>LibroDigital</code> que herede de <code>Libro</code> y que tenga un atributo adicional <code>formato</code>. Implementa un método que muestre el formato del libro.</p>
+</li>
+<li>
+<p>Crea una clase <code>Alumno</code> que contenga una lista de materias. Implementa un método para agregar una materia a la lista.</p>
+</li>
+<li>
+<p>Define una clase <code>Videojuego</code> con atributos <code>titulo</code>, <code>desarrollador</code> y <code>anio_lanzamiento</code>. Implementa un método que muestre la información del videojuego.</p>
+</li>
+<li>
+<p>Crea una clase <code>Factura</code> que contenga atributos como <code>numero_factura</code>, <code>cliente</code> y <code>total</code>. Implementa un método que muestre el detalle de la factura.</p>
+</li>
+<li>
+<p>Diseña una clase <code>Mascota</code> con atributos <code>nombre</code> y <code>tipo</code>. Implementa un método que haga que la mascota hable, dependiendo de su tipo.</p>
+</li>
+<li>
+<p>Crea una clase <code>Punto</code> que tenga atributos <code>x</code> y <code>y</code>. Implementa un método que calcule la distancia desde el origen.</p>
+</li>
+<li>
+<p>Define una clase <code>CestaDeLaCompra</code> que contenga una lista de productos y sus precios. Implementa un método que calcule el total de la compra.</p>
+</li>
+<li>
+<p>Crea una clase <code>Camion</code> que herede de <code>Vehiculo</code> y que tenga un atributo adicional <code>carga_maxima</code>. Implementa un método que muestre la capacidad de carga.</p>
+</li>
+<li>
+<p>Diseña una clase <code>Estadisticas</code> que contenga métodos para calcular la media, mediana y moda de una lista de números.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_módulo_7_librerías_y_frameworks">Módulo 7: Librerías y Frameworks</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_7_1_introducción_a_librerías_de_python">7.1. Introducción a Librerías de Python</h3>
+<div class="paragraph">
+<p>Python es un lenguaje de programación altamente extensible gracias a su rico ecosistema de librerías y módulos. Estas librerías permiten a los desarrolladores acceder a funcionalidades avanzadas y especializadas sin tener que escribir todo el código desde cero. En esta sección, veremos qué son las librerías, cómo se utilizan, y cómo instalar librerías externas.</p>
+</div>
+<div class="sect3">
+<h4 id="_qué_es_una_librería_en_python">¿Qué es una Librería en Python?</h4>
+<div class="paragraph">
+<p>Una <strong>librería</strong> en Python es un conjunto de módulos o paquetes que contienen funciones y clases predefinidas para facilitar el desarrollo de programas. Estas librerías pueden ser incluidas dentro de Python por defecto (librerías estándar) o ser instaladas como paquetes externos a través de un gestor de paquetes como <code>pip</code>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Módulo</strong>: Un archivo que contiene definiciones de funciones, variables y clases. Cada archivo <code>.py</code> es un módulo.</p>
+</li>
+<li>
+<p><strong>Paquete</strong>: Un directorio que contiene varios módulos organizados jerárquicamente, con un archivo especial <code><em>init</em>.py</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Python incluye una gran cantidad de <strong>librerías estándar</strong> para tareas comunes como manejo de archivos, manipulación de cadenas, operaciones matemáticas, acceso a la red, y más.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_uso_de_librerías_estándar">Uso de Librerías Estándar</h4>
+<div class="paragraph">
+<p>Para utilizar una librería en Python, primero debes importarla usando la palabra clave <code>import</code>. Esto te permite acceder a las funciones y clases de la librería en tu programa.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import math
+
+# Uso de la función sqrt para calcular la raíz cuadrada
+resultado = math.sqrt(16)
+print(resultado)  # Salida: 4.0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>En este ejemplo, hemos utilizado la librería <code>math</code>, que es parte de la biblioteca estándar de Python, para calcular la raíz cuadrada de un número.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_importación_de_funciones_específicas">Importación de Funciones Específicas</h4>
+<div class="paragraph">
+<p>También es posible importar solo las funciones o clases que necesites desde un módulo, en lugar de importar todo el módulo.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from math import sqrt, pi
+
+# Uso directo de sqrt y pi sin el prefijo math.
+resultado = sqrt(25)
+print(resultado)  # Salida: 5.0
+print(pi)  # Salida: 3.141592653589793</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_1_os">1. <code>os</code></h4>
+<div class="paragraph">
+<p>La librería <code>os</code> proporciona funciones para interactuar con el sistema operativo, permitiendo acceder y manipular archivos, directorios, y variables de entorno, así como realizar otras operaciones dependientes del sistema operativo.</p>
+</div>
+<div class="paragraph">
+<p>Algunas funciones clave del módulo <code>os</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>os.listdir()</code>: Lista los archivos y carpetas en un directorio.</p>
+</li>
+<li>
+<p><code>os.mkdir()</code>: Crea un nuevo directorio.</p>
+</li>
+<li>
+<p><code>os.remove()</code>: Elimina un archivo.</p>
+</li>
+<li>
+<p><code>os.path.exists()</code>: Verifica si una ruta existe.</p>
+</li>
+<li>
+<p><code>os.getenv()</code>: Obtiene el valor de una variable de entorno.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import os
+
+# Listar archivos en el directorio actual
+print(os.listdir('.'))
+
+# Crear un nuevo directorio
+os.mkdir('nueva_carpeta')
+
+# Verificar si una ruta existe
+if os.path.exists('nueva_carpeta'):
+    print("El directorio fue creado con éxito.")</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_sys">2. <code>sys</code></h4>
+<div class="paragraph">
+<p>El módulo <code>sys</code> proporciona acceso a funciones y variables específicas del intérprete de Python, permitiendo interactuar directamente con el entorno de ejecución. Es útil para gestionar la entrada/salida estándar, trabajar con argumentos de línea de comandos, y controlar la finalización del programa, entre otras cosas.</p>
+</div>
+<div class="paragraph">
+<p>Algunas funciones clave del módulo <code>sys</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sys.argv</code>: Lista de argumentos de línea de comandos pasados al script.</p>
+</li>
+<li>
+<p><code>sys.exit()</code>: Termina la ejecución del programa con un código de salida.</p>
+</li>
+<li>
+<p><code>sys.path</code>: Lista de rutas donde Python busca los módulos importados.</p>
+</li>
+<li>
+<p><code>sys.stdout</code>: Permite redirigir la salida estándar.</p>
+</li>
+<li>
+<p><code>sys.version</code>: Información sobre la versión de Python en ejecución.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import sys
+
+# Mostrar los argumentos de línea de comandos
+print(f"Argumentos pasados al script: {sys.argv}")
+
+# Terminar el programa con un mensaje
+if len(sys.argv) &lt; 2:
+    print("Se requiere al menos un argumento.")
+    sys.exit(1)
+
+# Mostrar la versión de Python
+print(f"Versión de Python: {sys.version}")</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_3_math">3. <code>math</code></h4>
+<div class="paragraph">
+<p>El módulo <code>math</code> proporciona acceso a funciones matemáticas avanzadas, incluyendo operaciones de trigonometría, logaritmos, exponenciales, y funciones aritméticas, que están basadas en las bibliotecas matemáticas de C. Es útil para cálculos científicos, matemáticos y de ingeniería.</p>
+</div>
+<div class="paragraph">
+<p>Algunas funciones clave del módulo <code>math</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>math.sqrt()</code>: Calcula la raíz cuadrada de un número.</p>
+</li>
+<li>
+<p><code>math.pow()</code>: Eleva un número a una potencia.</p>
+</li>
+<li>
+<p><code>math.log()</code>: Devuelve el logaritmo natural de un número.</p>
+</li>
+<li>
+<p><code>math.sin()</code>, <code>math.cos()</code>, <code>math.tan()</code>: Funciones trigonométricas.</p>
+</li>
+<li>
+<p><code>math.pi</code> y <code>math.e</code>: Constantes matemáticas de pi y el número e.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import math
+
+# Calcular la raíz cuadrada de 16
+print(f"Raíz cuadrada de 16: {math.sqrt(16)}")
+
+# Elevar 2 al cubo
+print(f"2 elevado al cubo: {math.pow(2, 3)}")
+
+# Calcular el logaritmo natural de 10
+print(f"Logaritmo natural de 10: {math.log(10)}")
+
+# Calcular el seno de un ángulo en radianes (π/2)
+print(f"Seno de π/2: {math.sin(math.pi / 2)}")
+
+# Constante pi
+print(f"Valor de pi: {math.pi}")</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_4_datetime">4. <code>datetime</code></h4>
+<div class="paragraph">
+<p>El módulo <code>datetime</code> proporciona clases para manipular fechas y horas de manera eficiente. Permite crear, formatear y realizar operaciones con objetos de tiempo, como sumar o restar intervalos, comparar fechas, o extraer componentes específicos (año, mes, día, etc.).</p>
+</div>
+<div class="paragraph">
+<p>Algunas clases y funciones clave del módulo <code>datetime</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>datetime.datetime</code>: Representa una combinación de fecha y hora.</p>
+</li>
+<li>
+<p><code>datetime.date</code>: Representa una fecha (año, mes, día).</p>
+</li>
+<li>
+<p><code>datetime.time</code>: Representa un tiempo (hora, minuto, segundo).</p>
+</li>
+<li>
+<p><code>datetime.timedelta</code>: Representa la diferencia entre dos fechas o tiempos.</p>
+</li>
+<li>
+<p><code>datetime.now()</code>: Obtiene la fecha y hora actual.</p>
+</li>
+<li>
+<p><code>strftime()</code>: Da formato a un objeto de fecha/tiempo como una cadena.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import datetime
+
+# Obtener la fecha y hora actual
+fecha_actual = datetime.datetime.now()
+print(f"Fecha y hora actual: {fecha_actual}")
+
+# Crear una fecha específica
+fecha_especifica = datetime.date(2023, 10, 14)
+print(f"Fecha específica: {fecha_especifica}")
+
+# Formatear una fecha
+formato_fecha = fecha_actual.strftime("%d/%m/%Y %H:%M:%S")
+print(f"Fecha formateada: {formato_fecha}")
+
+# Calcular la diferencia entre dos fechas
+hoy = datetime.date.today()
+futuro = datetime.date(2024, 1, 1)
+diferencia = futuro - hoy
+print(f"Días hasta el 1 de enero de 2024: {diferencia.days}")</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import datetime</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_5_random">5. <code>random</code></h4>
+<div class="paragraph">
+<p>El módulo <code>random</code> proporciona funciones para generar números aleatorios y realizar selecciones aleatorias. Es útil en situaciones que requieren simulación, juegos, pruebas aleatorias, y cualquier contexto que necesite el uso de aleatoriedad.</p>
+</div>
+<div class="paragraph">
+<p>Algunas funciones clave del módulo <code>random</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>random.random()</code>: Genera un número aleatorio flotante entre 0.0 y 1.0.</p>
+</li>
+<li>
+<p><code>random.randint(a, b)</code>: Devuelve un número entero aleatorio entre <code>a</code> y <code>b</code> (ambos incluidos).</p>
+</li>
+<li>
+<p><code>random.choice(seq)</code>: Selecciona un elemento aleatorio de una secuencia (como una lista o cadena).</p>
+</li>
+<li>
+<p><code>random.shuffle(seq)</code>: Mezcla aleatoriamente los elementos de una lista.</p>
+</li>
+<li>
+<p><code>random.sample(seq, k)</code>: Devuelve una lista con <code>k</code> elementos seleccionados aleatoriamente de una secuencia.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import random
+
+# Generar un número flotante aleatorio entre 0 y 1
+print(f"Número flotante aleatorio: {random.random()}")
+
+# Generar un número entero aleatorio entre 1 y 10
+print(f"Número entero aleatorio entre 1 y 10: {random.randint(1, 10)}")
+
+# Seleccionar un elemento aleatorio de una lista
+colores = ['rojo', 'azul', 'verde', 'amarillo']
+color_aleatorio = random.choice(colores)
+print(f"Color aleatorio: {color_aleatorio}")
+
+# Mezclar aleatoriamente los elementos de una lista
+random.shuffle(colores)
+print(f"Lista mezclada: {colores}")
+
+# Seleccionar 2 elementos aleatorios de una lista
+muestra = random.sample(colores, 2)
+print(f"Muestra aleatoria: {muestra}")</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_6_re">6. <code>re</code></h4>
+<div class="paragraph">
+<p>El módulo <code>re</code> proporciona funciones para trabajar con expresiones regulares en Python. Las expresiones regulares permiten realizar búsquedas y manipulaciones avanzadas de cadenas, siendo útiles para validar, buscar, y reemplazar patrones complejos en texto.</p>
+</div>
+<div class="paragraph">
+<p>Algunas funciones clave del módulo <code>re</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>re.search(pattern, string)</code>: Busca el primer lugar donde el patrón coincide dentro de la cadena.</p>
+</li>
+<li>
+<p><code>re.match(pattern, string)</code>: Verifica si el patrón coincide al principio de la cadena.</p>
+</li>
+<li>
+<p><code>re.findall(pattern, string)</code>: Devuelve todas las coincidencias del patrón en la cadena como una lista.</p>
+</li>
+<li>
+<p><code>re.sub(pattern, repl, string)</code>: Reemplaza las coincidencias del patrón con una cadena de reemplazo.</p>
+</li>
+<li>
+<p><code>re.split(pattern, string)</code>: Divide la cadena donde el patrón coincide.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import re
+
+# Buscar una palabra en una cadena
+resultado = re.search(r'\bpython\b', "Estoy aprendiendo python con expresiones regulares")
+if resultado:
+    print(f"Palabra encontrada: {resultado.group()}")
+
+# Verificar si una cadena comienza con un patrón específico
+if re.match(r'^Hola', 'Hola, mundo!'):
+    print("La cadena comienza con 'Hola'.")
+
+# Encontrar todas las apariciones de un patrón
+numeros = re.findall(r'\d+', 'Mi número de teléfono es 123-456-7890')
+print(f"Números encontrados: {numeros}")
+
+# Reemplazar una palabra en una cadena
+texto_modificado = re.sub(r'python', 'Java', 'Me encanta python')
+print(f"Texto modificado: {texto_modificado}")
+
+# Dividir una cadena por espacios
+partes = re.split(r'\s+', 'Dividiendo esta frase en palabras')
+print(f"Partes de la frase: {partes}")</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_7_json">7. <code>json</code></h4>
+<div class="paragraph">
+<p>El módulo <code>json</code> proporciona funciones para trabajar con datos en formato JSON (JavaScript Object Notation), un formato ligero y fácil de leer para el intercambio de datos. Es ideal para trabajar con datos en aplicaciones web y almacenar información estructurada.</p>
+</div>
+<div class="paragraph">
+<p>Algunas funciones clave del módulo <code>json</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>json.loads()</code>: Convierte una cadena en formato JSON a un objeto Python (como diccionarios o listas).</p>
+</li>
+<li>
+<p><code>json.dumps()</code>: Convierte un objeto Python a una cadena en formato JSON.</p>
+</li>
+<li>
+<p><code>json.load()</code>: Lee un archivo JSON y lo convierte en un objeto Python.</p>
+</li>
+<li>
+<p><code>json.dump()</code>: Escribe un objeto Python en un archivo en formato JSON.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import json
+
+# Convertir una cadena JSON en un diccionario Python
+data_json = '{"nombre": "Juan", "edad": 30, "ciudad": "Madrid"}'
+data = json.loads(data_json)
+print(f"Nombre: {data['nombre']}")
+
+# Convertir un diccionario Python a una cadena JSON
+python_data = {"nombre": "Ana", "edad": 25, "ciudad": "Barcelona"}
+json_string = json.dumps(python_data)
+print(f"JSON resultante: {json_string}")
+
+# Leer un archivo JSON
+with open('datos.json', 'r') as archivo:
+    contenido = json.load(archivo)
+    print(f"Contenido del archivo: {contenido}")
+
+# Escribir un diccionario Python en un archivo JSON
+with open('salida.json', 'w') as archivo:
+    json.dump(python_data, archivo)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_8_csv">8. <code>csv</code></h4>
+<div class="paragraph">
+<p>El módulo <code>csv</code> proporciona herramientas para leer y escribir archivos en formato CSV (Comma-Separated Values), un formato común para almacenar datos tabulares. Es útil para manejar grandes conjuntos de datos estructurados de manera sencilla, como hojas de cálculo o exportaciones de bases de datos.</p>
+</div>
+<div class="paragraph">
+<p>Algunas funciones clave del módulo <code>csv</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>csv.reader()</code>: Lee un archivo CSV y devuelve sus filas como listas.</p>
+</li>
+<li>
+<p><code>csv.writer()</code>: Escribe datos en un archivo CSV.</p>
+</li>
+<li>
+<p><code>csv.DictReader()</code>: Lee un archivo CSV y devuelve cada fila como un diccionario.</p>
+</li>
+<li>
+<p><code>csv.DictWriter()</code>: Escribe diccionarios en un archivo CSV.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import csv
+
+# Leer un archivo CSV y mostrar su contenido
+with open('datos.csv', newline='') as archivo:
+    lector = csv.reader(archivo)
+    for fila in lector:
+        print(fila)
+
+# Escribir una lista de listas en un archivo CSV
+datos = [
+    ['Nombre', 'Edad', 'Ciudad'],
+    ['Juan', 30, 'Madrid'],
+    ['Ana', 25, 'Barcelona']
+]
+with open('salida.csv', 'w', newline='') as archivo:
+    escritor = csv.writer(archivo)
+    escritor.writerows(datos)
+
+# Leer un archivo CSV como diccionarios
+with open('datos.csv', newline='') as archivo:
+    lector_diccionario = csv.DictReader(archivo)
+    for fila in lector_diccionario:
+        print(fila)
+
+# Escribir diccionarios en un archivo CSV
+campos = ['Nombre', 'Edad', 'Ciudad']
+datos_dict = [
+    {'Nombre': 'Juan', 'Edad': 30, 'Ciudad': 'Madrid'},
+    {'Nombre': 'Ana', 'Edad': 25, 'Ciudad': 'Barcelona'}
+]
+with open('salida_dict.csv', 'w', newline='') as archivo:
+    escritor_diccionario = csv.DictWriter(archivo, fieldnames=campos)
+    escritor_diccionario.writeheader()
+    escritor_diccionario.writerows(datos_dict)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_9_collections">9. <code>collections</code></h4>
+<div class="paragraph">
+<p>El módulo <code>collections</code> ofrece tipos de datos adicionales, como <code>deque</code>, <code>namedtuple</code>, <code>Counter</code>, entre otros, que extienden la funcionalidad de las estructuras de datos estándar.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import collections</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_itertools">10. <code>itertools</code></h4>
+<div class="paragraph">
+<p>La librería <code>itertools</code> proporciona herramientas para trabajar con iteradores, permitiendo combinaciones, permutaciones, productos cartesianos y más operaciones sobre iterables.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import itertools</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_11_functools">11. <code>functools</code></h4>
+<div class="paragraph">
+<p>El módulo <code>functools</code> ofrece herramientas avanzadas para el manejo de funciones, como la capacidad de aplicar memoización (caché) con <code>lru_cache</code> o crear funciones parciales.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import functools</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_12_hashlib">12. <code>hashlib</code></h4>
+<div class="paragraph">
+<p>La librería <code>hashlib</code> permite generar valores hash usando algoritmos criptográficos como SHA y MD5, útil para verificar la integridad de datos.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import hashlib</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_13_subprocess">13. <code>subprocess</code></h4>
+<div class="paragraph">
+<p>El módulo <code>subprocess</code> permite ejecutar comandos del sistema desde Python, facilitando la interacción con el sistema operativo desde el programa.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import subprocess</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_14_urllib">14. <code>urllib</code></h4>
+<div class="paragraph">
+<p>La librería <code>urllib</code> proporciona funciones para trabajar con URLs, permitiendo hacer peticiones HTTP, manejar parámetros en URLs y más.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import urllib.request</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_15_argparse">15. <code>argparse</code></h4>
+<div class="paragraph">
+<p>El módulo <code>argparse</code> proporciona una manera simple de definir y procesar los argumentos y opciones pasados a un script de Python desde la línea de comandos.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import argparse</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_16_logging">16. <code>logging</code></h4>
+<div class="paragraph">
+<p>El módulo <code>logging</code> proporciona una interfaz flexible para generar mensajes de log, facilitando la depuración y monitoreo de aplicaciones.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import logging</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_17_threading">17. <code>threading</code></h4>
+<div class="paragraph">
+<p>La librería <code>threading</code> proporciona soporte para ejecutar operaciones concurrentes utilizando hilos (threads) dentro de un programa Python.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import threading</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_18_socket">18. <code>socket</code></h4>
+<div class="paragraph">
+<p>El módulo <code>socket</code> proporciona funciones para trabajar con la red, permitiendo crear y gestionar conexiones de red utilizando los protocolos de bajo nivel.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import socket</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_19_configparser">19. <code>configparser</code></h4>
+<div class="paragraph">
+<p>La librería <code>configparser</code> proporciona funciones para trabajar con archivos de configuración en formato <code>.ini</code>, permitiendo leer y escribir configuraciones.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import configparser</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_20_sqlite3">20. <code>sqlite3</code></h4>
+<div class="paragraph">
+<p>El módulo <code>sqlite3</code> proporciona una interfaz para trabajar con bases de datos SQLite, permitiendo crear, consultar y gestionar bases de datos de manera simple.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import sqlite3</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_instalación_y_uso_de_librerías_externas">Instalación y Uso de Librerías Externas</h4>
+<div class="paragraph">
+<p>Python tiene un enorme repositorio de librerías externas que puedes instalar mediante el gestor de paquetes <code>pip</code>. Algunas de las librerías más populares incluyen <code>NumPy</code>, <code>Pandas</code>, <code>Requests</code>, entre muchas otras.</p>
+</div>
+<div class="paragraph">
+<p>Para instalar una librería externa, usa el comando <code>pip install</code> desde la línea de comandos.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">pip install numpy</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Después de la instalación, puedes importarla y utilizarla en tu código como cualquier otro módulo.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import numpy as np
+
+# Creación de un array de NumPy
+array = np.array([1, 2, 3, 4])
+print(array)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_documentación_y_búsqueda_de_librerías">Documentación y Búsqueda de Librerías</h4>
+<div class="paragraph">
+<p>El repositorio principal de librerías en Python es el <strong>Python Package Index (PyPI)</strong>, que contiene miles de paquetes que cubren una amplia gama de áreas. Para encontrar una librería que cubra una necesidad específica, puedes buscar en PyPI o en la documentación oficial de cada librería.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>PyPI</strong>: <a href="https://pypi.org/" class="bare">https://pypi.org/</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Cada librería suele tener su propia documentación oficial que explica cómo instalarla y cómo utilizar sus funciones y clases.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_7_2_introducción_a_librerías_populares">7.2. Introducción a librerías populares</h3>
+<div class="sect3">
+<h4 id="_requests">requests</h4>
+<div class="paragraph">
+<p>El módulo <code>requests</code> es una biblioteca externa popular en Python que facilita el envío de solicitudes HTTP. Es ideal para interactuar con APIs, descargar datos de sitios web o automatizar tareas web. A diferencia de las herramientas nativas de Python para manejar HTTP, <code>requests</code> ofrece una sintaxis más simple y capacidades más avanzadas para gestionar la conexión, autenticación y envío de datos.</p>
+</div>
+<div class="paragraph">
+<p>Para instalar la biblioteca <code>requests</code>, utiliza el siguiente comando:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">pip install requests</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Algunas funciones clave del módulo <code>requests</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>requests.get(url)</code>: Envía una solicitud HTTP GET a una URL.</p>
+</li>
+<li>
+<p><code>requests.post(url, data)</code>: Envía una solicitud HTTP POST con datos.</p>
+</li>
+<li>
+<p><code>requests.put(url, data)</code>: Envía una solicitud HTTP PUT para actualizar recursos.</p>
+</li>
+<li>
+<p><code>requests.delete(url)</code>: Envía una solicitud HTTP DELETE para eliminar un recurso.</p>
+</li>
+<li>
+<p><code>requests.status_code</code>: Verifica el código de estado HTTP de una respuesta.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import requests
+
+# Hacer una solicitud GET
+respuesta = requests.get('https://api.github.com')
+print(f"Estado de la respuesta: {respuesta.status_code}")
+print(f"Contenido: {respuesta.text}")
+
+# Enviar datos con una solicitud POST
+payload = {'nombre': 'Juan', 'edad': 30}
+respuesta_post = requests.post('https://httpbin.org/post', data=payload)
+print(f"Estado POST: {respuesta_post.status_code}")
+print(f"Datos enviados: {respuesta_post.json()}")
+
+# Manejar errores de solicitudes
+try:
+    respuesta_error = requests.get('https://httpbin.org/status/404')
+    respuesta_error.raise_for_status()
+except requests.exceptions.HTTPError as err:
+    print(f"Error HTTP: {err}")</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_pillow">Pillow</h4>
+<div class="paragraph">
+<p>Pillow es una biblioteca de Python que permite la manipulación de imágenes. Es una versión mejorada del antiguo módulo PIL (Python Imaging Library) y proporciona una interfaz sencilla para abrir, modificar y guardar imágenes en diversos formatos.</p>
+</div>
+<div class="paragraph">
+<p>Para instalar la biblioteca Pillow, utiliza el siguiente comando:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">pip install Pillow</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Algunas funciones clave de Pillow:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Image.open()</code>: Abre una imagen y la carga en un objeto <code>Image</code>.</p>
+</li>
+<li>
+<p><code>Image.save()</code>: Guarda la imagen en un formato específico.</p>
+</li>
+<li>
+<p><code>Image.show()</code>: Muestra la imagen en una ventana emergente.</p>
+</li>
+<li>
+<p><code>Image.resize()</code>: Redimensiona la imagen a un nuevo tamaño.</p>
+</li>
+<li>
+<p><code>Image.rotate()</code>: Rota la imagen por un ángulo específico.</p>
+</li>
+<li>
+<p><code>Image.crop()</code>: Recorta la imagen a una región específica.</p>
+</li>
+<li>
+<p><code>Image.filter()</code>: Aplica un filtro a la imagen.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from PIL import Image, ImageFilter
+
+# Abrir una imagen
+imagen = Image.open('ejemplo.jpg')
+
+# Mostrar la imagen
+imagen.show()
+
+# Redimensionar la imagen
+imagen_redimensionada = imagen.resize((200, 200))
+imagen_redimensionada.show()
+
+# Rotar la imagen
+imagen_rotada = imagen.rotate(90)
+imagen_rotada.show()
+
+# Recortar la imagen
+imagen_recortada = imagen.crop((50, 50, 300, 300))
+imagen_recortada.show()
+
+# Aplicar un filtro a la imagen
+imagen_filtrada = imagen.filter(ImageFilter.BLUR)
+imagen_filtrada.show()
+
+# Guardar la imagen modificada
+imagen_filtrada.save('ejemplo_filtrado.jpg')</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_numpy_pandas_y_matplotlib">NumPy, Pandas y Matplotlib.</h4>
+<div class="paragraph">
+<p>Python cuenta con una amplia variedad de librerías que facilitan el trabajo en diferentes áreas, como análisis de datos, visualización y más. Algunas de las librerías más populares son:</p>
+</div>
+<div class="paragraph">
+<p><strong>NumPy</strong>:
+NumPy es una librería fundamental para la computación científica en Python. Proporciona soporte para arreglos multidimensionales y funciones matemáticas para operar con estos arreglos de manera eficiente.</p>
+</div>
+<div class="paragraph">
+<p><strong>Ejemplo de uso de NumPy</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import numpy as np
+
+# Crear un arreglo numpy
+arreglo = np.array([1, 2, 3, 4, 5])
+
+# Operaciones con arreglos
+suma = np.sum(arreglo)  # Suma de todos los elementos
+media = np.mean(arreglo)  # Media de los elementos
+
+print(f"Suma: {suma}, Media: {media}")  # Salida: Suma: 15, Media: 3.0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Pandas</strong>:
+Pandas es una librería que proporciona estructuras de datos y herramientas para el análisis de datos. Se utiliza principalmente para trabajar con datos tabulares.</p>
+</div>
+<div class="paragraph">
+<p><strong>Ejemplo de uso de Pandas</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import pandas as pd
+
+# Crear un DataFrame
+data = {
+    'Nombre': ['Ana', 'Juan', 'Luis'],
+    'Edad': [23, 34, 45]
+}
+df = pd.DataFrame(data)
+
+# Operaciones con DataFrame
+print(df.describe())  # Salida: Resumen estadístico del DataFrame
+print(df['Edad'].mean())  # Salida: Media de la columna Edad</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Matplotlib</strong>:
+Matplotlib es una librería de visualización de datos en Python. Permite crear gráficos estáticos, animados e interactivos.</p>
+</div>
+<div class="paragraph">
+<p><strong>Ejemplo de uso de Matplotlib</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import matplotlib.pyplot as plt
+
+# Datos para el gráfico
+x = [1, 2, 3, 4, 5]
+y = [2, 3, 5, 7, 11]
+
+# Crear un gráfico de líneas
+plt.plot(x, y, marker='o')
+plt.title("Gráfico de líneas")
+plt.xlabel("Eje X")
+plt.ylabel("Eje Y")
+plt.show()  # Muestra el gráfico</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_7_2_frameworks_para_desarrollo_web">7.2. Frameworks para desarrollo web</h3>
+<div class="sect3">
+<h4 id="_flask_y_django">Flask y Django.</h4>
+<div class="paragraph">
+<p>Para el desarrollo de aplicaciones web, Python cuenta con varios frameworks que facilitan el proceso de creación. Dos de los más populares son Flask y Django.</p>
+</div>
+<div class="paragraph">
+<p><strong>Flask</strong>:
+Flask es un micro-framework que es ligero y fácil de usar. Es ideal para proyectos pequeños y permite una gran flexibilidad.</p>
+</div>
+<div class="paragraph">
+<p><strong>Ejemplo básico de Flask</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def inicio():
+    return "¡Hola, Mundo!"
+
+if __name__ == '__main__':
+    app.run(debug=True)  # Ejecuta el servidor en modo de depuración</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Django</strong>:
+Django es un framework web de alto nivel que sigue el patrón de diseño Modelo-Vista-Controlador (MVC). Proporciona muchas funcionalidades listas para usar, lo que permite desarrollar aplicaciones más complejas rápidamente.</p>
+</div>
+<div class="paragraph">
+<p><strong>Ejemplo básico de Django</strong>:
+Para comenzar con Django, debes crear un proyecto y una aplicación. Luego, puedes definir modelos, vistas y rutas.</p>
+</div>
+<div class="paragraph">
+<p><strong>Instalación y creación de un proyecto</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Instalación de Django
+pip install django
+
+# Crear un nuevo proyecto
+django-admin startproject mi_proyecto
+
+# Navegar al directorio del proyecto
+cd mi_proyecto
+
+# Ejecutar el servidor de desarrollo
+python manage.py runserver</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Definición de un modelo</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from django.db import models
+
+class Persona(models.Model):
+    nombre = models.CharField(max_length=100)
+    edad = models.IntegerField()</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Django ofrece un conjunto completo de herramientas para la autenticación de usuarios, administración, migraciones de bases de datos y mucho más, lo que lo convierte en una opción poderosa para aplicaciones web complejas.</p>
+</div>
+<div class="paragraph">
+<p>Las librerías y frameworks en Python son herramientas esenciales que permiten a los desarrolladores crear aplicaciones de manera más eficiente y con menor esfuerzo.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ejericios_sobre_librerías_y_frameworks">Ejericios sobre Librerías y Frameworks</h3>
+<div class="olist arabic">
+<div class="title">Ejercicios sobre Librerías:</div>
+<ol class="arabic">
+<li>
+<p><strong>Requests</strong>: Realiza una solicitud GET a una API pública que devuelva datos en formato JSON y muestra uno de los elementos.</p>
+</li>
+<li>
+<p><strong>CSV</strong>: Crea un archivo CSV que contenga información de estudiantes (nombre, edad, grado) y luego lee el archivo para mostrar la información.</p>
+</li>
+<li>
+<p><strong>JSON</strong>: Crea un diccionario de Python que contenga información sobre un libro (título, autor, año de publicación) y guarda esa información en un archivo JSON.</p>
+</li>
+<li>
+<p><strong>Pillow</strong>: Abre una imagen existente y guarda una copia de ella en otro formato (por ejemplo, de JPG a PNG).</p>
+</li>
+<li>
+<p><strong>Datetime</strong>: Escribe un script que imprima la fecha y hora actuales en un formato legible.</p>
+</li>
+<li>
+<p><strong>Math</strong>: Calcula el área y el perímetro de un círculo dado su radio utilizando funciones de la biblioteca <code>math</code>.</p>
+</li>
+<li>
+<p><strong>Sys</strong>: Crea un script que imprima los argumentos de la línea de comandos que se pasaron al ejecutar el script.</p>
+</li>
+<li>
+<p><strong>OS</strong>: Crea un directorio nuevo en el sistema de archivos y muestra el contenido del directorio.</p>
+</li>
+<li>
+<p><strong>Requests</strong>: Haz una solicitud POST a una API que acepte datos en JSON y muestra la respuesta.</p>
+</li>
+<li>
+<p><strong>CSV</strong>: Lee un archivo CSV que contenga datos de ventas y calcula el total de ventas por producto.</p>
+</li>
+<li>
+<p><strong>JSON</strong>: Carga un archivo JSON que contenga información sobre empleados y muestra el nombre de todos los empleados.</p>
+</li>
+<li>
+<p><strong>Pillow</strong>: Aplica un filtro a una imageEstos ejercicios se centran en las librerías <code>requests</code>, <code>csv</code>, <code>json</code>, <code>Pillow</code>, <code>datetime</code>, <code>math</code>, <code>sys</code> y <code>os</code>, ofreciendo una variedad de tareas para practicar sus funcionalidades.
+n (por ejemplo, desenfoque) y guarda la imagen resultante.</p>
+</li>
+<li>
+<p><strong>Datetime</strong>: Escribe un script que calcule cuántos días quedan hasta fin de año.</p>
+</li>
+<li>
+<p><strong>Math</strong>: Calcula la raíz cuadrada de un número dado y muestra el resultado.</p>
+</li>
+<li>
+<p><strong>Sys</strong>: Muestra la versión de Python que se está utilizando en el entorno.</p>
+</li>
+<li>
+<p><strong>OS</strong>: Obtén el nombre del sistema operativo en el que se está ejecutando el script.</p>
+</li>
+<li>
+<p><strong>Requests</strong>: Descarga una imagen de una URL y guárdala en tu sistema local.</p>
+</li>
+<li>
+<p><strong>CSV</strong>: Crea un archivo CSV a partir de una lista de diccionarios que contenga información de productos.</p>
+</li>
+<li>
+<p><strong>JSON</strong>: Convierte un objeto de Python en una cadena JSON y muéstrala.</p>
+</li>
+<li>
+<p><strong>Datetime</strong>: Escribe un script que imprima la fecha de mañana en un formato específico.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_módulo_8_recursos_adicionales">Módulo 8: Recursos Adicionales</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_8_1_documentación_y_tutoriales">8.1. Documentación y tutoriales</h3>
+<div class="sect3">
+<h4 id="_recursos_en_línea_para_seguir_aprendiendo">Recursos en línea para seguir aprendiendo.</h4>
+<div class="paragraph">
+<p>La documentación oficial y los tutoriales son fundamentales para profundizar en el conocimiento de Python y sus diversas bibliotecas y frameworks. Aquí hay algunos recursos clave:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Documentación oficial de Python</strong>:
+La documentación oficial de Python es un recurso completo que cubre todos los aspectos del lenguaje, desde la instalación hasta características avanzadas.
+[<a href="https://docs.python.org/3/" class="bare">https://docs.python.org/3/</a>](<a href="https://docs.python.org/3/" class="bare">https://docs.python.org/3/</a>)</p>
+</li>
+<li>
+<p><strong>Tutoriales de Python</strong>:</p>
+</li>
+<li>
+<p><strong>W3Schools</strong>: Ofrece tutoriales interactivos y ejemplos prácticos. [<a href="https://www.w3schools.com/python/" class="bare">https://www.w3schools.com/python/</a>](<a href="https://www.w3schools.com/python/" class="bare">https://www.w3schools.com/python/</a>)</p>
+</li>
+<li>
+<p><strong>Real Python</strong>: Proporciona artículos y cursos en profundidad sobre diversos temas de Python. [<a href="https://realpython.com/" class="bare">https://realpython.com/</a>](<a href="https://realpython.com/" class="bare">https://realpython.com/</a>)</p>
+</li>
+<li>
+<p><strong>Codecademy</strong>: Ofrece un curso interactivo de Python que es excelente para principiantes. [<a href="https://www.codecademy.com/learn/learn-python-3" class="bare">https://www.codecademy.com/learn/learn-python-3</a>](<a href="https://www.codecademy.com/learn/learn-python-3" class="bare">https://www.codecademy.com/learn/learn-python-3</a>)</p>
+</li>
+<li>
+<p><strong>Cursos en línea</strong>:</p>
+</li>
+<li>
+<p><strong>Coursera</strong>: Ofrece cursos sobre Python de universidades y organizaciones prestigiosas. [<a href="https://www.coursera.org/courses?query=python" class="bare">https://www.coursera.org/courses?query=python</a>](<a href="https://www.coursera.org/courses?query=python" class="bare">https://www.coursera.org/courses?query=python</a>)</p>
+</li>
+<li>
+<p><strong>edX</strong>: Similar a Coursera, con cursos de instituciones reconocidas. [<a href="https://www.edx.org/learn/python" class="bare">https://www.edx.org/learn/python</a>](<a href="https://www.edx.org/learn/python" class="bare">https://www.edx.org/learn/python</a>)</p>
+</li>
+<li>
+<p><strong>Udemy</strong>: Plataforma de cursos en línea con una amplia variedad de temas relacionados con Python. [<a href="https://www.udemy.com/courses/search/?q=python" class="bare">https://www.udemy.com/courses/search/?q=python</a>](<a href="https://www.udemy.com/courses/search/?q=python" class="bare">https://www.udemy.com/courses/search/?q=python</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_8_2_comunidades_y_foros">8.2. Comunidades y foros</h3>
+<div class="sect3">
+<h4 id="_dónde_encontrar_ayuda_y_colaborar_con_otros_desarrolladores">Dónde encontrar ayuda y colaborar con otros desarrolladores.</h4>
+<div class="paragraph">
+<p>Formar parte de comunidades y foros puede ser muy útil para resolver dudas, compartir conocimientos y colaborar en proyectos. Aquí hay algunos lugares recomendados:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Stack Overflow</strong>:
+Una de las comunidades más grandes para programadores. Puedes hacer preguntas y responder a otras sobre Python y otros lenguajes. [<a href="https://stackoverflow.com/questions/tagged/python" class="bare">https://stackoverflow.com/questions/tagged/python</a>](<a href="https://stackoverflow.com/questions/tagged/python" class="bare">https://stackoverflow.com/questions/tagged/python</a>)</p>
+</li>
+<li>
+<p><strong>Reddit</strong>:
+Subreddits como r/Python son lugares donde los desarrolladores comparten noticias, recursos y hacen preguntas. [<a href="https://www.reddit.com/r/Python/" class="bare">https://www.reddit.com/r/Python/</a>](<a href="https://www.reddit.com/r/Python/" class="bare">https://www.reddit.com/r/Python/</a>)</p>
+</li>
+<li>
+<p><strong>Discord y Slack</strong>:
+Hay varios servidores de Discord y canales de Slack dedicados a Python donde puedes interactuar en tiempo real con otros desarrolladores.</p>
+</li>
+<li>
+<p><strong>Grupos de Meetup</strong>:
+Busca grupos locales de Meetup relacionados con Python. Participar en eventos en persona puede ser una gran manera de aprender y hacer networking. [<a href="https://www.meetup.com/" class="bare">https://www.meetup.com/</a>](<a href="https://www.meetup.com/" class="bare">https://www.meetup.com/</a>)</p>
+</li>
+<li>
+<p><strong>GitHub</strong>:
+Explorar proyectos open-source en GitHub es una excelente manera de aprender y contribuir a la comunidad. Puedes encontrar proyectos en Python que te interesen y comenzar a colaborar. [<a href="https://github.com/explore" class="bare">https://github.com/explore</a>](<a href="https://github.com/explore" class="bare">https://github.com/explore</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2024-10-14 21:47:24 +0200
+</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
+<script>
+if (!hljs.initHighlighting.called) {
+  hljs.initHighlighting.called = true
+  ;[].slice.call(document.querySelectorAll('pre.highlight > code[data-lang]')).forEach(function (el) { hljs.highlightBlock(el) })
+}
+</script>
+</body>
+</html>

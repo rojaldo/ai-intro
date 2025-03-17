@@ -1,0 +1,203 @@
+:toc:
+:toc-title: Índice
+:source-highlighter: highlight.js
+
+= Ejercicios de Python con YOLO y Gradio
+
+== Introducción
+Ejercicios que combinan YOLO para detección de objetos con interfaces Gradio.
+
+== Ejercicios
+
+=== Ejercicio 1: Detector de Objetos Básico
+Implementa un detector simple con visualización de bounding boxes.
+
+[source, python]
+----
+import gradio as gr
+from ultralytics import YOLO
+
+def detect_objects(image):
+    model = YOLO('yolov8n.pt')
+    results = model(image)
+    return results[0].plot()
+
+demo = gr.Interface(
+    fn=detect_objects,
+    inputs=gr.Image(),
+    outputs=gr.Image(),
+    title="Detector de Objetos"
+)
+demo.launch()
+----
+
+=== Ejercicio 2: Contador de Personas
+Crea un sistema que cuente personas en imágenes o video.
+
+*Requisitos:*
+
+* Entrada: Imagen o stream de video
+* Procesamiento: Detección de personas
+* Salida: Imagen con conteo y visualización
+* Extras: Historial de conteos
+
+=== Ejercicio 3: Monitor de Seguridad
+Sistema de detección de objetos sospechosos.
+
+*Requisitos:*
+
+* Entrada: Feed de cámara
+* Detección: Objetos específicos (armas, maletas abandonadas)
+* Salida: Alertas y capturas
+* Extras: Registro de eventos
+
+=== Ejercicio 4: Analizador de Tráfico
+Detecta y clasifica vehículos en una vía.
+
+*Requisitos:*
+
+* Entrada: Video de tráfico
+* Detección: Tipos de vehículos
+* Salida: Estadísticas y visualización
+* Extras: Conteo por categoría
+
+=== Ejercicio 5: Inspector de EPP
+Sistema para verificar equipos de protección personal.
+
+*Requisitos:*
+
+* Entrada: Imágenes de trabajadores
+* Detección: Cascos, chalecos, guantes
+* Salida: Reporte de cumplimiento
+* Extras: Alertas de incumplimiento
+
+=== Ejercicio 6: Contador de Inventario
+Sistema para contar productos en estantes.
+
+*Requisitos:*
+
+* Entrada: Fotos de estantes
+* Detección: Productos específicos
+* Salida: Conteo y ubicación
+* Extras: Seguimiento de stock
+
+=== Ejercicio 7: Análisis de Deportes
+Detector de jugadores y acciones en deportes.
+
+*Requisitos:*
+
+* Entrada: Video de partido
+* Detección: Jugadores y pelota
+* Salida: Tracking y estadísticas
+* Extras: Mapas de calor
+
+=== Ejercicio 8: Monitor de Distancia Social
+Sistema para verificar distanciamiento social.
+
+*Requisitos:*
+
+* Entrada: Video de espacios públicos
+* Detección: Personas y distancias
+* Salida: Alertas y métricas
+* Extras: Zonas de riesgo
+
+=== Ejercicio 9: Detector de Mascotas
+Sistema para identificar y contar mascotas.
+
+*Requisitos:*
+
+* Entrada: Imágenes o video
+* Detección: Perros, gatos, otras mascotas
+* Salida: Conteo y clasificación
+* Extras: Registro de razas
+
+=== Ejercicio 10: Análisis de Multitudes
+Sistema para analizar densidad de personas.
+
+*Requisitos:*
+
+* Entrada: Imágenes aéreas
+* Detección: Grupos de personas
+* Salida: Estimación de densidad
+* Extras: Mapas de concentración
+
+== Estructura Base Común
+
+[source, python]
+----
+import gradio as gr
+from ultralytics import YOLO
+import cv2
+import numpy as np
+
+class ObjectDetector:
+    def __init__(self, model_path='yolov8n.pt'):
+        self.model = YOLO(model_path)
+    
+    def process_image(self, image):
+        results = self.model(image)
+        return self.visualize_results(results)
+    
+    def visualize_results(self, results):
+        # Implementar visualización personalizada
+        return results[0].plot()
+
+def create_interface(detector, title):
+    return gr.Interface(
+        fn=detector.process_image,
+        inputs=gr.Image(),
+        outputs=gr.Image(),
+        title=title
+    )
+----
+
+== Configuración y Requisitos
+
+=== Instalación
+[source, bash]
+----
+pip install ultralytics
+pip install gradio
+pip install opencv-python
+----
+
+=== Modelos YOLO Recomendados
+* yolov8n.pt: Modelo pequeño, rápido
+* yolov8s.pt: Balance velocidad/precisión
+* yolov8m.pt: Mayor precisión
+* yolov8l.pt: Alta precisión
+* yolov8x.pt: Máxima precisión
+
+== Optimizaciones Sugeridas
+
+=== Rendimiento
+* Usar procesamiento por lotes
+* Implementar caché de resultados
+* Optimizar tamaño de entrada
+
+=== Visualización
+* Personalizar colores por clase
+* Agregar etiquetas informativas
+* Incluir métricas en tiempo real
+
+=== Funcionalidad
+* Guardar resultados
+* Exportar estadísticas
+* Configuración de umbrales
+
+== Mejores Prácticas
+
+=== Código
+* Usar clases para organizar
+* Implementar logging
+* Manejar errores apropiadamente
+
+=== Interfaz
+* Diseño responsivo
+* Feedback visual claro
+* Controles intuitivos
+
+=== Procesamiento
+* Validar entradas
+* Limitar tamaño de archivos
+* Implementar timeout

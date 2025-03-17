@@ -1,0 +1,2530 @@
+= Python
+:toc:
+:toclevels: 3
+:source-highlighter: highlight.js
+
+== Módulo 0: Introducción a Python
+
+=== 0.1. ¿Qué es Python?
+
+==== Historia y características de Python.
+Python es un lenguaje de programación interpretado, de alto nivel y de propósito general. Fue creado por Guido van Rossum y se lanzó por primera vez en 1991. Algunas de sus características más destacadas incluyen:
+
+- **Sencillez y legibilidad**: La sintaxis de Python es clara y fácil de aprender, lo que lo convierte en un buen lenguaje para principiantes.
+- **Amplia comunidad y ecosistema**: Python tiene una gran comunidad que contribuye con una vasta cantidad de bibliotecas y frameworks.
+- **Multiparadigma**: Soporta programación orientada a objetos, programación funcional y programación imperativa.
+- **Portabilidad**: Python se puede ejecutar en múltiples plataformas (Windows, macOS, Linux) sin modificaciones.
+
+==== Instalación y configuración del entorno.
+Para comenzar a programar en Python, primero necesitas instalarlo en tu sistema. A continuación, se describen los pasos básicos para la instalación:
+
+1. **Descargar Python**:
+   Visita el sitio oficial de Python: [https://www.python.org/downloads/](https://www.python.org/downloads/) y descarga la última versión.
+
+2. **Instalar Python**:
+   - En Windows, ejecuta el instalador y asegúrate de seleccionar la opción "Add Python to PATH".
+   - En macOS, puedes usar Homebrew: `brew install python`.
+   - En Linux, puedes instalar Python utilizando el gestor de paquetes de tu distribución, por ejemplo: `sudo apt install python3`.
+
+3. **Verificar la instalación**:
+   Abre una terminal o consola de comandos y ejecuta:
+   [source, bash]
+   ----
+   python --version
+   ----
+   o
+   [source, bash]
+   ----
+   python3 --version
+   ----
+   Esto debería mostrar la versión instalada de Python.
+
+4. **Instalar un entorno de desarrollo**:
+   Puedes utilizar un entorno de desarrollo integrado (IDE) como PyCharm, VSCode o simplemente un editor de texto como Sublime Text.
+
+5. **Instalar un entorno virtual (opcional)**:
+   Es recomendable utilizar entornos virtuales para proyectos de Python. Éstos permiten aislar las dependencias de un proyecto de otros proyectos y del sistema.
+
+=== 0.2 Introducción a los Entornos Virtuales
+==== ¿Qué son los entornos virtuales?
+Los entornos virtuales son herramientas que permiten crear un espacio aislado para proyectos de Python, evitando conflictos de dependencias y asegurando que cada proyecto tenga sus propias bibliotecas y configuraciones.
+
+=== 0.2.2. Ventajas de Usar Entornos Virtuales
+==== Aislamiento de proyectos
+Cada proyecto puede tener sus propias versiones de bibliotecas, lo que evita problemas de compatibilidad.
+==== Gestión de dependencias
+Facilita la instalación y actualización de paquetes sin afectar otros proyectos.
+
+=== 0.2.3. Entornos Virtuales Comunes
+==== venv
+`venv` es el módulo estándar para crear entornos virtuales en Python 3.
+
+**Ejemplo de creación y activación de un entorno virtual con `venv`**:
+[source, python]
+----
+# Crear un entorno virtual
+python -m venv mi_entorno
+
+# Activar el entorno virtual en Windows
+mi_entorno\Scripts\activate
+
+# Activar el entorno virtual en macOS/Linux
+source mi_entorno/bin/activate
+----
+
+==== virtualenv
+`virtualenv` es una herramienta más antigua que permite crear entornos virtuales y es compatible con versiones anteriores de Python.
+
+**Ejemplo de instalación, creación y activación de un entorno virtual con `virtualenv`**:
+[source, python]
+----
+# Instalación de virtualenv
+pip install virtualenv
+
+# Crear un entorno virtual
+virtualenv mi_entorno
+
+# Activar el entorno virtual en Windows
+mi_entorno\Scripts\activate
+
+# Activar el entorno virtual en macOS/Linux
+source mi_entorno/bin/activate
+----
+
+==== conda
+`conda` es un gestor de paquetes y entornos que se utiliza principalmente en la distribución Anaconda, pero también puede usarse independientemente.
+
+**Ejemplo de creación y activación de un entorno virtual con `conda`**:
+[source, bash]
+----
+# Crear un entorno virtual
+conda create --name mi_entorno python=3.9
+
+# Activar el entorno virtual
+conda activate mi_entorno
+----
+
+==== Poetry
+`Poetry` es una herramienta de gestión de dependencias y entornos que simplifica el manejo de paquetes en proyectos de Python.
+
+**Ejemplo de instalación, creación y activación de un entorno virtual con `Poetry`**:
+[source, bash]
+----
+# Instalación de Poetry
+pip install poetry
+
+# Crear un nuevo proyecto y un entorno virtual
+poetry new mi_proyecto
+cd mi_proyecto
+
+# Activar el entorno virtual de Poetry
+poetry shell
+----
+
+**Instalación de paquetes con Poetry**:
+[source, bash]
+----
+# Instalar un paquete
+poetry add numpy
+----
+
+=== 0.2.4. Instalación de Paquetes en Entornos Virtuales
+Una vez activado el entorno virtual, puedes instalar paquetes utilizando `pip`, `conda` o `poetry`.
+
+**Ejemplo de instalación de un paquete**:
+[source, bash]
+----
+# Instalar un paquete con pip
+pip install numpy
+
+# Instalar un paquete con conda
+conda install numpy
+
+# Instalar un paquete con poetry
+poetry add numpy
+----
+
+=== 0.2.5. Desactivación y Eliminación de Entornos Virtuales
+==== Desactivación del entorno virtual
+Para desactivar el entorno virtual y volver al entorno global, puedes usar el siguiente comando:
+[source, python]
+----
+# Desactivar el entorno virtual
+deactivate  # Para venv y virtualenv
+conda deactivate  # Para conda
+exit  # Para Poetry
+----
+
+==== Eliminación del entorno virtual
+Para eliminar un entorno virtual, simplemente elimina la carpeta del entorno.
+
+**Ejemplo de eliminación de un entorno virtual**:
+[source, python]
+----
+# Eliminar un entorno creado con venv o virtualenv
+rm -rf mi_entorno  # Para macOS/Linux
+rmdir /S mi_entorno  # Para Windows
+
+# Eliminar un entorno creado con conda
+conda env remove --name mi_entorno
+
+# Eliminar un entorno creado con poetry
+poetry env remove python
+----
+
+=== 0.2.6. Buenas Prácticas para el Uso de Entornos Virtuales
+- Crear un nuevo entorno virtual para cada proyecto.
+- Mantener un archivo `requirements.txt` o usar `pyproject.toml` para facilitar la instalación de dependencias.
+- Usar versiones específicas de Python y bibliotecas para garantizar la compatibilidad.
+
+=== 0.3. Jupyter
+
+==== ¿Qué es Jupyter?
+Jupyter es una herramienta de código abierto que permite crear y compartir documentos que contienen código en vivo, ecuaciones, visualizaciones y texto explicativo. Es muy popular en el ámbito de la ciencia de datos, aprendizaje automático y análisis de datos.
+
+==== Instalación de Jupyter
+Jupyter se puede instalar fácilmente utilizando `pip` o `conda`.
+
+**Ejemplo de instalación con pip**:
+[source, bash]
+----
+# Instalar Jupyter Notebook
+pip install notebook
+----
+
+**Ejemplo de instalación con conda**:
+[source, bash]
+----
+# Instalar Jupyter Notebook
+conda install notebook
+----
+
+==== Creación y Lanzamiento de un Notebook
+Una vez que Jupyter esté instalado, puedes crear y lanzar un nuevo notebook.
+
+**Ejemplo de cómo iniciar Jupyter Notebook**:
+[source, bash]
+----
+# Iniciar el servidor de Jupyter Notebook
+jupyter notebook
+----
+
+Esto abrirá una nueva ventana del navegador con la interfaz de Jupyter, donde podrás crear un nuevo notebook seleccionando "New" y luego "Python 3".
+
+==== Uso de Notebooks
+- **Celdas de código**: Permiten ejecutar código de Python y ver los resultados directamente en el notebook.
+- **Celdas de texto**: Permiten añadir explicaciones utilizando Markdown, lo que facilita la documentación y el análisis de resultados.
+
+**Ejemplo de una celda de código**:
+[source, python]
+----
+# Celda de código para sumar dos números
+a = 5
+b = 10
+suma = a + b
+suma  # Salida: 15
+----
+
+**Ejemplo de una celda de texto usando Markdown**:
+[source, markdown]
+----
+# Este es un título en Markdown
+
+Aquí puedes explicar los resultados del código anterior. Markdown permite incluir **negritas**, *cursivas* y listas:
+
+- Elemento 1
+- Elemento 2
+----
+
+==== Guardar y Compartir Notebooks
+Los notebooks se guardan con la extensión `.ipynb`. Puedes compartir el archivo `.ipynb` con otros usuarios, quienes podrán abrirlo en su propio entorno de Jupyter.
+
+**Exportar Notebooks**:
+Puedes exportar tu notebook a diferentes formatos, como HTML o PDF, utilizando la opción "Download as" en el menú "File".
+
+==== Extensiones de Jupyter
+Jupyter Notebook tiene muchas extensiones que pueden mejorar su funcionalidad. Algunas de las más populares son:
+
+- **Jupyter Notebook Extensions**: Un conjunto de extensiones para agregar características adicionales a los notebooks.
+- **Nbextensions**: Una colección de extensiones que permiten mejorar la interfaz de usuario y la experiencia de trabajo con Jupyter.
+
+**Ejemplo de instalación de extensiones de Jupyter**:
+[source, bash]
+----
+# Instalar Jupyter Nbextensions
+pip install jupyter_contrib_nbextensions
+
+# Habilitar las extensiones
+jupyter contrib nbextension install --user
+----
+
+==== Integración con Entornos Virtuales
+Es recomendable ejecutar Jupyter en un entorno virtual para evitar conflictos con dependencias. Al activar el entorno virtual antes de iniciar Jupyter, el kernel de Jupyter usará las bibliotecas y configuraciones específicas de ese entorno.
+
+**Ejemplo de integración**:
+[source, bash]
+----
+# Activar el entorno virtual
+source mi_entorno/bin/activate  # Para macOS/Linux
+mi_entorno\Scripts\activate  # Para Windows
+
+# Iniciar Jupyter Notebook
+jupyter notebook
+----
+
+== Modulo 1: Variables y Estructuras de Datos
+
+=== Introducción
+
+Este módulo está diseñado para que los estudiantes aprendan sobre los diferentes tipos de variables nativas que existen en Python. Se abordarán también las técnicas para manejar estos tipos, con especial énfasis en el trabajo con cadenas de texto, así como los métodos nativos que Python ofrece para manipularlas.
+
+=== 1.1. Tipos de Variables en Python
+Este capítulo presenta los tipos de datos básicos que Python maneja de forma nativa.
+
+==== 1.1.1 Tipos Nativos de Python
+* **int**: Representa números enteros.
+* **float**: Números de punto flotante (decimales).
+* **str**: Cadenas de texto.
+* **bool**: Valores booleanos (`True` o `False`).
+* **None**: Representa un valor nulo o indefinido.
+
+==== 1.1.2 Declaración de Variables
+Explicación sobre cómo declarar variables y asignarles valores.
+
+[source,python]
+----
+# Ejemplo de declaración de variables
+edad = 30  # int
+altura = 1.75  # float
+nombre = "Carlos"  # str
+es_estudiante = False  # bool
+----
+
+===== 1.1.3 Conversión entre Tipos de Datos
+* Uso de funciones para conversión entre tipos (`int()`, `float()`, `str()`, etc.)
+* Conversión implícita y explícita.
+
+[source,python]
+----
+# Conversión entre tipos
+edad = "30"
+edad_entero = int(edad)  # Conversión de str a int
+altura = 1.75
+altura_texto = str(altura)  # Conversión de float a str
+----
+
+=== 1.2. Manejo de Cadenas (str)
+
+En este capítulo, se estudia en profundidad el tipo `str` y sus capacidades. Las cadenas de texto en Python son secuencias inmutables que pueden manipularse utilizando diversos métodos.
+
+==== 1.2.1 Creación de Cadenas
+* Cadenas comillas simples, dobles (cadena de texto).
+* Cadenas con comillas triples (multi-línea)
+* fstrings (cadenas formateadas).
+
+
+[source,python]
+----
+# Cadenas con comillas simples, dobles y triples
+cadena1 = 'Hola'
+cadena2 = "Mundo"
+fstring = f"{cadena1} {cadena2}"
+cadena_multilinea = '''Esta es
+una cadena de
+múltiples líneas'''
+----
+
+==== 1.2.2 Indexación y Slicing de Cadenas
+* Acceso a caracteres individuales mediante índices.
+* Uso de slicing para extraer subcadenas.
+
+[source,python]
+----
+# Indexación y slicing
+nombre = "Python"
+primera_letra = nombre[0]  # 'P'
+subcadena = nombre[1:4]  # 'yth'
+----
+
+==== 1.2.3 Métodos Comunes para Cadenas
+Explicación de los métodos más utilizados para trabajar con cadenas en Python.
+
+===== 1.2.3.1 Métodos de Modificación de Cadenas
+* `upper()`, `lower()`: Convertir cadenas a mayúsculas o minúsculas.
+* `capitalize()`: Capitalizar la primera letra.
+* `strip()`: Eliminar espacios en blanco iniciales y finales.
+* `replace()`: Reemplazar subcadenas dentro de una cadena.
+
+[source,python]
+----
+texto = "   hola mundo   "
+texto_modificado = texto.strip().replace("mundo", "Python").capitalize()
+# 'Hola Python'
+----
+
+===== 1.2.3.2 Métodos de Búsqueda y Validación
+* `find()`: Buscar la posición de una subcadena.
+* `startswith()`, `endswith()`: Verificar si una cadena comienza o termina con una subcadena.
+* `isdigit()`, `isalpha()`, `isspace()`: Métodos para validar el contenido de una cadena.
+
+[source,python]
+----
+texto = "Python3"
+posicion = texto.find("3")  # Retorna la posición de '3', que es 6
+es_numero = texto.isdigit()  # False, ya que contiene letras
+----
+
+==== 1.2.4 Formateo de Cadenas
+* Uso de `f-strings` (f"{variable}").
+* Métodos clásicos: `format()` y el operador `%`.
+
+[source,python]
+----
+# Formateo de cadenas con f-strings
+nombre = "Carlos"
+edad = 30
+saludo = f"Hola, me llamo {nombre} y tengo {edad} años"
+# 'Hola, me llamo Carlos y tengo 30 años'
+----
+
+=== 1.3. Buenas Prácticas con Cadenas y Tipos de Datos
+
+Este capítulo proporciona recomendaciones para trabajar eficientemente con cadenas y variables de otros tipos en Python.
+
+==== 1.3.1 Evitar Concatenaciones Repetidas
+* Uso de listas y `join()` en lugar de concatenaciones repetitivas en bucles.
+
+[source,python]
+----
+# Forma eficiente de concatenar
+partes = ["Hola", "a", "todos"]
+frase = " ".join(partes)
+# 'Hola a todos'
+----
+
+==== 1.3.2 Validaciones y Conversión Oportuna de Tipos
+* Validar tipos de datos antes de convertir.
+* Evitar conversiones innecesarias en código crítico de rendimiento.
+
+[source,python]
+----
+# Validación antes de conversión
+dato = "123"
+if dato.isdigit():
+    numero = int(dato)
+----
+
+=== 1.4. Resumen y Ejercicios Prácticos
+
+.Ejercicios Prácticos
+1. Declara tres variables: una para almacenar un nombre, otra para la edad y otra para la altura. Imprime los valores de las tres variables.
+
+2. Convierte una variable que contiene un número en formato texto (`"45"`) a tipo entero y multiplícalo por 2. Imprime el resultado.
+
+3. Utiliza un `f-string` para imprimir una oración que incluya las siguientes variables: nombre, edad y ciudad.
+
+4. Declara dos variables de tipo `str` que contengan tu nombre y apellido. Concáténalas en una tercera variable e imprime el resultado.
+
+5. Dada la cadena `"python es divertido"`, convierte todo el texto a mayúsculas y luego reemplaza la palabra `"divertido"` por `"increíble"`.
+
+6. Dada la cadena `"aprendiendo python"`, imprime el primer y último carácter de la cadena.
+
+7. Dada la cadena `"Programación en Python"`, usa slicing para extraer la palabra `"Python"` y guárdala en una nueva variable.
+
+8. Crea una variable con el valor `"12345"`. Verifica si todos los caracteres de la cadena son dígitos y muestra el resultado en consola.
+
+9. Dada la frase `"La vida es bella"`, reemplaza la palabra `"bella"` por `"genial"`.
+
+10. Dada la cadena `"   Hola Mundo   "`, elimina los espacios en blanco al principio y al final de la cadena.
+
+11. Dada la cadena `"Python"`, imprime la tercera letra empezando desde el final.
+
+12. Crea dos variables que contengan cadenas de texto diferentes. Compara si las dos cadenas son iguales o no y muestra el resultado.
+
+13. Dada la cadena `"elefante"`, cuenta cuántas veces aparece la letra `"e"` en la cadena.
+
+14. Dada la cadena `"hola mundo desde python"`, convierte la primera letra de cada palabra a mayúscula.
+
+15. Dada la cadena `"Python"`, imprime cuántos caracteres contiene.
+
+16. Dada la cadena `"Programar en Python es divertido"`, extrae la palabra `"Python"` usando slicing y métodos de indexación.
+
+17. Dada la cadena `"  "` (dos espacios en blanco), valida si está vacía o solo contiene espacios en blanco.
+
+18. Dada la cadena `"PYTHON ES GENIAL"`, convierte todos los caracteres a minúsculas.
+
+19. Dada la cadena `"Bienvenidos a Python"`, valida si empieza con la palabra `"Bienvenidos"`.
+
+20. Dada una lista de palabras `["Python", "es", "genial"]`, únelas en una sola cadena separadas por un espacio.
+
+
+== Módulo 2: Estructuras de Control
+
+=== 2.1. Condicionales
+
+==== Uso de `if`, `elif` y `else`.
+Las estructuras condicionales permiten ejecutar diferentes bloques de código según si una condición es verdadera o falsa. La sintaxis básica es la siguiente:
+
+[source, python]
+----
+if condicion:
+    # Código a ejecutar si la condición es verdadera
+elif otra_condicion:
+    # Código a ejecutar si la otra condición es verdadera
+else:
+    # Código a ejecutar si ninguna de las condiciones anteriores es verdadera
+----
+
+**Ejemplo**:
+[source, python]
+----
+edad = 18
+
+if edad < 18:
+    print("Eres menor de edad.")
+elif edad == 18:
+    print("Tienes exactamente 18 años.")
+else:
+    print("Eres mayor de edad.")
+----
+
+==== Ejemplos prácticos.
+Veamos un ejemplo más práctico que evalúa la calificación de un estudiante:
+
+[source, python]
+----
+calificacion = 85
+
+if calificacion >= 90:
+    print("A")
+elif calificacion >= 80:
+    print("B")
+elif calificacion >= 70:
+    print("C")
+elif calificacion >= 60:
+    print("D")
+else:
+    print("F")
+----
+
+Este código evalúa la calificación y asigna una letra según el rango correspondiente.
+
+=== 2.2. Bucles
+
+==== Bucles `for` y `while`.
+Los bucles permiten repetir un bloque de código varias veces. Python ofrece dos tipos principales de bucles: `for` y `while`.
+
+- **Bucle `for`**: Se utiliza para iterar sobre una secuencia (lista, tupla, cadena, etc.).
+[source, python]
+----
+for i in range(5):
+    print(i)  # Imprime los números del 0 al 4
+----
+
+- **Bucle `while`**: Continúa ejecutando el bloque de código mientras la condición sea verdadera.
+[source, python]
+----
+contador = 0
+while contador < 5:
+    print(contador)
+    contador += 1  # Incrementa el contador
+----
+
+==== Control de bucles: `break`, `continue` y `pass`.
+Python permite controlar la ejecución de bucles mediante las palabras clave `break`, `continue` y `pass`.
+
+- **`break`**: Sale del bucle inmediatamente.
+[source, python]
+----
+for i in range(10):
+    if i == 5:
+        break  # Sale del bucle cuando i es 5
+    print(i)  # Imprime 0 a 4
+----
+
+- **`continue`**: Salta a la siguiente iteración del bucle.
+[source, python]
+----
+for i in range(5):
+    if i == 2:
+        continue  # Salta el número 2
+    print(i)  # Imprime 0, 1, 3, 4
+----
+
+- **`pass`**: Se utiliza como un marcador de posición. No realiza ninguna acción y permite que el código siga ejecutándose.
+[source, python]
+----
+for i in range(5):
+    if i == 2:
+        pass  # No hace nada
+    print(i)  # Imprime 0, 1, 2, 3, 4
+----
+
+Estas estructuras de control son fundamentales para controlar el flujo de un programa y realizar tareas repetitivas o condicionales en Python.
+
+
+== Módulo 3: Estructuras de Datos
+
+=== 3.1. Listas
+
+Las listas son una de las estructuras de datos más utilizadas en Python. Son colecciones ordenadas y mutables que permiten almacenar múltiples elementos en una sola variable. Las listas pueden contener elementos de diferentes tipos, incluidos otros tipos de listas.
+
+==== Creación de Listas
+
+Las listas se definen utilizando corchetes `[]` y los elementos se separan por comas.
+
+[source,python]
+----
+# Definir una lista vacía
+lista_vacia = []
+
+# Definir una lista con elementos
+frutas = ["manzana", "banana", "naranja", "kiwi"]
+print(frutas)
+----
+
+==== Acceso a Elementos de una Lista
+
+Se puede acceder a los elementos de una lista mediante su índice, donde el primer elemento tiene el índice 0.
+
+[source,python]
+----
+# Acceder a elementos
+primera_fruta = frutas[0]  # 'manzana'
+ultima_fruta = frutas[-1]  # 'kiwi'
+print(primera_fruta, ultima_fruta)
+----
+
+==== Modificación de Elementos
+
+Las listas son mutables, lo que significa que se pueden cambiar los elementos después de su creación.
+
+[source,python]
+----
+# Modificar un elemento
+frutas[1] = "fresa"
+print(frutas)  # ['manzana', 'fresa', 'naranja', 'kiwi']
+----
+
+==== Métodos Comunes de Listas
+
+Python ofrece varios métodos para trabajar con listas:
+
+* `append()`: Agrega un elemento al final de la lista.
+* `insert()`: Inserta un elemento en una posición específica.
+* `remove()`: Elimina el primer elemento que coincide con el valor especificado.
+* `pop()`: Elimina y devuelve el elemento en la posición especificada (o el último si no se especifica).
+* `sort()`: Ordena los elementos de la lista.
+* `reverse()`: Invierte el orden de los elementos de la lista.
+
+Ejemplos de uso de métodos:
+
+[source,python]
+----
+# Usar métodos de listas
+frutas.append("mora")  # Agregar al final
+print(frutas)  # ['manzana', 'fresa', 'naranja', 'kiwi', 'mora']
+
+frutas.insert(2, "cereza")  # Insertar en la posición 2
+print(frutas)  # ['manzana', 'fresa', 'cereza', 'naranja', 'kiwi', 'mora']
+
+frutas.remove("fresa")  # Eliminar 'fresa'
+print(frutas)  # ['manzana', 'cereza', 'naranja', 'kiwi', 'mora']
+
+ultima_fruta = frutas.pop()  # Eliminar y obtener el último elemento
+print(ultima_fruta)  # 'mora'
+print(frutas)  # ['manzana', 'cereza', 'naranja', 'kiwi']
+
+frutas.sort()  # Ordenar la lista
+print(frutas)  # ['cereza', 'kiwi', 'manzana', 'naranja']
+
+frutas.reverse()  # Invertir la lista
+print(frutas)  # ['naranja', 'manzana', 'kiwi', 'cereza']
+----
+
+==== Iteración sobre Listas
+
+Se pueden usar bucles `for` para iterar sobre los elementos de una lista.
+
+[source,python]
+----
+# Iterar sobre una lista
+for fruta in frutas:
+    print(fruta)
+----
+
+==== Listas Anidadas
+
+Las listas pueden contener otras listas como elementos, formando listas anidadas.
+
+[source,python]
+----
+# Definir una lista anidada
+lista_anidada = [
+    ["manzana", "banana"],
+    ["naranja", "kiwi"]
+]
+
+print(lista_anidada[0][1])  # Acceder a 'banana'
+----
+
+
+=== 3.2. Tuplas
+
+==== Características y usos.
+Las tuplas son colecciones ordenadas e inmutables de elementos. Se definen utilizando paréntesis `()`.
+
+**Creación de tuplas**:
+[source, python]
+----
+punto = (10, 20)  # Tupla de dos elementos
+coordenadas = (1, 2, 3)  # Tupla de tres elementos
+----
+
+**Características de las tuplas**:
+- **Inmutabilidad**: Una vez creadas, no se pueden modificar (no puedes agregar, eliminar ni cambiar elementos).
+- **Acceso**: Puedes acceder a los elementos mediante índices, al igual que las listas.
+[source, python]
+----
+print(punto[0])  # Imprime 10
+----
+
+**Usos comunes**:
+- Almacenar datos que no deben cambiar a lo largo del tiempo.
+- Usar como claves en diccionarios, ya que son inmutables.
+
+=== 3.3. Diccionarios
+
+Los diccionarios son una estructura de datos en Python que permite almacenar pares de clave-valor. Son mutables y desordenados, lo que significa que no mantienen un orden específico de los elementos. Cada clave debe ser única dentro de un diccionario.
+
+==== Creación de Diccionarios
+
+Los diccionarios se definen utilizando llaves `{}` y los pares de clave-valor se separan por comas. Las claves y los valores se separan con dos puntos `:`.
+
+[source,python]
+----
+# Definir un diccionario vacío
+diccionario_vacio = {}
+
+# Definir un diccionario con elementos
+persona = {
+    "nombre": "Juan",
+    "edad": 30,
+    "ciudad": "Madrid"
+}
+print(persona)
+----
+
+==== Acceso a Valores
+
+Se puede acceder a los valores de un diccionario utilizando su clave.
+
+[source,python]
+----
+# Acceder a valores
+nombre_persona = persona["nombre"]  # 'Juan'
+edad_persona = persona["edad"]  # 30
+print(nombre_persona, edad_persona)
+----
+
+==== Modificación de Valores
+
+Los diccionarios son mutables, lo que permite cambiar los valores asociados a las claves.
+
+[source,python]
+----
+# Modificar un valor
+persona["edad"] = 31
+print(persona)  # {'nombre': 'Juan', 'edad': 31, 'ciudad': 'Madrid'}
+----
+
+==== Agregar y Eliminar Elementos
+
+Se pueden agregar nuevos pares de clave-valor o eliminar existentes.
+
+[source,python]
+----
+# Agregar un nuevo elemento
+persona["profesion"] = "Ingeniero"
+print(persona)  # {'nombre': 'Juan', 'edad': 31, 'ciudad': 'Madrid', 'profesion': 'Ingeniero'}
+
+# Eliminar un elemento
+del persona["ciudad"]
+print(persona)  # {'nombre': 'Juan', 'edad': 31, 'profesion': 'Ingeniero'}
+----
+
+==== Métodos Comunes de Diccionarios
+
+Python proporciona varios métodos útiles para trabajar con diccionarios:
+
+* `keys()`: Devuelve una vista de todas las claves en el diccionario.
+* `values()`: Devuelve una vista de todos los valores en el diccionario.
+* `items()`: Devuelve una vista de todos los pares clave-valor.
+
+Ejemplos de uso de métodos:
+
+[source,python]
+----
+# Usar métodos de diccionarios
+claves = persona.keys()  # Obtener las claves
+valores = persona.values()  # Obtener los valores
+pares = persona.items()  # Obtener los pares clave-valor
+
+print(claves)  # dict_keys(['nombre', 'edad', 'profesion'])
+print(valores)  # dict_values(['Juan', 31, 'Ingeniero'])
+print(pares)  # dict_items([('nombre', 'Juan'), ('edad', 31), ('profesion', 'Ingeniero')])
+----
+
+==== Comprobación de Claves
+
+Se puede comprobar si una clave existe en un diccionario utilizando el operador `in`.
+
+[source,python]
+----
+# Comprobar si una clave existe
+existe_nombre = "nombre" in persona  # True
+existe_ciudad = "ciudad" in persona  # False
+print(existe_nombre, existe_ciudad)
+----
+
+==== Iteración sobre Diccionarios
+
+Se pueden usar bucles `for` para iterar sobre las claves, valores o pares clave-valor de un diccionario.
+
+[source,python]
+----
+# Iterar sobre un diccionario
+for clave, valor in persona.items():
+    print(f"{clave}: {valor}")
+----
+
+==== Diccionarios Anidados
+
+Los diccionarios pueden contener otros diccionarios como valores, formando diccionarios anidados.
+
+[source,python]
+----
+# Definir un diccionario anidado
+empresa = {
+    "nombre": "Tech Co",
+    "empleados": {
+        "1": {"nombre": "Juan", "edad": 30},
+        "2": {"nombre": "Ana", "edad": 25}
+    }
+}
+
+print(empresa["empleados"]["1"]["nombre"])  # 'Juan'
+----
+
+==== Resumen
+
+Los diccionarios son una estructura poderosa en Python que permite almacenar datos en pares de clave-valor. Su mutabilidad y la facilidad para acceder y modificar datos los convierten en una herramienta esencial para el manejo de datos.
+
+=== 3.4. Conjuntos
+
+==== Definición y operaciones.
+Los conjuntos son colecciones desordenadas de elementos únicos. Se definen utilizando llaves `{}` o la función `set()`.
+
+**Creación de conjuntos**:
+[source, python]
+----
+conjunto = {1, 2, 3, 4, 5}  # Conjunto de números
+conjunto_vacio = set()  # Conjunto vacío
+----
+
+**Operaciones con conjuntos**:
+- **Agregar elementos**:
+[source, python]
+----
+conjunto.add(6)  # Agrega el número 6
+----
+
+- **Eliminar elementos**:
+[source, python]
+----
+conjunto.remove(3)  # Elimina el número 3
+----
+
+- **Operaciones matemáticas**:
+Los conjuntos permiten realizar operaciones matemáticas como unión, intersección y diferencia.
+[source, python]
+----
+conjunto_a = {1, 2, 3}
+conjunto_b = {3, 4, 5}
+
+unidos = conjunto_a.union(conjunto_b)  # Unión
+interseccion = conjunto_a.intersection(conjunto_b)  # Intersección
+diferencia = conjunto_a.difference(conjunto_b)  # Diferencia
+----
+
+Estas estructuras de datos son fundamentales para organizar y manipular información en Python de manera eficiente.
+
+
+== Módulo 4: Funciones y Módulos
+
+=== 4.1. Definición y Llamada de Funciones
+
+Las funciones son bloques de código reutilizables que realizan una tarea específica. En Python, se pueden definir funciones utilizando la palabra clave `def`, seguida del nombre de la función y paréntesis que pueden incluir parámetros.
+
+==== Definición de Funciones
+
+La sintaxis básica para definir una función es la siguiente:
+
+[source,python]
+----
+def nombre_de_la_funcion(parametro1, parametro2):
+    """Docstring: descripción de la función."""
+    # Código de la función
+    return resultado
+----
+
+Ejemplo de definición de una función que suma dos números:
+
+[source,python]
+----
+def sumar(a, b):
+    """Devuelve la suma de a y b."""
+    return a + b
+----
+
+==== Llamada a Funciones
+
+Para llamar a una función, se utiliza su nombre seguido de paréntesis, pasando los argumentos necesarios.
+
+[source,python]
+----
+resultado = sumar(5, 3)  # Llamada a la función sumar
+print(resultado)  # 8
+----
+
+==== Funciones sin Parámetros
+
+También se pueden definir funciones que no requieren parámetros. En este caso, se pueden definir sin paréntesis o con paréntesis vacíos.
+
+[source,python]
+----
+def saludar():
+    """Imprime un saludo."""
+    print("¡Hola, mundo!")
+
+# Llamar a la función
+saludar()  # ¡Hola, mundo!
+----
+
+==== Parámetros Predeterminados
+
+Es posible definir valores predeterminados para los parámetros de una función. Si no se proporciona un valor al llamar a la función, se utilizará el valor predeterminado.
+
+[source,python]
+----
+def saludar(nombre="invitado"):
+    """Imprime un saludo personalizado."""
+    print(f"¡Hola, {nombre}!")
+
+saludar()  # ¡Hola, invitado!
+saludar("Ana")  # ¡Hola, Ana!
+----
+
+==== Argumentos Posicionales y Nombrados
+
+Al llamar a funciones, se pueden pasar argumentos de forma posicional o mediante nombres.
+
+[source,python]
+----
+def mostrar_info(nombre, edad):
+    """Muestra la información de una persona."""
+    print(f"Nombre: {nombre}, Edad: {edad}")
+
+# Argumentos posicionales
+mostrar_info("Juan", 30)  # Nombre: Juan, Edad: 30
+
+# Argumentos nombrados
+mostrar_info(edad=25, nombre="Ana")  # Nombre: Ana, Edad: 25
+----
+
+==== Funciones con Cantidad Variable de Argumentos
+
+Las funciones pueden aceptar una cantidad variable de argumentos utilizando `*args` y `**kwargs`.
+
+[source,python]
+----
+def sumar_varios(*args):
+    """Devuelve la suma de todos los argumentos."""
+    return sum(args)
+
+resultado = sumar_varios(1, 2, 3, 4)
+print(resultado)  # 10
+
+def mostrar_info_varios(**kwargs):
+    """Muestra la información de varias personas."""
+    for clave, valor in kwargs.items():
+        print(f"{clave}: {valor}")
+
+mostrar_info_varios(Juan=30, Ana=25)  # Juan: 30, Ana: 25
+----
+
+=== 4.2. Funciones Lambda
+
+Las funciones lambda en Python son funciones anónimas que se definen con la palabra clave `lambda`. Estas funciones son útiles para operaciones simples y se utilizan comúnmente cuando se necesita una función por un corto período de tiempo.
+
+==== Sintaxis de las Funciones Lambda
+
+La sintaxis básica de una función lambda es la siguiente:
+
+[source,python]
+----
+lambda argumentos: expresión
+----
+
+La función toma argumentos y devuelve el resultado de la expresión.
+
+==== Ejemplo de una Función Lambda
+
+Un ejemplo básico de una función lambda que suma dos números:
+
+[source,python]
+----
+suma = lambda x, y: x + y
+resultado = suma(5, 3)  # Llamada a la función lambda
+print(resultado)  # 8
+----
+
+==== Uso de Funciones Lambda con `map()`
+
+Las funciones lambda son especialmente útiles con funciones de orden superior como `map()`, que aplica una función a todos los elementos de una lista.
+
+[source,python]
+----
+numeros = [1, 2, 3, 4, 5]
+cuadrados = list(map(lambda x: x ** 2, numeros))  # Elevar al cuadrado
+print(cuadrados)  # [1, 4, 9, 16, 25]
+----
+
+==== Uso de Funciones Lambda con `filter()`
+
+Las funciones lambda también se pueden usar con `filter()`, que filtra elementos de una lista en función de una condición.
+
+[source,python]
+----
+numeros = [1, 2, 3, 4, 5, 6]
+pares = list(filter(lambda x: x % 2 == 0, numeros))  # Filtrar números pares
+print(pares)  # [2, 4, 6]
+----
+
+==== Uso de Funciones Lambda con `sorted()`
+
+Las funciones lambda se pueden utilizar como clave para ordenar listas de manera personalizada.
+
+[source,python]
+----
+personas = [
+    {"nombre": "Juan", "edad": 30},
+    {"nombre": "Ana", "edad": 25},
+    {"nombre": "Luis", "edad": 35}
+]
+
+# Ordenar por edad
+personas_ordenadas = sorted(personas, key=lambda p: p["edad"])
+print(personas_ordenadas)
+# [{'nombre': 'Ana', 'edad': 25}, {'nombre': 'Juan', 'edad': 30}, {'nombre': 'Luis', 'edad': 35}]
+----
+
+==== Ventajas y Desventajas
+
+Las funciones lambda tienen varias ventajas y desventajas:
+
+*Ventajas:*
+- Sintaxis concisa para funciones pequeñas.
+- Ideal para usar en situaciones temporales.
+
+*Desventajas:*
+- Limitadas a una sola expresión.
+- Menos legibles que las funciones tradicionales si se usan en exceso.
+
+=== 4.3. Funciones Lambda y Métodos de Listas
+
+Las funciones lambda se pueden usar en combinación con los métodos de listas para realizar operaciones de manera más eficiente y concisa. Esto resulta especialmente útil en situaciones donde se requiere una función simple para procesar elementos de una lista.
+
+==== Uso de Funciones Lambda con el Método `sort()`
+
+El método `sort()` de las listas se utiliza para ordenar los elementos de una lista. Se puede pasar una función lambda como argumento a `key` para definir un criterio de ordenación personalizado.
+
+[source,python]
+----
+nombres = ["Juan", "Ana", "Luis", "Pedro"]
+
+# Ordenar por longitud del nombre
+nombres.sort(key=lambda x: len(x))
+print(nombres)  # ['Ana', 'Luis', 'Juan', 'Pedro']
+----
+
+==== Uso de Funciones Lambda con el Método `append()`
+
+Aunque `append()` no toma funciones como argumentos, se puede utilizar una función lambda junto con otras funciones para agregar elementos a una lista.
+
+[source,python]
+----
+numeros = []
+
+# Usar lambda para definir un valor y agregarlo a la lista
+for i in range(5):
+    numeros.append((lambda x: x * 2)(i))
+
+print(numeros)  # [0, 2, 4, 6, 8]
+----
+
+==== Uso de Funciones Lambda con el Método `filter()`
+
+El método `filter()` se puede utilizar para filtrar elementos de una lista en función de una condición definida por una función lambda. Aunque `filter()` no es un método de lista en sí, se utiliza comúnmente en conjunto con listas.
+
+[source,python]
+----
+numeros = [1, 2, 3, 4, 5, 6]
+
+# Filtrar números pares
+pares = list(filter(lambda x: x % 2 == 0, numeros))
+print(pares)  # [2, 4, 6]
+----
+
+==== Uso de Funciones Lambda con el Método `map()`
+
+El método `map()` aplica una función a todos los elementos de una lista y devuelve un objeto iterable. Se puede utilizar una función lambda para transformar los elementos de manera sencilla.
+
+[source,python]
+----
+numeros = [1, 2, 3, 4]
+
+# Elevar al cuadrado cada número
+cuadrados = list(map(lambda x: x ** 2, numeros))
+print(cuadrados)  # [1, 4, 9, 16]
+----
+
+==== Uso de Funciones Lambda con el Método `reduce()`
+
+El método `reduce()` (disponible en el módulo `functools`) se puede utilizar para aplicar una función cumulativa a los elementos de una lista. Se puede combinar con funciones lambda para realizar operaciones de agregación.
+
+[source,python]
+----
+from functools import reduce
+
+numeros = [1, 2, 3, 4]
+
+# Sumar todos los números
+suma_total = reduce(lambda x, y: x + y, numeros)
+print(suma_total)  # 10
+----
+
+==== Resumen
+
+Las funciones lambda, al ser combinadas con los métodos de listas, permiten realizar operaciones de manera concisa y eficiente. Su uso junto con métodos como `sort()`, `map()`, `filter()`, y `reduce()` hace que el código sea más limpio y fácil de entender, especialmente para tareas de procesamiento de datos.
+
+=== 4.4. Módulos y paquetes
+
+==== Importación de módulos y creación de módulos propios.
+Los módulos son archivos que contienen funciones, clases y variables que puedes importar y utilizar en otros scripts. Los paquetes son colecciones de módulos.
+
+**Importación de módulos**:
+Para utilizar un módulo, debes importarlo utilizando la palabra clave `import`.
+
+**Ejemplo de importación**:
+[source, python]
+----
+import math  # Importa el módulo math
+
+print(math.sqrt(16))  # Salida: 4.0 (raíz cuadrada de 16)
+----
+
+También puedes importar funciones específicas de un módulo:
+[source, python]
+----
+from math import pi, sin  # Importa pi y sin del módulo math
+
+print(pi)  # Salida: 3.141592653589793
+print(sin(pi / 2))  # Salida: 1.0
+----
+
+**Creación de módulos propios**:
+Puedes crear tu propio módulo guardando funciones en un archivo `.py`. Por ejemplo, crea un archivo llamado `mi_modulo.py`:
+
+[source, python]
+----
+# Contenido de mi_modulo.py
+def multiplicar(a, b):
+    return a * b
+----
+
+Luego, puedes importar y usar este módulo en otro archivo:
+
+[source, python]
+----
+import mi_modulo
+
+resultado = mi_modulo.multiplicar(3, 4)
+print(resultado)  # Salida: 12
+----
+
+Los módulos y funciones son herramientas poderosas que te permiten organizar y reutilizar el código de manera eficiente.
+
+=== 4.5 Ejercicios Prácticos
+
+== Ejercicios sobre Funciones y Funciones Lambda
+
+1. Definir una función que reciba un número y devuelva su cuadrado.
+2. Crear una función que tome dos números como argumentos y devuelva su suma.
+3. Escribir una función que reciba una lista de números y devuelva la suma de todos sus elementos.
+4. Definir una función que tome una cadena de texto y devuelva la misma cadena en mayúsculas.
+5. Crear una función que reciba un número y devuelva `True` si es par, y `False` si es impar.
+6. Escribir una función que tome una lista de nombres y devuelva la longitud del nombre más largo.
+7. Definir una función que reciba un diccionario y devuelva una lista con todas sus claves.
+8. Crear una función que tome una cadena y devuelva la cantidad de vocales que contiene.
+9. Escribir una función que reciba un número y devuelva una lista con todos los números primos hasta ese número.
+10. Definir una función que tome dos listas y devuelva una lista con los elementos comunes entre ambas.
+11. Crear una función lambda que reciba dos números y devuelva su producto.
+12. Definir una función lambda que tome una lista de números y devuelva una nueva lista con el doble de cada número.
+13. Escribir una función lambda que reciba una cadena y devuelva `True` si es un palíndromo, y `False` si no lo es.
+14. Crear una función lambda que reciba un número y devuelva su factorial.
+15. Escribir una función lambda que tome una lista de palabras y devuelva una lista con las palabras que tienen más de 5 letras.
+16. Usar funciones lambda para elevar al cubo cada número en una lista.
+17. Utilizar funciones lambda para obtener todos los números impares de una lista.
+18. Aplicar funciones lambda para ordenar una lista de tuplas por el segundo elemento.
+19. Combinar funciones lambda para calcular el producto de todos los elementos en una lista.
+20. Crear una lista de diccionarios y obtener una lista con solo los nombres de las personas en los diccionarios.
+
+== Módulo 5: Manejo de Archivos
+
+=== 5.1. Lectura y escritura de archivos
+
+==== Archivos de texto y binarios.
+El manejo de archivos es una parte importante de la programación en Python. Puedes trabajar con archivos de texto y binarios para almacenar y recuperar datos.
+
+**Lectura de archivos de texto**:
+Para leer un archivo de texto, puedes usar la función `open()` en modo de lectura (`'r'`). Asegúrate de cerrar el archivo después de usarlo, o utiliza la declaración `with` que se encarga de cerrarlo automáticamente.
+
+**Ejemplo de lectura**:
+[source, python]
+----
+# Lee un archivo de texto
+with open('archivo.txt', 'r') as archivo:
+    contenido = archivo.read()  # Lee todo el contenido del archivo
+    print(contenido)
+----
+
+**Escritura en archivos de texto**:
+Para escribir en un archivo, abre el archivo en modo de escritura (`'w'`). Si el archivo no existe, se creará; si ya existe, se sobrescribirá.
+
+**Ejemplo de escritura**:
+[source, python]
+----
+# Escribe en un archivo de texto
+with open('archivo.txt', 'w') as archivo:
+    archivo.write("Hola, mundo!\n")  # Escribe una línea en el archivo
+    archivo.write("Esta es otra línea.\n")
+----
+
+**Archivos binarios**:
+Para trabajar con archivos binarios, usa los modos `'rb'` (lectura binaria) o `'wb'` (escritura binaria).
+
+**Ejemplo de lectura de un archivo binario**:
+[source, python]
+----
+with open('archivo.bin', 'rb') as archivo:
+    contenido_binario = archivo.read()  # Lee el contenido binario del archivo
+    print(contenido_binario)
+----
+
+**Ejemplo de escritura en un archivo binario**:
+[source, python]
+----
+with open('archivo.bin', 'wb') as archivo:
+    datos = bytearray([120, 3, 255, 0, 100])  # Crea un array de bytes
+    archivo.write(datos)  # Escribe los datos binarios en el archivo
+----
+
+=== 5.2. Manejo de Excepciones
+
+El manejo de excepciones en Python permite gestionar errores y situaciones inesperadas que pueden surgir durante la ejecución de un programa. Esto ayuda a mantener la estabilidad del programa y a ofrecer una experiencia de usuario más controlada.
+
+==== Introducción a las Excepciones
+
+Las excepciones son eventos que pueden alterar el flujo normal de un programa. Python ofrece una manera de manejar estas situaciones mediante el uso de bloques `try`, `except`, `else`, y `finally`.
+
+==== Sintaxis del Manejo de Excepciones
+
+La estructura básica para manejar excepciones es la siguiente:
+
+[source,python]
+----
+try:
+    # Código que puede causar una excepción
+except TipoDeExcepcion:
+    # Código que se ejecuta si ocurre la excepción
+else:
+    # Código que se ejecuta si no ocurre ninguna excepción
+finally:
+    # Código que se ejecuta siempre, haya ocurrido o no una excepción
+----
+
+==== Ejemplo de Manejo de Excepciones
+
+A continuación se muestra un ejemplo simple de manejo de excepciones al intentar convertir una cadena en un número entero:
+
+[source,python]
+----
+try:
+    numero = int(input("Introduce un número: "))
+    print(f"El número introducido es: {numero}")
+except ValueError:
+    print("¡Error! No se pudo convertir la cadena a un número.")
+finally:
+    print("Fin del programa.")
+----
+
+==== Captura de Múltiples Excepciones
+
+Es posible capturar múltiples tipos de excepciones usando varias cláusulas `except`. También se puede usar una sola cláusula `except` para manejar varias excepciones.
+
+[source,python]
+----
+try:
+    resultado = 10 / int(input("Introduce un divisor: "))
+except ValueError:
+    print("¡Error! Se esperaba un número.")
+except ZeroDivisionError:
+    print("¡Error! No se puede dividir por cero.")
+except (TypeError, NameError):
+    print("¡Error! Tipo de dato no válido.")
+else:
+    print(f"El resultado es: {resultado}")
+finally:
+    print("Fin del programa.")
+----
+
+==== Excepciones Personalizadas
+
+Puedes definir tus propias excepciones creando una clase que herede de `Exception`. Esto permite un manejo más específico de errores en tu programa.
+
+[source,python]
+----
+class MiExcepcion(Exception):
+    """Excepción personalizada."""
+    pass
+
+try:
+    raise MiExcepcion("Este es un error personalizado.")
+except MiExcepcion as e:
+    print(f"Se ha producido una excepción: {e}")
+----
+
+==== Resumen
+
+El manejo de excepciones es una parte fundamental de la programación en Python, ya que permite gestionar errores y mantener el control del flujo de ejecución del programa. Con el uso de bloques `try` y `except`, así como la posibilidad de definir excepciones personalizadas, los programadores pueden crear aplicaciones más robustas y amigables con el usuario.
+
+
+== Módulo 6: Programación Orientada a Objetos (OOP)
+
+=== 6.1. Clases y Objetos
+
+La programación orientada a objetos (OOP) es un paradigma de programación que utiliza "clases" y "objetos" para organizar el código. En Python, las clases son plantillas para crear objetos, que son instancias de clases.
+
+==== Definición de Clases
+
+Una clase se define utilizando la palabra clave `class`, seguida del nombre de la clase y dos puntos. Las clases pueden contener atributos (variables) y métodos (funciones).
+
+[source,python]
+----
+class NombreDeLaClase:
+    """Docstring: descripción de la clase."""
+    
+    def __init__(self, atributo1, atributo2):
+        """Constructor: inicializa los atributos de la clase."""
+        self.atributo1 = atributo1
+        self.atributo2 = atributo2
+
+    def metodo(self):
+        """Un método de la clase."""
+        pass
+----
+
+==== Creación de Objetos
+
+Para crear un objeto a partir de una clase, se llama a la clase como si fuera una función, pasando los argumentos necesarios para el constructor.
+
+[source,python]
+----
+class Persona:
+    def __init__(self, nombre, edad):
+        self.nombre = nombre
+        self.edad = edad
+
+    def saludar(self):
+        print(f"¡Hola, mi nombre es {self.nombre} y tengo {self.edad} años!")
+
+# Crear un objeto de la clase Persona
+persona1 = Persona("Juan", 30)
+persona1.saludar()  # ¡Hola, mi nombre es Juan y tengo 30 años!
+----
+
+==== Atributos de Clase y Atributos de Instancia
+
+Los atributos se pueden clasificar en atributos de instancia (específicos para cada objeto) y atributos de clase (compartidos entre todos los objetos de la clase).
+
+[source,python]
+----
+class Coche:
+    marca = "Toyota"  # Atributo de clase
+
+    def __init__(self, modelo):
+        self.modelo = modelo  # Atributo de instancia
+
+coche1 = Coche("Corolla")
+coche2 = Coche("Camry")
+
+print(coche1.marca)  # Toyota
+print(coche2.marca)  # Toyota
+print(coche1.modelo)  # Corolla
+print(coche2.modelo)  # Camry
+----
+
+==== Diferencia entre _ y __ en Nombres de Atributos Privados
+
+En Python, el uso de un solo guion bajo (`_`) y dos guiones bajos (`__`) tiene diferentes implicaciones en cuanto al acceso y la visibilidad de los atributos y métodos dentro de las clases.
+
+* _ (Guion Bajo Simple)
+
+Un solo guion bajo se utiliza como una convención para indicar que un atributo o método es "privado" y no debería ser accedido directamente desde fuera de la clase. Sin embargo, esto es solo una convención y no impide el acceso.
+
+Esto significa que, aunque se recomienda no acceder directamente a estos atributos o métodos desde fuera de la clase, es técnicamente posible hacerlo.
+
+[source,python]
+----
+class Persona:
+    def __init__(self, nombre):
+        self._nombre = nombre  # Atributo "privado" por convención
+
+    def mostrar_nombre(self):
+        return self._nombre
+
+persona = Persona("Juan")
+print(persona._nombre)  # Acceso permitido, pero no recomendado
+----
+
+* __ (Doble Guion Bajo)
+
+Los atributos y métodos que comienzan con dos guiones bajos se utilizan para el **name mangling**, que es un mecanismo que cambia el nombre del atributo en tiempo de compilación para que sea menos accesible desde fuera de la clase. Esto significa que el nombre se convierte en `_NombreDeLaClase__nombre`, lo que lo hace menos propenso a colisiones con atributos de subclases.
+
+Este enfoque es más restrictivo y, aunque todavía es posible acceder a estos atributos desde fuera de la clase, es menos evidente y se considera una mala práctica hacerlo.
+
+[source,python]
+----
+class Persona:
+    def __init__(self, nombre):
+        self.__nombre = nombre  # Atributo privado con name mangling
+
+    def mostrar_nombre(self):
+        return self.__nombre
+
+persona = Persona("Juan")
+# print(persona.__nombre)  # Esto generaría un AttributeError
+print(persona._Persona__nombre)  # Acceso permitido, pero no recomendado
+----
+
+==== Resumen
+
+- Usar un solo guion bajo (`_`) es una convención para indicar que un atributo es privado y no debería ser accedido directamente.
+- Usar dos guiones bajos (`__`) activa el name mangling, lo que hace que el atributo sea más difícil de acceder desde fuera de la clase.
+
+En general, es recomendable seguir las convenciones de nombres y ser consciente de la intención detrás de cada uno para mantener la claridad y la integridad del código.
+
+
+=== 6.2. Herencia
+
+La herencia es un concepto fundamental en la programación orientada a objetos que permite crear nuevas clases a partir de clases existentes. La nueva clase, conocida como **subclase** o **clase hija**, hereda los atributos y métodos de la clase base, o **superclase** o **clase padre**. Esto promueve la reutilización del código y la organización jerárquica de las clases.
+
+==== Definición de una Subclase
+
+Para definir una subclase, se utiliza la sintaxis de definición de clase, indicando la clase padre entre paréntesis. La subclase puede tener sus propios atributos y métodos, así como también puede sobrescribir los métodos de la clase padre.
+
+[source,python]
+----
+class Animal:
+    def __init__(self, nombre):
+        self.nombre = nombre
+
+    def hablar(self):
+        return "El animal hace un sonido."
+
+class Perro(Animal):  # Perro hereda de Animal
+    def hablar(self):  # Sobrescribe el método de la clase padre
+        return "¡Guau!"
+
+class Gato(Animal):  # Gato también hereda de Animal
+    def hablar(self):  # Sobrescribe el método de la clase padre
+        return "¡Miau!"
+
+perro = Perro("Rex")
+gato = Gato("Miau")
+
+print(perro.hablar())  # ¡Guau!
+print(gato.hablar())   # ¡Miau!
+----
+
+==== Atributos y Métodos de la Superclase
+
+La subclase tiene acceso a los atributos y métodos de la superclase. Se pueden llamar métodos de la clase padre usando la función `super()`, que permite acceder a los métodos de la superclase.
+
+[source,python]
+----
+class Vehiculo:
+    def __init__(self, marca):
+        self.marca = marca
+
+    def mostrar_info(self):
+        return f"Vehículo de marca: {self.marca}"
+
+class Coche(Vehiculo):
+    def __init__(self, marca, modelo):
+        super().__init__(marca)  # Llama al constructor de la clase padre
+        self.modelo = modelo
+
+    def mostrar_info(self):
+        return f"{super().mostrar_info()}, Modelo: {self.modelo}"
+
+coche = Coche("Toyota", "Corolla")
+print(coche.mostrar_info())  # Vehículo de marca: Toyota, Modelo: Corolla
+----
+
+==== Herencia Múltiple
+
+Python permite la herencia múltiple, donde una clase puede heredar de múltiples superclases. Esto puede ser útil, pero también puede complicar el diseño, por lo que se debe usar con precaución.
+
+[source,python]
+----
+class Persona:
+    def __init__(self, nombre):
+        self.nombre = nombre
+
+class Estudiante:
+    def __init__(self, matricula):
+        self.matricula = matricula
+
+class EstudianteUniversitario(Persona, Estudiante):  # Herencia múltiple
+    def __init__(self, nombre, matricula):
+        Persona.__init__(self, nombre)
+        Estudiante.__init__(self, matricula)
+
+estudiante = EstudianteUniversitario("Juan", "123456")
+print(estudiante.nombre)    # Juan
+print(estudiante.matricula)  # 123456
+----
+
+==== Resumen
+
+La herencia es una característica muy importante de la programación orientada a objetos que permite crear jerarquías de clases y reutilizar código. Permite a las subclases heredar atributos y métodos de sus superclases, sobrescribir métodos cuando sea necesario, y facilita la organización de estructuras más complejas.
+
+=== 6.3. Encapsulamiento
+
+==== Uso de modificadores de acceso.
+El **encapsulamiento** se refiere a la práctica de restringir el acceso a ciertos atributos y métodos de una clase, protegiendo así la integridad del objeto.
+
+Python no tiene modificadores de acceso explícitos como otros lenguajes, pero utiliza convenciones para indicar la visibilidad de los atributos y métodos.
+
+- **Atributos públicos**: Se pueden acceder desde fuera de la clase.
+[source, python]
+----
+class Persona:
+    def __init__(self, nombre):
+        self.nombre = nombre  # Atributo público
+----
+
+- **Atributos protegidos**: Se indican con un guion bajo `_`. Indica que no deben ser accedidos directamente desde fuera de la clase, aunque no hay restricciones.
+[source, python]
+----
+class Empleado:
+    def __init__(self, nombre):
+        self._nombre = nombre  # Atributo protegido
+----
+
+- **Atributos privados**: Se indican con dos guiones bajos `__`. Python realiza un "name mangling" para evitar el acceso directo desde fuera de la clase.
+[source, python]
+----
+class Cliente:
+    def __init__(self, nombre):
+        self.__nombre = nombre  # Atributo privado
+
+    def get_nombre(self):
+        return self.__nombre  # Método para acceder al atributo privado
+
+# Creación de un objeto de la clase Cliente
+cliente = Cliente("Ana")
+print(cliente.get_nombre())  # Salida: Ana
+----
+
+El encapsulamiento es una característica fundamental de OOP que ayuda a mantener la coherencia de los objetos y protege los datos de accesos no deseados.
+
+=== 6.4. Polimorfismo
+
+El polimorfismo es un principio fundamental en la programación orientada a objetos que permite que diferentes clases proporcionen una implementación de un mismo método. Esto permite que se puedan utilizar objetos de diferentes clases de manera intercambiable, siempre y cuando tengan un método con el mismo nombre.
+
+#### Tipos de Polimorfismo
+
+El polimorfismo en Python se puede lograr principalmente de dos maneras:
+
+* **Polimorfismo en tiempo de compilación**: Esto se refiere a la sobrecarga de métodos, que no es soportada nativamente en Python. En su lugar, se puede utilizar la sobrecarga de funciones con argumentos opcionales.
+
+* **Polimorfismo en tiempo de ejecución**: Se refiere a la capacidad de una función o método para operar en diferentes tipos de objetos. Este es el tipo de polimorfismo más común en Python.
+
+#### Ejemplo de Polimorfismo en Tiempo de Ejecución
+
+Para ilustrar el polimorfismo en Python, consideremos un ejemplo donde diferentes clases implementan un método con el mismo nombre.
+
+[source,python]
+----
+class Ave:
+    def hablar(self):
+        return "Pío"
+
+class Perro:
+    def hablar(self):
+        return "¡Guau!"
+
+class Gato:
+    def hablar(self):
+        return "¡Miau!"
+
+def hacer_hablar(animal):
+    print(animal.hablar())  # El método `hablar` se llama según la clase del objeto
+
+# Crear instancias de las clases
+ave = Ave()
+perro = Perro()
+gato = Gato()
+
+# Llamar a la función con diferentes tipos de objetos
+hacer_hablar(ave)   # Pío
+hacer_hablar(perro) # ¡Guau!
+hacer_hablar(gato)  # ¡Miau!
+----
+
+#### Ejemplo de Polimorfismo con Herencia
+
+El polimorfismo también se puede demostrar mediante la herencia, donde una subclase sobrescribe un método de la superclase.
+
+[source,python]
+----
+class Figura:
+    def area(self):
+        raise NotImplementedError("Subclases deben implementar este método.")
+
+class Circulo(Figura):
+    def __init__(self, radio):
+        self.radio = radio
+
+    def area(self):
+        return 3.14 * (self.radio ** 2)
+
+class Cuadrado(Figura):
+    def __init__(self, lado):
+        self.lado = lado
+
+    def area(self):
+        return self.lado * self.lado
+
+def calcular_area(figura):
+    print(f"El área es: {figura.area()}")
+
+# Crear instancias de las clases
+circulo = Circulo(5)
+cuadrado = Cuadrado(4)
+
+# Calcular el área de diferentes figuras
+calcular_area(circulo)   # El área es: 78.5
+calcular_area(cuadrado)  # El área es: 16
+----
+
+#### Resumen
+
+El polimorfismo permite que diferentes clases implementen métodos con el mismo nombre, lo que facilita la interacción entre diferentes tipos de objetos. Este principio ayuda a construir sistemas más flexibles y reutilizables en programación orientada a objetos, permitiendo a los desarrolladores trabajar con diferentes tipos de objetos sin necesidad de conocer sus detalles internos.
+
+=== 6.6 Interfaces 
+
+En Python, las interfaces no son una característica nativa del lenguaje como en algunos otros lenguajes de programación (como Java o C#). Sin embargo, puedes definir interfaces usando algunas técnicas comunes que proporcionan un comportamiento similar, como el uso de **clases abstractas** con el módulo `abc` (Abstract Base Classes). Las clases abstractas permiten definir métodos que deben ser implementados por las clases derivadas, proporcionando una estructura parecida a una interfaz.
+
+==== Uso de Clases Abstractas como Interfaces
+
+El módulo `abc` de la biblioteca estándar de Python proporciona un modo de definir clases abstractas. Al definir una clase abstracta, puedes crear métodos que las clases derivadas deben implementar obligatoriamente. Para lograr esto, se utiliza el decorador `@abstractmethod`.
+
+==== Ejemplo de Interfaz en Python
+
+Aquí tienes un ejemplo de cómo se puede definir una interfaz para una figura geométrica, en la que las clases derivadas deben implementar los métodos para calcular el área y el perímetro.
+
+[source,python]
+----
+from abc import ABC, abstractmethod
+
+# Definición de la interfaz
+class FiguraGeometrica(ABC):
+    
+    @abstractmethod
+    def area(self):
+        pass
+    
+    @abstractmethod
+    def perimetro(self):
+        pass
+
+# Implementación de la interfaz en una clase derivada
+class Circulo(FiguraGeometrica):
+    
+    def __init__(self, radio):
+        self.radio = radio
+    
+    def area(self):
+        return 3.1416 * self.radio ** 2
+    
+    def perimetro(self):
+        return 2 * 3.1416 * self.radio
+
+class Rectangulo(FiguraGeometrica):
+    
+    def __init__(self, ancho, alto):
+        self.ancho = ancho
+        self.alto = alto
+    
+    def area(self):
+        return self.ancho * self.alto
+    
+    def perimetro(self):
+        return 2 * (self.ancho + self.alto)
+
+# Crear instancias de las clases que implementan la interfaz
+circulo = Circulo(5)
+rectangulo = Rectangulo(3, 4)
+
+print(f"Área del círculo: {circulo.area()}")
+print(f"Perímetro del círculo: {circulo.perimetro()}")
+
+print(f"Área del rectángulo: {rectangulo.area()}")
+print(f"Perímetro del rectángulo: {rectangulo.perimetro()}")
+----
+
+==== Explicación del Código
+
+- **FiguraGeometrica**: Es una clase abstracta que define la interfaz. Tiene dos métodos abstractos `area()` y `perimetro()`. Estos métodos no tienen implementación y deben ser definidos en cualquier clase que herede de `FiguraGeometrica`.
+  
+- **Circulo y Rectangulo**: Son clases concretas que heredan de `FiguraGeometrica` y deben implementar los métodos `area()` y `perimetro()`. Si no implementan estos métodos, Python lanzará un error.
+
+==== Ventajas del Uso de Interfaces con Clases Abstractas
+
+1. **Forzar implementación**: Asegura que las clases derivadas implementen ciertos métodos.
+2. **Organización**: Permite que las clases relacionadas compartan una estructura común, mejorando la organización y mantenibilidad del código.
+3. **Polimorfismo**: Permite tratar objetos de diferentes clases de forma uniforme siempre que implementen la misma interfaz.
+
+==== Conclusión
+
+En Python, las interfaces se implementan típicamente mediante **clases abstractas** utilizando el módulo `abc`. Este enfoque permite crear una "contrato" que las clases derivadas deben seguir, similar al comportamiento de las interfaces en otros lenguajes de programación. Aunque Python no tiene interfaces explícitas, este método proporciona suficiente flexibilidad para la mayoría de los casos.
+
+=== 6.6. Ejercicios Prácticos
+
+.Ejecicios sobre Objetos
+1. Define una clase `Libro` con atributos `titulo`, `autor` y `anio_publicacion`. Crea un método que muestre la información del libro.
+
+2. Crea una clase `Coche` con atributos `marca`, `modelo` y `año`. Implementa un método que devuelva la edad del coche.
+
+3. Define una clase `Rectangulo` que acepte `base` y `altura` como atributos. Implementa métodos para calcular el área y el perímetro.
+
+4. Crea una clase `CuentaBancaria` con atributos `titular` y `saldo`. Implementa métodos para depositar y retirar dinero.
+
+5. Diseña una clase `Empleado` con atributos `nombre`, `puesto` y `salario`. Implementa un método que calcule el salario anual.
+
+6. Define una clase `Persona` con un método que muestre una presentación. Crea al menos dos objetos de la clase y llama al método.
+
+7. Crea una clase `Perro` que herede de una clase `Animal`. Implementa un método que haga que el perro ladre.
+
+8. Diseña una clase `CestaDeFrutas` que contenga una lista de frutas. Implementa métodos para agregar y eliminar frutas de la cesta.
+
+9. Crea una clase `Estudiante` que contenga atributos como `nombre`, `edad` y `notas`. Implementa un método para calcular la nota promedio.
+
+10. Define una clase `Circulo` con un atributo `radio`. Implementa métodos para calcular el área y la circunferencia.
+
+11. Crea una clase `Telefono` que tenga atributos `marca`, `modelo` y `numero`. Implementa un método para mostrar la información del teléfono.
+
+12. Diseña una clase `LibroDigital` que herede de `Libro` y que tenga un atributo adicional `formato`. Implementa un método que muestre el formato del libro.
+
+13. Crea una clase `Alumno` que contenga una lista de materias. Implementa un método para agregar una materia a la lista.
+
+14. Define una clase `Videojuego` con atributos `titulo`, `desarrollador` y `anio_lanzamiento`. Implementa un método que muestre la información del videojuego.
+
+15. Crea una clase `Factura` que contenga atributos como `numero_factura`, `cliente` y `total`. Implementa un método que muestre el detalle de la factura.
+
+16. Diseña una clase `Mascota` con atributos `nombre` y `tipo`. Implementa un método que haga que la mascota hable, dependiendo de su tipo.
+
+17. Crea una clase `Punto` que tenga atributos `x` y `y`. Implementa un método que calcule la distancia desde el origen.
+
+18. Define una clase `CestaDeLaCompra` que contenga una lista de productos y sus precios. Implementa un método que calcule el total de la compra.
+
+19. Crea una clase `Camion` que herede de `Vehiculo` y que tenga un atributo adicional `carga_maxima`. Implementa un método que muestre la capacidad de carga.
+
+20. Diseña una clase `Estadisticas` que contenga métodos para calcular la media, mediana y moda de una lista de números.
+
+== Módulo 7: Librerías y Frameworks
+
+=== 7.1. Introducción a Librerías de Python
+
+Python es un lenguaje de programación altamente extensible gracias a su rico ecosistema de librerías y módulos. Estas librerías permiten a los desarrolladores acceder a funcionalidades avanzadas y especializadas sin tener que escribir todo el código desde cero. En esta sección, veremos qué son las librerías, cómo se utilizan, y cómo instalar librerías externas.
+
+==== ¿Qué es una Librería en Python?
+
+Una **librería** en Python es un conjunto de módulos o paquetes que contienen funciones y clases predefinidas para facilitar el desarrollo de programas. Estas librerías pueden ser incluidas dentro de Python por defecto (librerías estándar) o ser instaladas como paquetes externos a través de un gestor de paquetes como `pip`.
+
+* **Módulo**: Un archivo que contiene definiciones de funciones, variables y clases. Cada archivo `.py` es un módulo.
+* **Paquete**: Un directorio que contiene varios módulos organizados jerárquicamente, con un archivo especial `__init__.py`.
+
+Python incluye una gran cantidad de **librerías estándar** para tareas comunes como manejo de archivos, manipulación de cadenas, operaciones matemáticas, acceso a la red, y más.
+
+==== Uso de Librerías Estándar
+
+Para utilizar una librería en Python, primero debes importarla usando la palabra clave `import`. Esto te permite acceder a las funciones y clases de la librería en tu programa.
+
+[source,python]
+----
+import math
+
+# Uso de la función sqrt para calcular la raíz cuadrada
+resultado = math.sqrt(16)
+print(resultado)  # Salida: 4.0
+----
+
+En este ejemplo, hemos utilizado la librería `math`, que es parte de la biblioteca estándar de Python, para calcular la raíz cuadrada de un número.
+
+#### Importación de Funciones Específicas
+
+También es posible importar solo las funciones o clases que necesites desde un módulo, en lugar de importar todo el módulo.
+
+[source,python]
+----
+from math import sqrt, pi
+
+# Uso directo de sqrt y pi sin el prefijo math.
+resultado = sqrt(25)
+print(resultado)  # Salida: 5.0
+print(pi)  # Salida: 3.141592653589793
+----
+
+==== 1. `os`
+
+La librería `os` proporciona funciones para interactuar con el sistema operativo, permitiendo acceder y manipular archivos, directorios, y variables de entorno, así como realizar otras operaciones dependientes del sistema operativo.
+
+Algunas funciones clave del módulo `os`:
+
+- `os.listdir()`: Lista los archivos y carpetas en un directorio.
+- `os.mkdir()`: Crea un nuevo directorio.
+- `os.remove()`: Elimina un archivo.
+- `os.path.exists()`: Verifica si una ruta existe.
+- `os.getenv()`: Obtiene el valor de una variable de entorno.
+
+[source,python]
+----
+import os
+
+# Listar archivos en el directorio actual
+print(os.listdir('.'))
+
+# Crear un nuevo directorio
+os.mkdir('nueva_carpeta')
+
+# Verificar si una ruta existe
+if os.path.exists('nueva_carpeta'):
+    print("El directorio fue creado con éxito.")
+----
+
+
+==== 2. `sys`
+
+El módulo `sys` proporciona acceso a funciones y variables específicas del intérprete de Python, permitiendo interactuar directamente con el entorno de ejecución. Es útil para gestionar la entrada/salida estándar, trabajar con argumentos de línea de comandos, y controlar la finalización del programa, entre otras cosas.
+
+Algunas funciones clave del módulo `sys`:
+
+- `sys.argv`: Lista de argumentos de línea de comandos pasados al script.
+- `sys.exit()`: Termina la ejecución del programa con un código de salida.
+- `sys.path`: Lista de rutas donde Python busca los módulos importados.
+- `sys.stdout`: Permite redirigir la salida estándar.
+- `sys.version`: Información sobre la versión de Python en ejecución.
+
+[source,python]
+----
+import sys
+
+# Mostrar los argumentos de línea de comandos
+print(f"Argumentos pasados al script: {sys.argv}")
+
+# Terminar el programa con un mensaje
+if len(sys.argv) < 2:
+    print("Se requiere al menos un argumento.")
+    sys.exit(1)
+
+# Mostrar la versión de Python
+print(f"Versión de Python: {sys.version}")
+----
+
+
+==== 3. `math`
+
+El módulo `math` proporciona acceso a funciones matemáticas avanzadas, incluyendo operaciones de trigonometría, logaritmos, exponenciales, y funciones aritméticas, que están basadas en las bibliotecas matemáticas de C. Es útil para cálculos científicos, matemáticos y de ingeniería.
+
+Algunas funciones clave del módulo `math`:
+
+- `math.sqrt()`: Calcula la raíz cuadrada de un número.
+- `math.pow()`: Eleva un número a una potencia.
+- `math.log()`: Devuelve el logaritmo natural de un número.
+- `math.sin()`, `math.cos()`, `math.tan()`: Funciones trigonométricas.
+- `math.pi` y `math.e`: Constantes matemáticas de pi y el número e.
+
+[source,python]
+----
+import math
+
+# Calcular la raíz cuadrada de 16
+print(f"Raíz cuadrada de 16: {math.sqrt(16)}")
+
+# Elevar 2 al cubo
+print(f"2 elevado al cubo: {math.pow(2, 3)}")
+
+# Calcular el logaritmo natural de 10
+print(f"Logaritmo natural de 10: {math.log(10)}")
+
+# Calcular el seno de un ángulo en radianes (π/2)
+print(f"Seno de π/2: {math.sin(math.pi / 2)}")
+
+# Constante pi
+print(f"Valor de pi: {math.pi}")
+----
+
+
+==== 4. `datetime`
+
+El módulo `datetime` proporciona clases para manipular fechas y horas de manera eficiente. Permite crear, formatear y realizar operaciones con objetos de tiempo, como sumar o restar intervalos, comparar fechas, o extraer componentes específicos (año, mes, día, etc.).
+
+Algunas clases y funciones clave del módulo `datetime`:
+
+- `datetime.datetime`: Representa una combinación de fecha y hora.
+- `datetime.date`: Representa una fecha (año, mes, día).
+- `datetime.time`: Representa un tiempo (hora, minuto, segundo).
+- `datetime.timedelta`: Representa la diferencia entre dos fechas o tiempos.
+- `datetime.now()`: Obtiene la fecha y hora actual.
+- `strftime()`: Da formato a un objeto de fecha/tiempo como una cadena.
+
+[source,python]
+----
+import datetime
+
+# Obtener la fecha y hora actual
+fecha_actual = datetime.datetime.now()
+print(f"Fecha y hora actual: {fecha_actual}")
+
+# Crear una fecha específica
+fecha_especifica = datetime.date(2023, 10, 14)
+print(f"Fecha específica: {fecha_especifica}")
+
+# Formatear una fecha
+formato_fecha = fecha_actual.strftime("%d/%m/%Y %H:%M:%S")
+print(f"Fecha formateada: {formato_fecha}")
+
+# Calcular la diferencia entre dos fechas
+hoy = datetime.date.today()
+futuro = datetime.date(2024, 1, 1)
+diferencia = futuro - hoy
+print(f"Días hasta el 1 de enero de 2024: {diferencia.days}")
+----
+
+[source,python]
+----
+import datetime
+----
+
+==== 5. `random`
+
+El módulo `random` proporciona funciones para generar números aleatorios y realizar selecciones aleatorias. Es útil en situaciones que requieren simulación, juegos, pruebas aleatorias, y cualquier contexto que necesite el uso de aleatoriedad.
+
+Algunas funciones clave del módulo `random`:
+
+- `random.random()`: Genera un número aleatorio flotante entre 0.0 y 1.0.
+- `random.randint(a, b)`: Devuelve un número entero aleatorio entre `a` y `b` (ambos incluidos).
+- `random.choice(seq)`: Selecciona un elemento aleatorio de una secuencia (como una lista o cadena).
+- `random.shuffle(seq)`: Mezcla aleatoriamente los elementos de una lista.
+- `random.sample(seq, k)`: Devuelve una lista con `k` elementos seleccionados aleatoriamente de una secuencia.
+
+[source,python]
+----
+import random
+
+# Generar un número flotante aleatorio entre 0 y 1
+print(f"Número flotante aleatorio: {random.random()}")
+
+# Generar un número entero aleatorio entre 1 y 10
+print(f"Número entero aleatorio entre 1 y 10: {random.randint(1, 10)}")
+
+# Seleccionar un elemento aleatorio de una lista
+colores = ['rojo', 'azul', 'verde', 'amarillo']
+color_aleatorio = random.choice(colores)
+print(f"Color aleatorio: {color_aleatorio}")
+
+# Mezclar aleatoriamente los elementos de una lista
+random.shuffle(colores)
+print(f"Lista mezclada: {colores}")
+
+# Seleccionar 2 elementos aleatorios de una lista
+muestra = random.sample(colores, 2)
+print(f"Muestra aleatoria: {muestra}")
+----
+
+==== 6. `re`
+
+El módulo `re` proporciona funciones para trabajar con expresiones regulares en Python. Las expresiones regulares permiten realizar búsquedas y manipulaciones avanzadas de cadenas, siendo útiles para validar, buscar, y reemplazar patrones complejos en texto.
+
+Algunas funciones clave del módulo `re`:
+
+- `re.search(pattern, string)`: Busca el primer lugar donde el patrón coincide dentro de la cadena.
+- `re.match(pattern, string)`: Verifica si el patrón coincide al principio de la cadena.
+- `re.findall(pattern, string)`: Devuelve todas las coincidencias del patrón en la cadena como una lista.
+- `re.sub(pattern, repl, string)`: Reemplaza las coincidencias del patrón con una cadena de reemplazo.
+- `re.split(pattern, string)`: Divide la cadena donde el patrón coincide.
+
+[source,python]
+----
+import re
+
+# Buscar una palabra en una cadena
+resultado = re.search(r'\bpython\b', "Estoy aprendiendo python con expresiones regulares")
+if resultado:
+    print(f"Palabra encontrada: {resultado.group()}")
+
+# Verificar si una cadena comienza con un patrón específico
+if re.match(r'^Hola', 'Hola, mundo!'):
+    print("La cadena comienza con 'Hola'.")
+
+# Encontrar todas las apariciones de un patrón
+numeros = re.findall(r'\d+', 'Mi número de teléfono es 123-456-7890')
+print(f"Números encontrados: {numeros}")
+
+# Reemplazar una palabra en una cadena
+texto_modificado = re.sub(r'python', 'Java', 'Me encanta python')
+print(f"Texto modificado: {texto_modificado}")
+
+# Dividir una cadena por espacios
+partes = re.split(r'\s+', 'Dividiendo esta frase en palabras')
+print(f"Partes de la frase: {partes}")
+----
+
+==== 7. `json`
+
+El módulo `json` proporciona funciones para trabajar con datos en formato JSON (JavaScript Object Notation), un formato ligero y fácil de leer para el intercambio de datos. Es ideal para trabajar con datos en aplicaciones web y almacenar información estructurada.
+
+Algunas funciones clave del módulo `json`:
+
+- `json.loads()`: Convierte una cadena en formato JSON a un objeto Python (como diccionarios o listas).
+- `json.dumps()`: Convierte un objeto Python a una cadena en formato JSON.
+- `json.load()`: Lee un archivo JSON y lo convierte en un objeto Python.
+- `json.dump()`: Escribe un objeto Python en un archivo en formato JSON.
+
+[source,python]
+----
+import json
+
+# Convertir una cadena JSON en un diccionario Python
+data_json = '{"nombre": "Juan", "edad": 30, "ciudad": "Madrid"}'
+data = json.loads(data_json)
+print(f"Nombre: {data['nombre']}")
+
+# Convertir un diccionario Python a una cadena JSON
+python_data = {"nombre": "Ana", "edad": 25, "ciudad": "Barcelona"}
+json_string = json.dumps(python_data)
+print(f"JSON resultante: {json_string}")
+
+# Leer un archivo JSON
+with open('datos.json', 'r') as archivo:
+    contenido = json.load(archivo)
+    print(f"Contenido del archivo: {contenido}")
+
+# Escribir un diccionario Python en un archivo JSON
+with open('salida.json', 'w') as archivo:
+    json.dump(python_data, archivo)
+----
+
+==== 8. `csv`
+
+El módulo `csv` proporciona herramientas para leer y escribir archivos en formato CSV (Comma-Separated Values), un formato común para almacenar datos tabulares. Es útil para manejar grandes conjuntos de datos estructurados de manera sencilla, como hojas de cálculo o exportaciones de bases de datos.
+
+Algunas funciones clave del módulo `csv`:
+
+- `csv.reader()`: Lee un archivo CSV y devuelve sus filas como listas.
+- `csv.writer()`: Escribe datos en un archivo CSV.
+- `csv.DictReader()`: Lee un archivo CSV y devuelve cada fila como un diccionario.
+- `csv.DictWriter()`: Escribe diccionarios en un archivo CSV.
+
+[source,python]
+----
+import csv
+
+# Leer un archivo CSV y mostrar su contenido
+with open('datos.csv', newline='') as archivo:
+    lector = csv.reader(archivo)
+    for fila in lector:
+        print(fila)
+
+# Escribir una lista de listas en un archivo CSV
+datos = [
+    ['Nombre', 'Edad', 'Ciudad'],
+    ['Juan', 30, 'Madrid'],
+    ['Ana', 25, 'Barcelona']
+]
+with open('salida.csv', 'w', newline='') as archivo:
+    escritor = csv.writer(archivo)
+    escritor.writerows(datos)
+
+# Leer un archivo CSV como diccionarios
+with open('datos.csv', newline='') as archivo:
+    lector_diccionario = csv.DictReader(archivo)
+    for fila in lector_diccionario:
+        print(fila)
+
+# Escribir diccionarios en un archivo CSV
+campos = ['Nombre', 'Edad', 'Ciudad']
+datos_dict = [
+    {'Nombre': 'Juan', 'Edad': 30, 'Ciudad': 'Madrid'},
+    {'Nombre': 'Ana', 'Edad': 25, 'Ciudad': 'Barcelona'}
+]
+with open('salida_dict.csv', 'w', newline='') as archivo:
+    escritor_diccionario = csv.DictWriter(archivo, fieldnames=campos)
+    escritor_diccionario.writeheader()
+    escritor_diccionario.writerows(datos_dict)
+----
+
+==== 9. `collections`
+El módulo `collections` ofrece tipos de datos adicionales, como `deque`, `namedtuple`, `Counter`, entre otros, que extienden la funcionalidad de las estructuras de datos estándar.
+
+[source,python]
+----
+import collections
+----
+
+==== 10. `itertools`
+La librería `itertools` proporciona herramientas para trabajar con iteradores, permitiendo combinaciones, permutaciones, productos cartesianos y más operaciones sobre iterables.
+
+[source,python]
+----
+import itertools
+----
+
+==== 11. `functools`
+El módulo `functools` ofrece herramientas avanzadas para el manejo de funciones, como la capacidad de aplicar memoización (caché) con `lru_cache` o crear funciones parciales.
+
+[source,python]
+----
+import functools
+----
+
+==== 12. `hashlib`
+La librería `hashlib` permite generar valores hash usando algoritmos criptográficos como SHA y MD5, útil para verificar la integridad de datos.
+
+[source,python]
+----
+import hashlib
+----
+
+==== 13. `subprocess`
+El módulo `subprocess` permite ejecutar comandos del sistema desde Python, facilitando la interacción con el sistema operativo desde el programa.
+
+[source,python]
+----
+import subprocess
+----
+
+==== 14. `urllib`
+La librería `urllib` proporciona funciones para trabajar con URLs, permitiendo hacer peticiones HTTP, manejar parámetros en URLs y más.
+
+[source,python]
+----
+import urllib.request
+----
+
+==== 15. `argparse`
+El módulo `argparse` proporciona una manera simple de definir y procesar los argumentos y opciones pasados a un script de Python desde la línea de comandos.
+
+[source,python]
+----
+import argparse
+----
+
+==== 16. `logging`
+El módulo `logging` proporciona una interfaz flexible para generar mensajes de log, facilitando la depuración y monitoreo de aplicaciones.
+
+[source,python]
+----
+import logging
+----
+
+==== 17. `threading`
+La librería `threading` proporciona soporte para ejecutar operaciones concurrentes utilizando hilos (threads) dentro de un programa Python.
+
+[source,python]
+----
+import threading
+----
+
+==== 18. `socket`
+El módulo `socket` proporciona funciones para trabajar con la red, permitiendo crear y gestionar conexiones de red utilizando los protocolos de bajo nivel.
+
+[source,python]
+----
+import socket
+----
+
+==== 19. `configparser`
+La librería `configparser` proporciona funciones para trabajar con archivos de configuración en formato `.ini`, permitiendo leer y escribir configuraciones.
+
+[source,python]
+----
+import configparser
+----
+
+==== 20. `sqlite3`
+El módulo `sqlite3` proporciona una interfaz para trabajar con bases de datos SQLite, permitiendo crear, consultar y gestionar bases de datos de manera simple.
+
+[source,python]
+----
+import sqlite3
+----
+
+==== Instalación y Uso de Librerías Externas
+
+Python tiene un enorme repositorio de librerías externas que puedes instalar mediante el gestor de paquetes `pip`. Algunas de las librerías más populares incluyen `NumPy`, `Pandas`, `Requests`, entre muchas otras.
+
+Para instalar una librería externa, usa el comando `pip install` desde la línea de comandos.
+
+[source,bash]
+----
+pip install numpy
+----
+
+Después de la instalación, puedes importarla y utilizarla en tu código como cualquier otro módulo.
+
+[source,python]
+----
+import numpy as np
+
+# Creación de un array de NumPy
+array = np.array([1, 2, 3, 4])
+print(array)
+----
+
+==== Documentación y Búsqueda de Librerías
+
+El repositorio principal de librerías en Python es el **Python Package Index (PyPI)**, que contiene miles de paquetes que cubren una amplia gama de áreas. Para encontrar una librería que cubra una necesidad específica, puedes buscar en PyPI o en la documentación oficial de cada librería.
+
+* **PyPI**: https://pypi.org/
+
+Cada librería suele tener su propia documentación oficial que explica cómo instalarla y cómo utilizar sus funciones y clases.
+
+=== 7.2. Introducción a librerías populares
+
+==== requests
+
+El módulo `requests` es una biblioteca externa popular en Python que facilita el envío de solicitudes HTTP. Es ideal para interactuar con APIs, descargar datos de sitios web o automatizar tareas web. A diferencia de las herramientas nativas de Python para manejar HTTP, `requests` ofrece una sintaxis más simple y capacidades más avanzadas para gestionar la conexión, autenticación y envío de datos.
+
+Para instalar la biblioteca `requests`, utiliza el siguiente comando:
+
+[source,bash]
+----
+pip install requests
+----
+
+Algunas funciones clave del módulo `requests`:
+
+- `requests.get(url)`: Envía una solicitud HTTP GET a una URL.
+- `requests.post(url, data)`: Envía una solicitud HTTP POST con datos.
+- `requests.put(url, data)`: Envía una solicitud HTTP PUT para actualizar recursos.
+- `requests.delete(url)`: Envía una solicitud HTTP DELETE para eliminar un recurso.
+- `requests.status_code`: Verifica el código de estado HTTP de una respuesta.
+
+[source,python]
+----
+import requests
+
+# Hacer una solicitud GET
+respuesta = requests.get('https://api.github.com')
+print(f"Estado de la respuesta: {respuesta.status_code}")
+print(f"Contenido: {respuesta.text}")
+
+# Enviar datos con una solicitud POST
+payload = {'nombre': 'Juan', 'edad': 30}
+respuesta_post = requests.post('https://httpbin.org/post', data=payload)
+print(f"Estado POST: {respuesta_post.status_code}")
+print(f"Datos enviados: {respuesta_post.json()}")
+
+# Manejar errores de solicitudes
+try:
+    respuesta_error = requests.get('https://httpbin.org/status/404')
+    respuesta_error.raise_for_status()
+except requests.exceptions.HTTPError as err:
+    print(f"Error HTTP: {err}")
+----
+
+
+==== Pillow
+
+Pillow es una biblioteca de Python que permite la manipulación de imágenes. Es una versión mejorada del antiguo módulo PIL (Python Imaging Library) y proporciona una interfaz sencilla para abrir, modificar y guardar imágenes en diversos formatos.
+
+Para instalar la biblioteca Pillow, utiliza el siguiente comando:
+
+[source,bash]
+----
+pip install Pillow
+----
+
+Algunas funciones clave de Pillow:
+
+- `Image.open()`: Abre una imagen y la carga en un objeto `Image`.
+- `Image.save()`: Guarda la imagen en un formato específico.
+- `Image.show()`: Muestra la imagen en una ventana emergente.
+- `Image.resize()`: Redimensiona la imagen a un nuevo tamaño.
+- `Image.rotate()`: Rota la imagen por un ángulo específico.
+- `Image.crop()`: Recorta la imagen a una región específica.
+- `Image.filter()`: Aplica un filtro a la imagen.
+
+[source,python]
+----
+from PIL import Image, ImageFilter
+
+# Abrir una imagen
+imagen = Image.open('ejemplo.jpg')
+
+# Mostrar la imagen
+imagen.show()
+
+# Redimensionar la imagen
+imagen_redimensionada = imagen.resize((200, 200))
+imagen_redimensionada.show()
+
+# Rotar la imagen
+imagen_rotada = imagen.rotate(90)
+imagen_rotada.show()
+
+# Recortar la imagen
+imagen_recortada = imagen.crop((50, 50, 300, 300))
+imagen_recortada.show()
+
+# Aplicar un filtro a la imagen
+imagen_filtrada = imagen.filter(ImageFilter.BLUR)
+imagen_filtrada.show()
+
+# Guardar la imagen modificada
+imagen_filtrada.save('ejemplo_filtrado.jpg')
+----
+
+
+==== NumPy, Pandas y Matplotlib.
+Python cuenta con una amplia variedad de librerías que facilitan el trabajo en diferentes áreas, como análisis de datos, visualización y más. Algunas de las librerías más populares son:
+
+**NumPy**:
+NumPy es una librería fundamental para la computación científica en Python. Proporciona soporte para arreglos multidimensionales y funciones matemáticas para operar con estos arreglos de manera eficiente.
+
+**Ejemplo de uso de NumPy**:
+[source, python]
+----
+import numpy as np
+
+# Crear un arreglo numpy
+arreglo = np.array([1, 2, 3, 4, 5])
+
+# Operaciones con arreglos
+suma = np.sum(arreglo)  # Suma de todos los elementos
+media = np.mean(arreglo)  # Media de los elementos
+
+print(f"Suma: {suma}, Media: {media}")  # Salida: Suma: 15, Media: 3.0
+----
+
+**Pandas**:
+Pandas es una librería que proporciona estructuras de datos y herramientas para el análisis de datos. Se utiliza principalmente para trabajar con datos tabulares.
+
+**Ejemplo de uso de Pandas**:
+[source, python]
+----
+import pandas as pd
+
+# Crear un DataFrame
+data = {
+    'Nombre': ['Ana', 'Juan', 'Luis'],
+    'Edad': [23, 34, 45]
+}
+df = pd.DataFrame(data)
+
+# Operaciones con DataFrame
+print(df.describe())  # Salida: Resumen estadístico del DataFrame
+print(df['Edad'].mean())  # Salida: Media de la columna Edad
+----
+
+**Matplotlib**:
+Matplotlib es una librería de visualización de datos en Python. Permite crear gráficos estáticos, animados e interactivos.
+
+**Ejemplo de uso de Matplotlib**:
+[source, python]
+----
+import matplotlib.pyplot as plt
+
+# Datos para el gráfico
+x = [1, 2, 3, 4, 5]
+y = [2, 3, 5, 7, 11]
+
+# Crear un gráfico de líneas
+plt.plot(x, y, marker='o')
+plt.title("Gráfico de líneas")
+plt.xlabel("Eje X")
+plt.ylabel("Eje Y")
+plt.show()  # Muestra el gráfico
+----
+
+=== 7.2. Frameworks para desarrollo web
+
+==== Flask y Django.
+Para el desarrollo de aplicaciones web, Python cuenta con varios frameworks que facilitan el proceso de creación. Dos de los más populares son Flask y Django.
+
+**Flask**:
+Flask es un micro-framework que es ligero y fácil de usar. Es ideal para proyectos pequeños y permite una gran flexibilidad.
+
+**Ejemplo básico de Flask**:
+[source, python]
+----
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def inicio():
+    return "¡Hola, Mundo!"
+
+if __name__ == '__main__':
+    app.run(debug=True)  # Ejecuta el servidor en modo de depuración
+----
+
+**Django**:
+Django es un framework web de alto nivel que sigue el patrón de diseño Modelo-Vista-Controlador (MVC). Proporciona muchas funcionalidades listas para usar, lo que permite desarrollar aplicaciones más complejas rápidamente.
+
+**Ejemplo básico de Django**:
+Para comenzar con Django, debes crear un proyecto y una aplicación. Luego, puedes definir modelos, vistas y rutas.
+
+**Instalación y creación de un proyecto**:
+[source, python]
+----
+# Instalación de Django
+pip install django
+
+# Crear un nuevo proyecto
+django-admin startproject mi_proyecto
+
+# Navegar al directorio del proyecto
+cd mi_proyecto
+
+# Ejecutar el servidor de desarrollo
+python manage.py runserver
+----
+
+**Definición de un modelo**:
+[source, python]
+----
+from django.db import models
+
+class Persona(models.Model):
+    nombre = models.CharField(max_length=100)
+    edad = models.IntegerField()
+----
+
+Django ofrece un conjunto completo de herramientas para la autenticación de usuarios, administración, migraciones de bases de datos y mucho más, lo que lo convierte en una opción poderosa para aplicaciones web complejas.
+
+Las librerías y frameworks en Python son herramientas esenciales que permiten a los desarrolladores crear aplicaciones de manera más eficiente y con menor esfuerzo.
+
+=== Ejericios sobre Librerías y Frameworks
+
+.Ejercicios sobre Librerías:
+1. **Requests**: Realiza una solicitud GET a una API pública que devuelva datos en formato JSON y muestra uno de los elementos.
+
+2. **CSV**: Crea un archivo CSV que contenga información de estudiantes (nombre, edad, grado) y luego lee el archivo para mostrar la información.
+
+3. **JSON**: Crea un diccionario de Python que contenga información sobre un libro (título, autor, año de publicación) y guarda esa información en un archivo JSON.
+
+4. **Pillow**: Abre una imagen existente y guarda una copia de ella en otro formato (por ejemplo, de JPG a PNG).
+
+5. **Datetime**: Escribe un script que imprima la fecha y hora actuales en un formato legible.
+
+6. **Math**: Calcula el área y el perímetro de un círculo dado su radio utilizando funciones de la biblioteca `math`.
+
+7. **Sys**: Crea un script que imprima los argumentos de la línea de comandos que se pasaron al ejecutar el script.
+
+8. **OS**: Crea un directorio nuevo en el sistema de archivos y muestra el contenido del directorio.
+
+9. **Requests**: Haz una solicitud POST a una API que acepte datos en JSON y muestra la respuesta.
+
+10. **CSV**: Lee un archivo CSV que contenga datos de ventas y calcula el total de ventas por producto.
+
+11. **JSON**: Carga un archivo JSON que contenga información sobre empleados y muestra el nombre de todos los empleados.
+
+12. **Pillow**: Aplica un filtro a una imageEstos ejercicios se centran en las librerías `requests`, `csv`, `json`, `Pillow`, `datetime`, `math`, `sys` y `os`, ofreciendo una variedad de tareas para practicar sus funcionalidades.
+n (por ejemplo, desenfoque) y guarda la imagen resultante.
+
+13. **Datetime**: Escribe un script que calcule cuántos días quedan hasta fin de año.
+
+14. **Math**: Calcula la raíz cuadrada de un número dado y muestra el resultado.
+
+15. **Sys**: Muestra la versión de Python que se está utilizando en el entorno.
+
+16. **OS**: Obtén el nombre del sistema operativo en el que se está ejecutando el script.
+
+17. **Requests**: Descarga una imagen de una URL y guárdala en tu sistema local.
+
+18. **CSV**: Crea un archivo CSV a partir de una lista de diccionarios que contenga información de productos.
+
+19. **JSON**: Convierte un objeto de Python en una cadena JSON y muéstrala.
+
+20. **Datetime**: Escribe un script que imprima la fecha de mañana en un formato específico.
+
+== Módulo 8: Recursos Adicionales
+
+=== 8.1. Documentación y tutoriales
+
+==== Recursos en línea para seguir aprendiendo.
+La documentación oficial y los tutoriales son fundamentales para profundizar en el conocimiento de Python y sus diversas bibliotecas y frameworks. Aquí hay algunos recursos clave:
+
+- **Documentación oficial de Python**:
+  La documentación oficial de Python es un recurso completo que cubre todos los aspectos del lenguaje, desde la instalación hasta características avanzadas.
+  [https://docs.python.org/3/](https://docs.python.org/3/)
+
+- **Tutoriales de Python**:
+  - **W3Schools**: Ofrece tutoriales interactivos y ejemplos prácticos. [https://www.w3schools.com/python/](https://www.w3schools.com/python/)
+  - **Real Python**: Proporciona artículos y cursos en profundidad sobre diversos temas de Python. [https://realpython.com/](https://realpython.com/)
+  - **Codecademy**: Ofrece un curso interactivo de Python que es excelente para principiantes. [https://www.codecademy.com/learn/learn-python-3](https://www.codecademy.com/learn/learn-python-3)
+
+- **Cursos en línea**:
+  - **Coursera**: Ofrece cursos sobre Python de universidades y organizaciones prestigiosas. [https://www.coursera.org/courses?query=python](https://www.coursera.org/courses?query=python)
+  - **edX**: Similar a Coursera, con cursos de instituciones reconocidas. [https://www.edx.org/learn/python](https://www.edx.org/learn/python)
+  - **Udemy**: Plataforma de cursos en línea con una amplia variedad de temas relacionados con Python. [https://www.udemy.com/courses/search/?q=python](https://www.udemy.com/courses/search/?q=python)
+
+=== 8.2. Comunidades y foros
+
+==== Dónde encontrar ayuda y colaborar con otros desarrolladores.
+Formar parte de comunidades y foros puede ser muy útil para resolver dudas, compartir conocimientos y colaborar en proyectos. Aquí hay algunos lugares recomendados:
+
+- **Stack Overflow**:
+  Una de las comunidades más grandes para programadores. Puedes hacer preguntas y responder a otras sobre Python y otros lenguajes. [https://stackoverflow.com/questions/tagged/python](https://stackoverflow.com/questions/tagged/python)
+
+- **Reddit**:
+  Subreddits como r/Python son lugares donde los desarrolladores comparten noticias, recursos y hacen preguntas. [https://www.reddit.com/r/Python/](https://www.reddit.com/r/Python/)
+
+- **Discord y Slack**:
+  Hay varios servidores de Discord y canales de Slack dedicados a Python donde puedes interactuar en tiempo real con otros desarrolladores.
+
+- **Grupos de Meetup**:
+  Busca grupos locales de Meetup relacionados con Python. Participar en eventos en persona puede ser una gran manera de aprender y hacer networking. [https://www.meetup.com/](https://www.meetup.com/)
+
+- **GitHub**:
+  Explorar proyectos open-source en GitHub es una excelente manera de aprender y contribuir a la comunidad. Puedes encontrar proyectos en Python que te interesen y comenzar a colaborar. [https://github.com/explore](https://github.com/explore)
+
+

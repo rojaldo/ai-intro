@@ -1,0 +1,129 @@
+:toc:
+:toc-title: Índice
+:source-highlighter: highlight.js
+
+= Ejercicios Básicos de Python en Línea de Comandos
+
+== Ejercicios de Entrada/Salida y Operaciones Básicas
+
+=== Ejercicio 1: Saludador Personalizado
+Crea un programa que pida el nombre y la hora actual, y genere un saludo apropiado según la hora del día.
+
+=== Ejercicio 2: Calculadora de Edad en Días
+Pide la fecha de nacimiento y calcula los días vividos aproximados.
+
+=== Ejercicio 3: Conversor de Temperatura
+Programa que convierta entre Celsius, Fahrenheit y Kelvin.
+
+=== Ejercicio 4: Generador de Tablas de Multiplicar
+Crea la tabla de multiplicar del número ingresado.
+
+=== Ejercicio 5: Calculadora de Descuentos
+Calcula el precio final después de aplicar un descuento.
+
+== Ejercicios con Estructuras de Datos
+
+=== Ejercicio 6: Gestor de Lista de Compras
+Permite agregar, eliminar y mostrar elementos de una lista.
+
+=== Ejercicio 7: Directorio Telefónico
+Gestiona contactos usando un diccionario.
+
+=== Ejercicio 8: Ordenador de Números
+Ordena una lista de números ingresados por el usuario.
+
+=== Ejercicio 9: Buscador de Palabras
+Cuenta cuántas veces aparece una palabra en una frase.
+
+=== Ejercicio 10: Calculadora de Promedios
+Calcula el promedio de una lista de calificaciones.
+
+== Ejercicios de Manipulación de Archivos
+
+=== Ejercicio 11: Bloc de Notas Simple
+Guarda y lee notas en un archivo de texto.
+
+=== Ejercicio 12: Registro de Gastos
+Guarda gastos en un CSV y calcula totales.
+
+=== Ejercicio 13: Organizador de Archivos
+Mueve archivos según su extensión a carpetas específicas.
+
+=== Ejercicio 14: Logger Simple
+Registra eventos con fecha y hora en un archivo log.
+
+=== Ejercicio 15: Gestor de Tareas
+Maneja una lista de tareas pendientes en un archivo.
+
+== Ejercicios de Algoritmos
+
+=== Ejercicio 16: Validador de Palíndromos
+Verifica si una palabra o frase es un palíndromo.
+
+=== Ejercicio 17: Generador de Contraseñas
+Crea contraseñas aleatorias según criterios especificados.
+
+=== Ejercicio 18: Calculadora de Números Primos
+Determina si un número es primo y encuentra primos en un rango.
+
+=== Ejercicio 19: Juego de Ahorcado
+Implementa el clásico juego de adivinar palabras.
+
+=== Ejercicio 20: Calculadora de Estadísticas
+Calcula media, mediana y moda de una serie de números.
+
+== Características Sugeridas para Cada Ejercicio
+
+* Validación de entradas
+* Manejo de errores
+* Menú de opciones
+* Función de salida
+* Persistencia de datos (cuando aplique)
+
+== Estructura Básica Recomendada
+
+[source, python]
+----
+def main():
+    while True:
+        print("\n=== Menú Principal ===")
+        print("1. Opción 1")
+        print("2. Opción 2")
+        print("3. Salir")
+        
+        opcion = input("\nSeleccione una opción: ")
+        
+        if opcion == "1":
+            # Función 1
+            pass
+        elif opcion == "2":
+            # Función 2
+            pass
+        elif opcion == "3":
+            print("¡Hasta luego!")
+            break
+        else:
+            print("Opción no válida")
+
+if __name__ == "__main__":
+    main()
+----
+
+== Consejos de Implementación
+
+* Usar funciones para organizar el código
+* Implementar validación de entrada
+* Manejar excepciones apropiadamente
+* Mantener el código limpio y comentado
+* Seguir PEP 8 para estilo de código
+
+== Conceptos Python Utilizados
+
+* Variables y tipos de datos
+* Estructuras de control (if, while, for)
+* Funciones y parámetros
+* Listas, tuplas y diccionarios
+* Manejo de archivos
+* Módulos básicos (random, datetime, os)
+* Manejo de excepciones
+* Formateo de strings
