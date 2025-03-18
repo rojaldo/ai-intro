@@ -283,8 +283,7 @@ demo = gr.Interface(
         language="python",
         lines=5,
         label="Editor de código",
-        value="def hello():\n    print('Hello World')",
-        highlight=True
+        value="def hello():\n    print('Hello World')"
     ),
     outputs=gr.Code(language="python")
 )
