@@ -189,7 +189,7 @@ yolo detect export model=yolo11n.pt format=onnx
 .En la siguiente tabla se muestran los formatos de exportación soportados por YoLo:
 [cols="1,1,1,1,1", options="header"]
 |===
-| Format | Format Argument | Model | Metadata | Arguments
+| Formato | argumento | Modelo | Metadata | Argumentos adicionales
 | PyTorch | - | yolo11n.pt | ✅ | -
 | TorchScript | torchscript | yolo11n.torchscript | ✅ | imgsz, optimize, nms, batch
 | ONNX | onnx | yolo11n.onnx | ✅ | imgsz, half, dynamic, simplify, opset, nms, batch

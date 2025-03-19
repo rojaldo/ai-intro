@@ -13,16 +13,20 @@ def chekc_BMI(bmi):
         return "Obesidad"
     
 # this is a plot that shows bmi compared to a normal bmi
-def create_plot(points):
-    fig = plt.figure()
-    ax = fig.add_subplot(111)
-    ax.plot([18.5, 24.9, 29.9], [0, 1, 0], 'r')
-    ax.scatter(points, 0, marker='x', color='b')
+def create_plot(bmi):
+    fig, ax = plt.subplots()
+    # Umbrales de BMI
+    thresholds = [18.5, 24.9, 29.9]
+    labels = ["Límite bajo peso", "Límite normal", "Límite sobrepeso"]
+    colors = ["orange", "green", "red"]
+    for thr, lab, col in zip(thresholds, labels, colors):
+        ax.axvline(thr, color=col, linestyle='--', label=lab)
+    # BMI del usuario
+    ax.axvline(bmi, color='blue', linewidth=2, label="Tu BMI")
+    
     ax.set_xlim([15, 35])
-    ax.set_ylim([-0.1, 1.1])
-    ax.set_yticks([])
-    ax.set_title("BMI")
-    ax.legend(["Bajo peso", "Normal", "Sobrepeso", "Obesidad", "Tu BMI"])
+    ax.set_title("BMI y Umbrales")
+    ax.legend()
     return fig
 
 
