@@ -677,7 +677,7 @@ class FriendList(BaseModel):
 async def main():
   client = AsyncClient()
   response = await client.chat(
-    model='llama3.1:8b',
+    model='llama3.2',
     messages=[{'role': 'user', 'content': 'I have two friends. The first is Ollama 22 years old busy saving the world, and the second is Alonso 23 years old and wants to hang out. Return a list of friends in JSON format'}],
     format=FriendList.model_json_schema(),  # Use Pydantic to generate the schema
     options={'temperature': 0},  # Make responses more deterministic
@@ -739,7 +739,7 @@ async def main():
   client = ollama.AsyncClient()
 
   response: ChatResponse = await client.chat(
-    'llama3.1',
+    'llama3.2',
     messages=messages,
     tools=[add_two_numbers, subtract_two_numbers_tool],
   )
@@ -763,7 +763,7 @@ async def main():
     messages.append({'role': 'tool', 'content': str(output), 'name': tool.function.name})
 
     # Get final response from model with function outputs
-    final_response = await client.chat('llama3.1', messages=messages)
+    final_response = await client.chat('llama3.2', messages=messages)
     print('Final response:', final_response.message.content)
 
   else:
@@ -878,7 +878,7 @@ print()</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-03-17 09:41:56 +0100
+Last updated 2025-03-19 10:48:00 +0100
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

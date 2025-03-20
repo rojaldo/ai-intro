@@ -98,8 +98,9 @@ La estrucutra de comandos es la siguiente:
 [source,shell]
 ----
 # Usage: yolo <task> <mode> <args>
-yolo detect --source image.jpg
-yolo train --data data.yaml --cfg model.yaml
+yolo detect predict source=sample.jpeg
+yolo segment predict source=sample.jpeg
+yolo train data=data.yaml cfg=model.yaml
 ----
 
 === task
