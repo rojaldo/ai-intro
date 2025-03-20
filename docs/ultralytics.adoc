@@ -149,7 +149,7 @@ yolo cfg=default_copy.yaml imgsz=320
 [source,shell]
 ----
 # Detect objects in an image using YoLo
-yolo detect source='image.jpg'
+yolo detect predict source='image.jpg'
 
 # Detect objects in an image with a specific model and confidence threshold
 yolo predict model=yolo11n.pt imgsz=640 conf=0.25
