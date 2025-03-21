@@ -1,0 +1,16 @@
+# ignore .pyc files
+*.pyc
+# ignore .DS_Store
+.DS_Store
+# ignore VSCode settings
+.vscode/
+# ignore /experiments
+experiments/
+# ignore /images
+images/
+# ignore /samples/runs
+samples/runs/
+# ignore /samples/venv
+samples/venv/
+# ignore models *.pt
+*.pt

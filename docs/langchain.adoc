@@ -1,0 +1,804 @@
+:toc:
+:toc-title: Índice
+:source-highlighter: highlight.js
+
+= LangChain 
+
+== Introducción 
+
+=== ¿Qué es LangChain?
+
+LangChain es un framework de código abierto que facilita el desarrollo de aplicaciones potenciadas por modelos de lenguaje (LLMs). Sus principales características son:
+
+* Permite crear aplicaciones contextuales combinando LLMs con fuentes de datos externas
+* Facilita la creación de flujos de trabajo complejos y encadenados
+* Proporciona abstracciones comunes para interactuar con diferentes LLMs
+* Ofrece componentes modulares y reutilizables
+
+=== Arquitectura básica
+
+LangChain se estructura en varios componentes fundamentales:
+
+==== 1. Models
+Interfaces para trabajar con diferentes LLMs:
+
+* Modelos de lenguaje (OpenAI, Anthropic, etc.)
+* Embeddings
+* Chat models
+
+==== 2. Prompts
+Manejo de plantillas y prompts:
+
+* Prompt templates
+* Example selectors
+* Output parsers
+
+==== 3. Chains
+Secuencias de operaciones:
+
+* LLMChain
+* Sequential chains
+* Router chains
+
+==== 4. Memory
+Gestión del contexto y estado:
+
+* Buffer memory
+* Conversation memory
+* Vector store memory
+
+==== 5. Indexes
+Estructuras para manejar documentos:
+
+* Document loaders
+* Text splitters
+* Vector stores
+
+=== Configuración del entorno de desarrollo
+
+Para comenzar a trabajar con LangChain, necesitarás:
+
+==== 1. Instalación básica
+[source,bash]
+----
+pip install langchain
+----
+
+==== 2. Dependencias adicionales según el caso de uso
+[source,bash]
+----
+pip install openai  # Para usar OpenAI
+pip install ollama  # Para interactuar con la API de Ollama
+pip install chromadb  # Para bases de datos vectoriales
+pip install tiktoken  # Para tokenización
+----
+
+==== 3. Configuración de variables de entorno
+[source,python]
+----
+import os
+os.environ["OPENAI_API_KEY"] = "tu-api-key"
+----
+
+==== 4. Ejemplo básico de uso
+[source,python]
+----
+from langchain.llms import OpenAI
+from langchain.chains import LLMChain
+from langchain.prompts import PromptTemplate
+
+# Inicializar el modelo
+llm = OpenAI(temperature=0.7)
+
+# Crear un prompt template
+prompt = PromptTemplate(
+    input_variables=["tema"],
+    template="Dame 3 ideas sobre {tema}."
+)
+
+# Crear y ejecutar una chain
+chain = LLMChain(llm=llm, prompt=prompt)
+resultado = chain.run("programación")
+----
+
+TIP: Este contenido proporciona una base sólida para comenzar con LangChain, cubriendo los conceptos fundamentales, la arquitectura y la configuración inicial del entorno de desarrollo.
+
+=== Componentes Básicos
+
+==== Models (LLMs, Chat Models)
+El componente fundamental en LangChain son los modelos de lenguaje (LLMs) y los modelos de chat.  
+Existen múltiples opciones, desde servicios alojados en la nube (OpenAI, Azure, etc.) hasta implementaciones locales (via Ollama, Hugging Face, etc.).  
+Los modelos de chat permiten interacciones conversacionales enriquecidas, manteniendo histórico de contexto a lo largo de varios turnos.
+
+==== Prompts y Templates
+Los prompts definen el texto (o instrucción inicial) que se entrega al modelo para obtener una respuesta deseada.  
+Los templates son plantillas que permiten reutilizar y estructurar prompts, mezclando cadenas fijas con variables que se rellenan dinámicamente en cada ejecución.
+
+==== Chains 
+Una Chain (o cadena) es la secuencia de pasos que LangChain ejecuta para producir una respuesta.  
+Por ejemplo, una cadena simple podría tomar un input, aplicarle un template y luego consultar un LLM.  
+Las cadenas más sofisticadas pueden unir varios modelos, herramientas y estrategias de razonamiento.
+
+El objeto `LLMChain` representa una Chain básica en LangChain. Combina un modelo de lenguaje (LLM) y un `PromptTemplate` para generar respuestas.  
+Se centra en la interacción directa con un solo modelo, ideal para flujos de trabajo en los que se requiere un paso simple, como resumir texto o responder una pregunta puntual.
+
+.Una chain en LangChain
+[source, python]
+----
+from langchain.chains import LLMChain
+from langchain.prompts import PromptTemplate
+
+prompt = PromptTemplate(
+    input_variables=["tema"],
+    template="Dame 3 ideas sobre {tema}.",
+    output_parser=lambda x: x.split("\n"),
+    example_selector=lambda x: x[0],
+    max_tokens=100,
+    temperature=0.7
+)
+
+chain = LLMChain(llm=llm, prompt=prompt)
+resultado = chain.run("programación")
+----
+
+==== Ejemplo de uso de LLMChain
+Aquí se pone en práctica lo aprendido, construyendo un proyecto sencillo que:  
+1. Reciba un texto de usuario.  
+2. Genere un prompt con un template.  
+3. Llamará a un LLM o modelo de chat.  
+4. Devolverá la respuesta final, demostrando la configuración básica de LangChain.
+
+[source,python]
+----
+from langchain.llms import Ollama
+from langchain.chains import LLMChain
+from langchain.prompts import PromptTemplate
+
+def main():
+    # 1. Recibir un texto de usuario
+    tema = input("Ingrese un tema o pregunta: ")
+
+    # 2. Generar un prompt con un template
+    template = "Dame 3 ideas sobre {tema}."
+    prompt = PromptTemplate(input_variables=["tema"], template=template)
+
+    # 3. Llamar a un LLM (Ollama en lugar de OpenAI)
+    # Asegúrate de tener Ollama instalado y configurado
+    llm = Ollama(model="llama2")  # Puedes ajustar el parámetro 'model' según tu configuración
+
+    # Se crea y ejecuta la chain con LangChain
+    chain = LLMChain(llm=llm, prompt=prompt)
+    resultado = chain.run(tema)
+
+    # 4. Devolver la respuesta final
+    print("Respuesta generada:")
+    print(resultado)
+
+if __name__ == "__main__":
+    main()
+
+----
+
+== Bloque 2: Chains y Memory 
+=== Chains Avanzadas
+
+==== SequentialChain
+Para procesar datos en varias etapas y pasar resultados intermedios a los siguientes pasos, LangChain ofrece `SequentialChain`.  
+Esta cadena permite organizar múltiples pasos de forma secuencial, cada uno usando el resultado del anterior como parte de su input.  
+Por ejemplo, extraer entidades en el primer paso y, en el segundo, consultar el modelo para obtener detalles adicionales sobre dichas entidades.
+
+.Un ejemplo de SequentialChain
+[source, python]
+----
+from langchain.chains import LLMChain, SequentialChain
+from langchain.prompts import PromptTemplate
+from langchain.llms import OpenAI
+
+# Inicializa el LLM (asegúrate de tener configurada la API key)
+llm = OpenAI(temperature=0.7)
+
+# Primera chain: resume un texto
+summary_template = PromptTemplate(
+    input_variables=["text"],
+    template="Resume el siguiente texto en una oración: {text}"
+)
+summary_chain = LLMChain(
+    llm=llm, 
+    prompt=summary_template,
+    output_key="summary"
+)
+
+# Segunda chain: genera una pregunta a partir del resumen
+question_template = PromptTemplate(
+    input_variables=["summary"],
+    template="Basado en este resumen: {summary}, formula una pregunta interesante."
+)
+question_chain = LLMChain(
+    llm=llm, 
+    prompt=question_template,
+    output_key="question"
+)
+
+# Combina ambas cadenas en una secuencia
+sequential_chain = SequentialChain(
+    chains=[summary_chain, question_chain],
+    input_variables=["text"],
+    output_variables=["summary", "question"],
+    verbose=True  # Activa el modo verbose para ver el proceso
+)
+
+# Ejecuta la cadena secuencial con un ejemplo de texto
+if __name__ == "__main__":
+    input_text = ("La inteligencia artificial está revolucionando la forma en que interactuamos con la tecnología, "
+                  "automatizando tareas y mejorando la eficiencia en múltiples sectores.")
+    results = sequential_chain({"text": input_text})
+    print("Resumen:", results["summary"])
+    print("Pregunta sugerida:", results["question"])
+----
+
+==== RouterChain
+Cuando la lógica de tu aplicación requiere enrutar diferentes prompts o consultas a diversos modelos o flujos de procesamiento, `RouterChain` facilita la toma de decisiones.  
+Con este tipo de cadena, puedes definir criterios o reglas para derivar la solicitud del usuario hacia el sub-modelo o el sub-flujo adecuado, siendo muy útil en sistemas más complejos de pregunta-respuesta.
+
+.Un ejemplo de RouterChain
+[source, python]
+----
+from langchain.chains import LLMChain, RouterChain
+from langchain.prompts import PromptTemplate
+from langchain.llms import OpenAI
+
+# Inicializa el LLM (asegúrate de tener configurada la API Key)
+llm = OpenAI(temperature=0.7)
+
+# Chain para resumir texto
+summary_template = PromptTemplate(
+    input_variables=["text"],
+    template="Resume el siguiente texto en una oración: {text}"
+)
+summary_chain = LLMChain(
+    llm=llm,
+    prompt=summary_template,
+    output_key="summary"
+)
+
+# Chain para generar una pregunta a partir del texto
+question_template = PromptTemplate(
+    input_variables=["text"],
+    template="Genera una pregunta interesante sobre el siguiente texto: {text}"
+)
+question_chain = LLMChain(
+    llm=llm,
+    prompt=question_template,
+    output_key="question"
+)
+
+# Chain que decide a cuál de las dos chains dirigir la solicitud
+router_template = PromptTemplate(
+    input_variables=["text"],
+    template="""Eres un experto en procesamiento de lenguaje natural.
+Según el siguiente texto: {text}
+Responde únicamente con "summary" si consideras que lo mejor es resumir el texto, o con "question" si es más adecuado generar una pregunta.
+"""
+)
+router_chain = LLMChain(llm=llm, prompt=router_template)
+
+# Crea el RouterChain con las chains de destino y una cadena por defecto en caso de respuesta inesperada
+router = RouterChain(
+    router_chain=router_chain,
+    destination_chains={
+        "summary": summary_chain,
+        "question": question_chain
+    },
+    default_chain=summary_chain,  # En caso de respuesta no esperada se usa summary_chain
+    verbose=True
+)
+
+if __name__ == "__main__":
+    input_text = ("La inteligencia artificial está revolucionando múltiples industrias, "
+                  "desde la medicina hasta el transporte. Su avance permite optimizar procesos y mejorar la vida de las personas.")
+    result = router({"text": input_text})
+    print("Resultado:", result)
+----
+
+
+=== Sistemas de Memoria
+
+==== Buffer Memory
+El `BufferMemory` guarda un historial de interacciones dentro de una conversación para que el modelo pueda tener contexto en cada nuevo turno.  
+Es especialmente útil en tareas de dialogar con el usuario o en flujos tipo chatbot, donde resulta esencial mantener una referencia de lo que se ha dicho previamente.
+
+.Ejemplo de BufferMemory
+[source, python]
+----
+from langchain.chat_models import ChatOpenAI
+from langchain.chains import ConversationChain
+from langchain.memory import ConversationBufferMemory
+
+# Inicializa el modelo de chat
+chat = ChatOpenAI(temperature=0.7)
+
+# Crea una memoria de tipo Buffer para almacenar el historial de conversación
+memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
+
+# Crea la cadena de conversación utilizando el modelo y la memoria
+conversation = ConversationChain(
+    llm=chat,
+    memory=memory,
+    verbose=True  # Muestra el historial en consola
+)
+
+if __name__ == "__main__":
+    print("Escribe 'salir' para terminar la conversación.\n")
+    while True:
+        user_input = input("Usuario: ")
+        if user_input.lower() in ["salir", "exit"]:
+            break
+        response = conversation.predict(input=user_input)
+        print("Chat:", response)
+
+----
+
+==== Conversation Memory
+La `ConversationMemory` se centra en la representación de la conversación de manera estructurada, permitiendo tomar como referencia no solo la parte textual, sino también metadatos que puedan enriquecer el contexto.  
+Esto aporta coherencia y mayor grado de personalización, ya que la información clave de las interacciones puede persistir.
+
+.Ejemplo de ConversationMemory
+[source, python]
+----
+from langchain.chat_models import ChatOpenAI
+from langchain.memory import ConversationSummaryMemory
+from langchain.chains import ConversationChain
+
+# Inicializa el modelo de chat
+chat = ChatOpenAI(temperature=0.7)
+
+# Crea una memoria de tipo ConversationSummaryMemory que resume la conversación de forma estructurada
+memory = ConversationSummaryMemory(
+    llm=chat,
+    memory_key="chat_history",
+    return_messages=True
+)
+
+# Crea la cadena de conversación utilizando el modelo y la memoria
+conversation = ConversationChain(
+    llm=chat,
+    memory=memory,
+    verbose=True  # Muestra el historial en consola
+)
+
+if __name__ == "__main__":
+    print("Escribe 'salir' para terminar la conversación.\n")
+    while True:
+        user_input = input("Usuario: ")
+        if user_input.lower() in ["salir", "exit"]:
+            break
+        response = conversation.predict(input=user_input)
+        print("Chat:", response)
+----
+
+==== Vector Store Memory
+Para manejar conversaciones extensas o buscar información pasada de forma más eficiente, `VectorStoreMemory` almacena el historial como embeddings en una base vectorial.  
+De esta manera, el sistema puede recuperar contexto relevante sin cargar todo el historial completo, optimizando la memoria y el tiempo de respuesta con búsquedas vectoriales.
+
+.Existen varios tipos de bases de datos vectoriales:
+* Qdrant
+* ChromaDB
+* Pinecone
+* Weaviate
+* Milvus
+* Faiss
+* Y muchos otros
+
+.Ejemplo de VectorStoreMemory
+[source, python]
+----
+import os
+from qdrant_client import QdrantClient
+from langchain.embeddings import OpenAIEmbeddings
+from langchain.vectorstores import Qdrant
+from langchain.memory import VectorStoreRetrieverMemory
+from langchain.chat_models import ChatOpenAI
+from langchain.chains import ConversationChain
+
+# Configura los parámetros de Qdrant
+QDRANT_HOST = "localhost"  # Cambia según tu configuración
+QDRANT_PORT = 6333
+
+# Inicializa el cliente de Qdrant
+qdrant_client = QdrantClient(host=QDRANT_HOST, port=QDRANT_PORT)
+
+# Inicializa las embeddings usando OpenAI (asegúrate de haber configurado la variable OPENAI_API_KEY)
+embeddings = OpenAIEmbeddings(openai_api_key=os.getenv("OPENAI_API_KEY"))
+
+# Crea o utiliza un collection en Qdrant para el historial de conversación
+vectorstore = Qdrant(
+    client=qdrant_client,
+    collection_name="chat_memory",
+    embedding_function=embeddings.embed_query
+)
+
+# Crea el objeto de memoria que utiliza el vector store para recuperar mensajes previos.
+memory = VectorStoreRetrieverMemory(
+    vectorstore=vectorstore,
+    k=3,  # Número de interacciones previas a recuperar
+    memory_key="chat_history",
+    input_key="input"
+)
+
+# Inicializa el modelo de chat
+chat = ChatOpenAI(temperature=0.7)
+
+# Crea la cadena de conversación utilizando el LLM y el vector store memory
+conversation = ConversationChain(
+    llm=chat,
+    memory=memory,
+    verbose=True
+)
+
+if __name__ == "__main__":
+    print("Escribe 'salir' para terminar la conversación.\n")
+    while True:
+        user_input = input("Usuario: ")
+        if user_input.lower() in ["salir", "exit"]:
+            break
+        response = conversation.predict(input=user_input)
+        print("Chat:", response)
+----
+
+
+== Bloque 3: Agents y Tools 
+
+=== Concepto de Agents
+
+Un Agent en LangChain es un componente que permite delegar tareas complejas a múltiples herramientas. Estos agentes evalúan las consultas del usuario y deciden dinámicamente cuándo y cómo utilizar cada herramienta para obtener la mejor respuesta. Esto es especialmente útil para integraciones que requieren el acceso a diversas fuentes de datos o funcionalidades específicas.
+
+.Ejemplo de Agent que muestra cómo inicializar un agente que utiliza el modelo de OpenAI y la herramienta WikipediaQueryRun para responder a consultas complejas.
+
+[source,python]
+----
+from langchain.agents import initialize_agent, AgentType
+from langchain.llms import OpenAI
+from langchain.tools import WikipediaQueryRun
+
+# Inicializa el modelo de OpenAI con una temperatura adecuada
+llm = OpenAI(temperature=0)
+
+# Define una lista de herramientas disponibles para el agente
+tools = [
+    WikipediaQueryRun()
+]
+
+# Inicializa el agente con el tipo Zero-Shot React Description
+agent = initialize_agent(
+    tools=tools,
+    llm=llm,
+    agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+    verbose=True
+)
+
+if __name__ == "__main__":
+    # Ejemplo de consulta que se dirige a la herramienta de Wikipedia
+    query = "¿Quién es el presidente de Francia?"
+    respuesta = agent.run(query)
+    print("Respuesta:", respuesta)
+----
+
+=== Tipos disponibles
+
+En LangChain se ofrecen diferentes tipos de agentes, ejecutores y herramientas para abordar una amplia variedad de casos de uso. A continuación, se describen algunos de los tipos disponibles:
+
+* Agent Types
+  - **ZERO_SHOT_REACT_DESCRIPTION:**  
+    Un agente basado en el enfoque Zero-Shot React que evalúa la consulta del usuario y decide dinámicamente cuándo emplear una herramienta o responder directamente.
+  - **CONVERSATIONAL_REACT_DESCRIPTION:**  
+    Diseñado para mantener un contexto conversacional, ideal para interacciones donde se requiere seguimiento del historial y la continuidad en la conversación.
+  - **STRUCTURED_CHAT_ZERO_SHOT_REACT:**  
+    Variante optimizada para entornos de chat estructurado, combinando la generación de respuestas y la integración de herramientas específicas.
+
+* Agent Executors
+  - **Tool-Based Executor:**  
+    Ejecuta de forma secuencial o paralela las herramientas integradas según la lógica del agente, permitiendo combinar múltiples fuentes de información.
+  - **Custom Executor:**  
+    Permite definir flujos de ejecución personalizados y la integración de herramientas a medida, adaptándose a necesidades específicas del usuario.
+
+* Tools
+  - **Built-in Tools:**  
+    Herramientas predefinidas en LangChain (por ejemplo, WikipediaQueryRun) que facilitan tareas comunes como búsqueda de información o cálculos.
+  - **Custom Tools:**  
+    Herramientas desarrolladas por el usuario para extender las capacidades del agente y responder a requisitos particulares.
+  - **API Integration Tools:**  
+    Integración directa con APIs externas, posibilitando el acceso a servicios y datos que enriquecen la funcionalidad del agente.
+
+Estos tipos combinados permiten crear agentes versátiles que delegan tareas complejas a múltiples herramientas, ofreciendo respuestas precisas y contextualmente relevantes según el flujo de la interacción.
+
+=== Agent Executors
+
+Los Agent Executors en LangChain son responsables de gestionar la ejecución de las herramientas integradas dentro de un agente. Es decir, definen cómo y cuándo se deben invocar las distintas herramientas para que el agente pueda responder a las consultas del usuario de forma óptima. A continuación se describen algunos enfoques comunes:
+
+* **Tool-Based Executor:**  
+  Ejecuta secuencial o paralelamente las herramientas según la lógica definida en el agente. Es ideal para agentes que deben integrar múltiples fuentes de información y coordinar respuestas compuestas.
+
+* **Custom Executor:**  
+  Permite diseñar flujos de ejecución personalizados, ofreciendo control detallado sobre el orden, las condiciones y la orquestación en la llamada a cada herramienta. Este enfoque es adecuado para casos de uso complejos donde se requiere una lógica de ejecución específica.
+
+==== Ejemplo Básico de Configuración con Tool-Based Executor
+
+[source,python]
+----
+from langchain.agents import initialize_agent, AgentType
+from langchain.llms import OpenAI
+from langchain.tools import WikipediaQueryRun
+
+# Inicializa el modelo de lenguaje de OpenAI
+llm = OpenAI(temperature=0)
+
+# Define una lista de herramientas disponibles para el agente
+tools = [
+    WikipediaQueryRun()
+]
+
+# Inicializa el agente con el tipo Zero-Shot React Description
+# Utilizando un executor basado en herramientas integrado (Tool-Based Executor)
+agent = initialize_agent(
+    tools=tools,
+    llm=llm,
+    agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+    verbose=True
+)
+
+if __name__ == "__main__":
+    query = "¿Cuál es la capital de Alemania?"
+    respuesta = agent.run(query)
+    print("Respuesta:", respuesta)
+----
+==== Built-in Tools
+
+Las herramientas integradas (Built-in Tools) en LangChain son componentes predefinidos que permiten realizar tareas comunes sin necesidad de desarrollar soluciones personalizadas. Estas herramientas facilitan la integración rápida y confiable de funcionalidades, tales como consultas a Wikipedia, ejecución de código, o búsqueda de información.
+
+Algunos ejemplos de herramientas integradas son:
+
+* **WikipediaQueryRun:**  
+  Permite realizar consultas directamente a Wikipedia, devolviendo información relevante de forma estructurada.
+
+* **PythonREPLTool:**  
+  Ejecuta código Python en tiempo real, útil para depuración o cálculos dinámicos.
+
+* **Search Tool:**  
+  Realiza búsquedas en la web para extraer datos adicionales y ampliar las capacidades del agente.
+
+A continuación se muestra un ejemplo de cómo utilizar la herramienta integrada WikipediaQueryRun en un agente:
+
+[source,python]
+----
+from langchain.agents import initialize_agent, AgentType
+from langchain.llms import OpenAI
+from langchain.tools import WikipediaQueryRun
+
+# Inicializa el modelo de lenguaje de OpenAI
+llm = OpenAI(temperature=0)
+
+# Define la herramienta integrada para consultas en Wikipedia
+tools = [
+    WikipediaQueryRun()
+]
+
+# Inicializa el agente utilizando el enfoque Zero-Shot React Description
+agent = initialize_agent(
+    tools=tools,
+    llm=llm,
+    agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+    verbose=True
+)
+
+if __name__ == "__main__":
+    query = "¿Quién es el autor de 'Cien años de soledad'?"
+    respuesta = agent.run(query)
+    print("Respuesta:", respuesta)
+----
+
+==== Integración con APIs
+
+Las "API Integration Tools" permiten a los agentes interactuar directamente con servicios de API externos para obtener información en tiempo real o ejecutar tareas específicas. Este enfoque se utiliza para ampliar las capacidades del agente mediante la consulta a servicios de terceros.
+
+A continuación se muestra un ejemplo de cómo crear una herramienta personalizada que consulta una API de clima (por ejemplo, OpenWeatherMap) para obtener la temperatura actual de una ciudad:
+
+[source,python]
+----
+import os
+import requests
+from langchain.tools import BaseTool
+from langchain.agents import initialize_agent, AgentType
+from langchain.llms import OpenAI
+
+class WeatherQueryTool(BaseTool):
+    name = "WeatherQueryTool"
+    description = "Consulta la temperatura actual de una ciudad usando la API de OpenWeatherMap."
+
+    def _run(self, city: str) -> str:
+        api_key = os.getenv("OPENWEATHER_API_KEY")
+        if not api_key:
+            return "Error: No se ha configurado la variable OPENWEATHER_API_KEY."
+        
+        url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
+        response = requests.get(url)
+        if response.status_code != 200:
+            return f"Error: No se pudo obtener la información para {city}."
+        
+        data = response.json()
+        temp = data["main"]["temp"]
+        return f"La temperatura actual en {city} es de {temp}°C."
+    
+    async def _arun(self, city: str) -> str:
+        raise NotImplementedError("WeatherQueryTool no soporta ejecución asíncrona")
+
+# Inicializa el modelo de lenguaje de OpenAI
+llm = OpenAI(temperature=0)
+
+# Define la lista de herramientas, incluyendo la herramienta de consulta del clima
+tools = [
+    WeatherQueryTool()
+]
+
+# Inicializa el agente utilizando el enfoque Zero-Shot React Description
+agent = initialize_agent(
+    tools=tools,
+    llm=llm,
+    agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+    verbose=True
+)
+
+if __name__ == "__main__":
+    # Ejemplo de consulta para obtener la temperatura actual de Madrid
+    query = "¿Cuál es la temperatura en Madrid?"
+    respuesta = agent.run(query)
+    print("Respuesta:", respuesta)
+----
+==== Built-in Tools
+
+Las herramientas integradas (Built-in Tools) en LangChain son componentes predefinidos que permiten realizar tareas comunes sin necesidad de desarrollar soluciones personalizadas. Estas herramientas facilitan la integración rápida y confiable de funcionalidades, tales como consultas a Wikipedia, ejecución de código, o búsqueda de información.
+
+Algunos ejemplos de herramientas integradas son:
+
+* **WikipediaQueryRun:**  
+  Permite realizar consultas directamente a Wikipedia, devolviendo información relevante de forma estructurada.
+
+* **PythonREPLTool:**  
+  Ejecuta código Python en tiempo real, útil para depuración o cálculos dinámicos.
+
+* **Search Tool:**  
+  Realiza búsquedas en la web para extraer datos adicionales y ampliar las capacidades del agente.
+
+A continuación se muestra un ejemplo de cómo utilizar la herramienta integrada WikipediaQueryRun en un agente:
+
+[source,python]
+----
+from langchain.agents import initialize_agent, AgentType
+from langchain.llms import OpenAI
+from langchain.tools import WikipediaQueryRun
+
+# Inicializa el modelo de lenguaje de OpenAI
+llm = OpenAI(temperature=0)
+
+# Define la herramienta integrada para consultas en Wikipedia
+tools = [
+    WikipediaQueryRun()
+]
+
+# Inicializa el agente utilizando el enfoque Zero-Shot React Description
+agent = initialize_agent(
+    tools=tools,
+    llm=llm,
+    agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+    verbose=True
+)
+
+if __name__ == "__main__":
+    query = "¿Quién es el autor de 'Cien años de soledad'?"
+    respuesta = agent.run(query)
+    print("Respuesta:", respuesta)
+----
+
+==== Custom Tools
+
+Las herramientas personalizadas (Custom Tools) en LangChain te permiten extender las capacidades de los agentes desarrollando soluciones específicas para tareas particulares. Con ellas, puedes crear herramientas a medida que se integren sin problemas en el flujo de trabajo del agente.
+
+A continuación se muestra un ejemplo de cómo definir e integrar una herramienta personalizada:
+
+[source,python]
+----
+from langchain.tools import BaseTool
+from langchain.agents import initialize_agent, AgentType
+from langchain.llms import OpenAI
+
+# Define una herramienta personalizada creando una subclase de BaseTool
+class MyCustomTool(BaseTool):
+    name = "MyCustomTool"
+    description = "Esta herramienta devuelve un mensaje personalizado basado en la consulta recibida."
+
+    def _run(self, query: str) -> str:
+        # Lógica personalizada para procesar la consulta y devolver una respuesta
+        return f"Respuesta personalizada para la consulta: '{query}'"
+
+    async def _arun(self, query: str) -> str:
+        raise NotImplementedError("MyCustomTool no soporta ejecución asíncrona")
+
+# Inicializa el modelo de lenguaje de OpenAI
+llm = OpenAI(temperature=0)
+
+# Define la lista de herramientas, incluyendo la personalizada
+tools = [
+    MyCustomTool()
+]
+
+# Inicializa el agente utilizando el tipo Zero-Shot React Description
+agent = initialize_agent(
+    tools=tools,
+    llm=llm,
+    agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+    verbose=True
+)
+
+if __name__ == "__main__":
+    query = "¿Puedes darme información sobre una herramienta personalizada?"
+    respuesta = agent.run(query)
+    print("Respuesta:", respuesta)
+----
+
+==== Integración con APIs
+
+Las "API Integration Tools" permiten a los agentes interactuar directamente con servicios de API externos para obtener información en tiempo real o ejecutar tareas específicas. Este enfoque se utiliza para ampliar las capacidades del agente mediante la consulta a servicios de terceros.
+
+A continuación se muestra un ejemplo de cómo crear una herramienta personalizada que consulta una API de clima (por ejemplo, OpenWeatherMap) para obtener la temperatura actual de una ciudad:
+
+[source,python]
+----
+import os
+import requests
+from langchain.tools import BaseTool
+from langchain.agents import initialize_agent, AgentType
+from langchain.llms import OpenAI
+
+class WeatherQueryTool(BaseTool):
+    name = "WeatherQueryTool"
+    description = "Consulta la temperatura actual de una ciudad usando la API de OpenWeatherMap."
+
+    def _run(self, city: str) -> str:
+        api_key = os.getenv("OPENWEATHER_API_KEY")
+        if not api_key:
+            return "Error: No se ha configurado la variable OPENWEATHER_API_KEY."
+        
+        url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
+        response = requests.get(url)
+        if response.status_code != 200:
+            return f"Error: No se pudo obtener la información para {city}."
+        
+        data = response.json()
+        temp = data["main"]["temp"]
+        return f"La temperatura actual en {city} es de {temp}°C."
+    
+    async def _arun(self, city: str) -> str:
+        raise NotImplementedError("WeatherQueryTool no soporta ejecución asíncrona")
+
+# Inicializa el modelo de lenguaje de OpenAI
+llm = OpenAI(temperature=0)
+
+# Define la lista de herramientas, incluyendo la herramienta de consulta del clima
+tools = [
+    WeatherQueryTool()
+]
+
+# Inicializa el agente utilizando el enfoque Zero-Shot React Description
+agent = initialize_agent(
+    tools=tools,
+    llm=llm,
+    agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+    verbose=True
+)
+
+if __name__ == "__main__":
+    # Ejemplo de consulta para obtener la temperatura actual de Madrid
+    query = "¿Cuál es la temperatura en Madrid?"
+    respuesta = agent.run(query)
+    print("Respuesta:", respuesta)
+----
+
