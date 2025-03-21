@@ -1,0 +1,750 @@
+== Módulo 1: Introducción a Flask
+:toc:
+:toclevels: 3
+:source-highlighter: highlight.js
+
+=== ¿Qué es Flask?
+Flask es un microframework para Python que permite desarrollar aplicaciones web de manera sencilla y rápida. Es ligero, flexible y está diseñado para facilitar el desarrollo de aplicaciones web escalables y mantenibles.
+
+=== Instalación de Flask
+Para instalar Flask, puedes usar `pip` en tu entorno virtual. El siguiente comando instalará Flask y sus dependencias.
+
+[source,python]
+----
+pip install Flask
+----
+
+=== Estructura de un proyecto Flask
+.Un proyecto Flask típico sigue una estructura de directorios organizada. A continuación, se presenta una estructura básica:
+
+[source,tree]
+----
+flask_project/
+├── app.py
+├── static/
+│   ├── css/
+│   ├── js/
+│   └── img/
+├── templates/
+│   ├── base.html
+│   ├── index.html
+│   └── ...
+└── venv/
+----
+
+En `app.py`, se define la aplicación Flask y las rutas. Las plantillas HTML se almacenan en el directorio `templates`, y los archivos estáticos, como CSS y JavaScript, se guardan en el directorio `static`.
+
+== Módulo 2: Rutas y Vistas
+
+=== Definición de rutas
+Las rutas en Flask son las URL que la aplicación responde. Se definen utilizando decoradores en la función que maneja la lógica de la vista.
+
+==== Ejemplo de definición de rutas
+Aquí se muestra cómo definir una ruta básica en Flask.
+
+[source,python]
+----
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def inicio():
+    return "¡Bienvenido a mi aplicación Flask!"
+
+if __name__ == '__main__':
+    app.run(debug=True)
+----
+
+=== Métodos HTTP
+Flask permite manejar diferentes métodos HTTP como GET, POST, PUT y DELETE. Puedes especificar qué métodos son aceptados en una ruta.
+
+==== Ejemplo de métodos HTTP
+A continuación se muestra cómo manejar una ruta con diferentes métodos.
+
+[source,python]
+----
+@app.route('/enviar', methods=['POST'])
+def enviar():
+    return "Datos enviados con éxito"
+----
+
+=== Parámetros de Ruta en Flask
+
+Flask permite definir rutas dinámicas que pueden aceptar parámetros en la URL. Esto es útil para crear aplicaciones web que requieren información variable, como identificadores de usuario, nombres de productos, etc. A continuación se explica cómo usar parámetros de ruta en Flask.
+
+==== Definición de Rutas con Parámetros
+
+Para definir una ruta con parámetros, se utiliza la sintaxis `<nombre_parametro>` dentro de la ruta. A continuación se muestra un ejemplo básico.
+
+[source,python]
+----
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/usuario/<nombre>')
+def mostrar_usuario(nombre):
+    return f'Hola, {nombre}!'
+
+if __name__ == '__main__':
+    app.run(debug=True)
+----
+
+En este ejemplo, si el usuario accede a `/usuario/Juan`, la respuesta será `Hola, Juan!`.
+
+==== Parámetros Múltiples
+
+También puedes definir múltiples parámetros en la misma ruta. Aquí hay un ejemplo:
+
+[source,python]
+----
+@app.route('/producto/<categoria>/<int:id>')
+def mostrar_producto(categoria, id):
+    return f'Categoría: {categoria}, ID del producto: {id}'
+
+# Ejemplo de acceso: /producto/electronica/42
+----
+
+En este caso, la ruta `/producto/electronica/42` devolverá `Categoría: electronica, ID del producto: 42`.
+
+==== Conversión de Parámetros
+
+Flask permite especificar el tipo de datos que se espera en los parámetros, como `int`, `float`, o `path`. Por ejemplo:
+
+[source,python]
+----
+@app.route('/articulo/<int:id>')
+def mostrar_articulo(id):
+    return f'Mostrando artículo con ID: {id}'
+
+@app.route('/archivo/<path:nombre_archivo>')
+def mostrar_archivo(nombre_archivo):
+    return f'Nombre del archivo: {nombre_archivo}'
+----
+
+En este caso:
+- El parámetro `id` debe ser un número entero.
+- El parámetro `nombre_archivo` puede incluir barras (`/`), lo que permite recibir nombres de archivos con rutas.
+
+==== Parámetros Opcionales
+
+Flask también permite definir parámetros opcionales utilizando la sintaxis de un valor por defecto. Para hacerlo, puedes definir una ruta con un parámetro que tenga un valor por defecto:
+
+[source,python]
+----
+@app.route('/saludo/')
+@app.route('/saludo/<nombre>')
+def saludo(nombre='invitado'):
+    return f'Hola, {nombre}!'
+
+# Ejemplo de acceso: /saludo/ o /saludo/Juan
+----
+
+En este caso, si no se proporciona un nombre, se utilizará `invitado` como valor por defecto.
+
+=== Parámetros de Consulta
+
+Los parámetros de consulta en Flask permiten enviar información adicional a través de la URL, utilizando la sintaxis `?clave=valor`. Estos parámetros son especialmente útiles para filtrar o buscar datos. A continuación se explica cómo trabajar con parámetros de consulta en Flask.
+
+==== Acceso a Parámetros de Consulta
+
+Para acceder a los parámetros de consulta en una ruta, se utiliza el objeto `request` de Flask. A continuación se muestra un ejemplo:
+
+[source,python]
+----
+from flask import Flask, request
+
+app = Flask(__name__)
+
+@app.route('/buscar')
+def buscar():
+    termino = request.args.get('termino', default='todos')
+    return f'Buscando: {termino}'
+
+if __name__ == '__main__':
+    app.run(debug=True)
+----
+
+En este ejemplo, si el usuario accede a `/buscar?termino=python`, la respuesta será `Buscando: python`. Si no se proporciona un término de búsqueda, se usará el valor por defecto `todos`.
+
+==== Múltiples Parámetros de Consulta
+
+Puedes enviar múltiples parámetros de consulta en la misma URL. Por ejemplo:
+
+[source,python]
+----
+@app.route('/filtros')
+def filtros():
+    categoria = request.args.get('categoria', default='todos')
+    precio_min = request.args.get('precio_min', type=int, default=0)
+    precio_max = request.args.get('precio_max', type=int, default=100)
+
+    return f'Categoría: {categoria}, Precio Mínimo: {precio_min}, Precio Máximo: {precio_max}'
+
+# Ejemplo de acceso: /filtros?categoria=ropa&precio_min=10&precio_max=50
+----
+
+En este caso, si se accede a `/filtros?categoria=ropa&precio_min=10&precio_max=50`, la respuesta será `Categoría: ropa, Precio Mínimo: 10, Precio Máximo: 50`.
+
+==== Parámetros de Consulta Opcionales
+
+Los parámetros de consulta son opcionales por defecto. Puedes omitir algunos o todos y aún así manejar la solicitud. Por ejemplo:
+
+[source,python]
+----
+@app.route('/perfil')
+def perfil():
+    nombre = request.args.get('nombre', default='invitado')
+    edad = request.args.get('edad', type=int)
+    
+    if edad is not None:
+        return f'Nombre: {nombre}, Edad: {edad}'
+    else:
+        return f'Nombre: {nombre}, Edad: No especificada'
+
+# Ejemplo de acceso: /perfil?nombre=Juan
+----
+
+Si se accede a `/perfil?nombre=Juan`, la respuesta será `Nombre: Juan, Edad: No especificada`, ya que no se proporcionó el parámetro `edad`.
+
+=== Bodys de Solicitud
+
+En Flask, los bodys de solicitud (request bodies) permiten enviar datos complejos desde el cliente al servidor, especialmente cuando se utilizan métodos como POST, PUT o PATCH. Estos datos suelen enviarse en formatos como JSON, XML o formularios. A continuación se explica cómo manejar los bodys de solicitud en Flask.
+
+==== Acceso a los Bodys de Solicitud
+
+Para acceder al cuerpo de una solicitud, se utiliza el objeto `request` de Flask. Dependiendo del tipo de contenido, se pueden usar diferentes métodos para obtener los datos. Aquí hay un ejemplo utilizando JSON:
+
+[source,python]
+----
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
+
+@app.route('/datos', methods=['POST'])
+def recibir_datos():
+    data = request.get_json()
+    return jsonify(data), 200
+
+if __name__ == '__main__':
+    app.run(debug=True)
+----
+
+En este ejemplo, si el usuario envía un JSON como el siguiente a la ruta `/datos`:
+
+[source,json]
+----
+{
+    "nombre": "Juan",
+    "edad": 30
+}
+----
+
+La respuesta será el mismo JSON que se envió, ya que se ha devuelto en el cuerpo de la respuesta.
+
+==== Envío de Datos con Formularios
+
+Además de JSON, también puedes recibir datos de formularios. Para ello, puedes usar el atributo `form` del objeto `request`:
+
+[source,python]
+----
+@app.route('/enviar', methods=['POST'])
+def enviar_datos_formulario():
+    nombre = request.form.get('nombre')
+    edad = request.form.get('edad')
+    return f'Nombre: {nombre}, Edad: {edad}'
+
+# Envío de formulario:
+# <form action="/enviar" method="POST">
+#     <input type="text" name="nombre">
+#     <input type="text" name="edad">
+#     <input type="submit" value="Enviar">
+# </form>
+----
+
+En este caso, si el formulario se envía con los campos `nombre` y `edad`, el servidor responderá con un mensaje que incluye esos datos.
+
+==== Manejo de Errores
+
+Es importante manejar los errores que puedan surgir al procesar los bodys de solicitud. Por ejemplo, si se espera un JSON y no se recibe, se puede devolver un error:
+
+[source,python]
+----
+@app.route('/datos', methods=['POST'])
+def recibir_datos():
+    data = request.get_json()
+    if not data:
+        return jsonify({"error": "Datos no válidos"}), 400
+    return jsonify(data), 200
+----
+
+En este ejemplo, si no se envía un JSON válido, se devolverá un error 400 con un mensaje indicando que los datos no son válidos.
+
+=== Renderizado de plantillas
+Flask utiliza el motor de plantillas Jinja2 para renderizar HTML dinámicamente. Puedes pasar datos a las plantillas para personalizar el contenido.
+
+==== Ejemplo de renderizado de plantillas
+Aquí se muestra cómo renderizar una plantilla HTML con datos.
+
+[source,python]
+----
+from flask import render_template
+
+@app.route('/usuario/<nombre>')
+def usuario(nombre):
+    return render_template('usuario.html', nombre=nombre)
+----
+
+==== Ejemplo de plantilla HTML (`usuario.html`)
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Usuario</title>
+</head>
+<body>
+    <h1>Bienvenido, {{ nombre }}!</h1>
+</body>
+</html>
+```
+
+== Módulo 3: Manejo de formularios
+
+=== Creación de formularios
+Flask facilita la creación de formularios mediante la extensión `Flask-WTF`, que simplifica el manejo de formularios y la validación de datos.
+
+==== Ejemplo de creación de un formulario
+A continuación se muestra cómo crear un formulario básico utilizando Flask-WTF.
+
+[source,python]
+----
+from flask import Flask, render_template, redirect, url_for
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField
+from wtforms.validators import DataRequired
+
+app = Flask(__name__)
+app.secret_key = 'mi_clave_secreta'  # Necesaria para la protección CSRF
+
+class RegistroFormulario(FlaskForm):
+    nombre_usuario = StringField('Nombre de usuario', validators=[DataRequired()])
+    contraseña = PasswordField('Contraseña', validators=[DataRequired()])
+    enviar = SubmitField('Registrar')
+
+@app.route('/registrar', methods=['GET', 'POST'])
+def registrar():
+    form = RegistroFormulario()
+    if form.validate_on_submit():
+        # Aquí se manejarían los datos del formulario
+        return redirect(url_for('exito'))
+    return render_template('registrar.html', form=form)
+----
+
+==== Plantilla HTML para el formulario (`registrar.html`)
+[source,html]
+----
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro</title>
+</head>
+<body>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.nombre_usuario.label }} {{ form.nombre_usuario(size=20) }} <br>
+        {{ form.contraseña.label }} {{ form.contraseña(size=20) }} <br>
+        {{ form.enviar() }}
+    </form>
+</body>
+</html>
+----
+
+=== Validación de datos 
+
+La validación de datos es fundamental para asegurarse de que los datos ingresados por el usuario sean correctos y seguros. Flask-WTF proporciona varios validadores que pueden usarse en los formularios.
+
+==== Ejemplo de validación 
+
+Puedes agregar validaciones a tus campos utilizando validadores integrados.
+[source,python]
+----
+class LoginFormulario(FlaskForm): 
+    nombre_usuario = StringField('Nombre de usuario', validators=[DataRequired()]) 
+    contraseña = PasswordField('Contraseña', validators=[DataRequired()]) 
+    enviar = SubmitField('Iniciar sesión')
+----
+
+=== Manejo de archivos 
+
+Flask permite manejar la carga de archivos mediante formularios, lo que incluye recibir archivos y almacenarlos en el servidor.
+
+==== Ejemplo de manejo de archivos 
+
+Para permitir la carga de archivos, necesitas usar el campo FileField de Flask-WTF.
+
+[source,python]
+----
+
+from wtforms import FileField
+
+class CargaArchivoFormulario(FlaskForm): 
+    archivo = FileField('Selecciona un archivo') 
+    enviar = SubmitField('Cargar')
+    
+    @app.route('/cargar', methods=['GET', 'POST']) 
+    def cargar(): 
+        form = CargaArchivoFormulario() 
+        if form.validate_on_submit(): 
+            archivo_subido = form.archivo.data # Guardar el archivo en el servidor 
+            archivo_subido.save(f'ruta/donde/guardar/{archivo_subido.filename}') 
+            return redirect(url_for('exito')) 
+        return render_template('cargar.html', form=form)
+----
+
+==== Plantilla HTML para carga de archivos (cargar.html)
+
+[source,html]
+----
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Cargar Archivo</title>
+</head>
+<body>
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        {{ form.archivo.label }} {{ form.archivo() }} <br>
+        {{ form.enviar() }}
+    </form>
+</body>
+</html>
+----
+
+== Módulo 4: Manejo de bases de datos
+
+=== Introducción a Flask-SQLAlchemy
+Flask-SQLAlchemy es una extensión para Flask que simplifica el uso de SQLAlchemy, facilitando el manejo de bases de datos en aplicaciones Flask. Proporciona un conjunto de herramientas para interactuar con bases de datos de manera intuitiva.
+
+==== Instalación de Flask-SQLAlchemy
+Para instalar Flask-SQLAlchemy, puedes usar `pip` en tu entorno virtual.
+
+[source,bash]
+----
+pip install Flask-SQLAlchemy
+----
+
+=== Modelado de datos
+El modelado de datos en Flask-SQLAlchemy se realiza mediante la definición de clases que representan las tablas de la base de datos.
+
+==== Ejemplo de modelado de datos
+A continuación, se muestra cómo definir un modelo para un `Usuario`.
+
+[source,python]
+----
+from flask_sqlalchemy import SQLAlchemy
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mi_base_de_datos.db'
+db = SQLAlchemy(app)
+
+class Usuario(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String(100), nullable=False)
+    edad = db.Column(db.Integer)
+
+    def __repr__(self):
+        return f'<Usuario {self.nombre}>'
+----
+
+=== Operaciones CRUD
+Flask-SQLAlchemy facilita la realización de operaciones CRUD (Crear, Leer, Actualizar, Eliminar) en la base de datos.
+
+==== Crear registros
+Para crear un nuevo registro, se instancia un objeto del modelo y se agrega a la sesión.
+
+[source,python]
+----
+@app.route('/crear_usuario', methods=['POST'])
+def crear_usuario():
+    nuevo_usuario = Usuario(nombre='Juan', edad=30)
+    db.session.add(nuevo_usuario)
+    db.session.commit()
+    return "Usuario creado con éxito"
+----
+
+==== Leer registros
+Para leer registros de la base de datos, se pueden utilizar métodos como `query`.
+
+[source,python]
+----
+@app.route('/usuarios')
+def listar_usuarios():
+    usuarios = Usuario.query.all()  # Obtener todos los usuarios
+    return render_template('lista_usuarios.html', usuarios=usuarios)
+----
+
+==== Actualizar registros
+Para actualizar un registro existente, se busca el objeto, se modifica y se confirma la sesión.
+
+[source,python]
+----
+@app.route('/actualizar_usuario/<int:id>', methods=['POST'])
+def actualizar_usuario(id):
+    usuario = Usuario.query.get(id)
+    if usuario:
+        usuario.edad = 31  # Cambiar la edad
+        db.session.commit()
+        return "Usuario actualizado con éxito"
+    return "Usuario no encontrado"
+----
+
+==== Eliminar registros
+Para eliminar un registro, se busca el objeto y se elimina de la sesión.
+
+[source,python]
+----
+@app.route('/eliminar_usuario/<int:id>', methods=['POST'])
+def eliminar_usuario(id):
+    usuario = Usuario.query.get(id)
+    if usuario:
+        db.session.delete(usuario)
+        db.session.commit()
+        return "Usuario eliminado con éxito"
+    return "Usuario no encontrado"
+----
+
+== Módulo 5: Autenticación y autorización
+
+=== Implementación de registro de usuarios
+La autenticación es el proceso de verificar la identidad de un usuario. Para implementar el registro de usuarios en Flask, se pueden utilizar formularios y bases de datos.
+
+==== Ejemplo de registro de usuarios
+Aquí se muestra cómo implementar un sistema de registro básico.
+
+[source,python]
+----
+from werkzeug.security import generate_password_hash
+from flask import flash
+
+class RegistroFormulario(FlaskForm):
+    nombre_usuario = StringField('Nombre de usuario', validators=[DataRequired()])
+    contraseña = PasswordField('Contraseña', validators=[DataRequired()])
+    enviar = SubmitField('Registrar')
+
+@app.route('/registrar', methods=['GET', 'POST'])
+def registrar():
+    form = RegistroFormulario()
+    if form.validate_on_submit():
+        usuario_existente = Usuario.query.filter_by(nombre_usuario=form.nombre_usuario.data).first()
+        if usuario_existente:
+            flash('El nombre de usuario ya existe. Elige otro.')
+        else:
+            nuevo_usuario = Usuario(nombre_usuario=form.nombre_usuario.data,
+                                     contraseña=generate_password_hash(form.contraseña.data))
+            db.session.add(nuevo_usuario)
+            db.session.commit()
+            flash('Registro exitoso. Puedes iniciar sesión ahora.')
+            return redirect(url_for('iniciar_sesion'))
+    return render_template('registrar.html', form=form)
+----
+
+=== Gestión de sesiones
+Flask-Login es una extensión que facilita la gestión de sesiones de usuario. Permite iniciar sesión, cerrar sesión y recordar a los usuarios.
+
+==== Ejemplo de gestión de sesiones
+Para gestionar sesiones, primero instala Flask-Login.
+
+[source,python]
+----
+pip install Flask-Login
+----
+
+Luego, configura Flask-Login en tu aplicación.
+
+[source,python]
+----
+from flask_login import LoginManager, login_user, logout_user, login_required
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+@login_manager.user_loader
+def cargar_usuario(user_id):
+    return Usuario.query.get(int(user_id))
+
+@app.route('/iniciar_sesion', methods=['GET', 'POST'])
+def iniciar_sesion():
+    # Lógica para iniciar sesión (validar usuario y contraseña)
+    ...
+    login_user(usuario)  # Iniciar sesión del usuario
+    return redirect(url_for('perfil'))
+
+@app.route('/cerrar_sesion')
+@login_required
+def cerrar_sesion():
+    logout_user()  # Cerrar sesión del usuario
+    return redirect(url_for('inicio'))
+----
+
+=== Control de acceso
+El control de acceso se utiliza para restringir el acceso a ciertas partes de la aplicación en función de si el usuario está autenticado.
+
+==== Ejemplo de control de acceso
+Puedes usar el decorador `@login_required` para proteger rutas que requieren autenticación.
+
+[source,python]
+----
+@app.route('/perfil')
+@login_required
+def perfil():
+    return f'Bienvenido a tu perfil, {current_user.nombre_usuario}'
+----
+
+
+== Módulo 6: Manejo de errores
+
+=== Manejo de errores comunes
+Flask permite manejar errores comunes mediante el uso de controladores de errores (error handlers). Puedes definir qué hacer cuando ocurren errores específicos.
+
+==== Ejemplo de manejo de errores comunes
+Aquí se muestra cómo manejar errores como el 404 (página no encontrada) y el 500 (error interno del servidor).
+
+[source,python]
+----
+@app.errorhandler(404)
+def pagina_no_encontrada(e):
+    return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def error_interno(e):
+    return render_template('500.html'), 500
+----
+
+=== Personalización de páginas de error
+Puedes personalizar las páginas de error creando plantillas HTML específicas para cada tipo de error. Flask buscará estas plantillas y las renderizará cuando se produzca un error.
+
+==== Ejemplo de plantillas de error personalizadas
+A continuación se presentan ejemplos de cómo crear plantillas para errores 404 y 500.
+
+==== Plantilla para error 404 (`404.html`)
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Error 404 - Página no encontrada</title>
+</head>
+<body>
+    <h1>Error 404</h1>
+    <p>Lo sentimos, la página que buscas no existe.</p>
+    <a href="{{ url_for('inicio') }}">Regresar a la página principal</a>
+</body>
+</html>
+```
+
+=== Plantilla para error 500 (500.html)
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Error 500 - Error interno del servidor</title>
+</head>
+<body>
+    <h1>Error 500</h1>
+    <p>Lo sentimos, ocurrió un error en el servidor. Por favor, intenta más tarde.</p>
+    <a href="{{ url_for('inicio') }}">Regresar a la página principal</a>
+</body>
+</html>
+```
+
+== Módulo 7: Despliegue de aplicaciones Flask
+
+=== Preparación para producción
+Antes de desplegar una aplicación Flask en un entorno de producción, es importante realizar ciertas configuraciones y optimizaciones.
+
+==== Ejemplo de preparación para producción
+1. **Configurar `DEBUG`**: Asegúrate de que `DEBUG` esté desactivado en el entorno de producción.
+   [source,python]
+   ----
+   app.config['DEBUG'] = False
+   ----
+
+2. **Configuraciones de seguridad**: Establece una `SECRET_KEY` segura.
+   [source,python]
+   ----
+   app.secret_key = 'mi_clave_secreta_segura'
+   ----
+
+3. **Manejo de errores**: Implementa controladores de errores para capturar y manejar excepciones.
+4. **Logging**: Configura el logging para registrar errores y eventos importantes.
+   [source,python]
+   ----
+   import logging
+   logging.basicConfig(filename='app.log', level=logging.ERROR)
+   ----
+
+=== Despliegue en servidores
+Puedes desplegar tu aplicación Flask en varios tipos de servidores. Los más comunes son servidores dedicados, VPS o plataformas como Heroku.
+
+==== Ejemplo de despliegue en un servidor
+1. **Usar Gunicorn como servidor WSGI**: Gunicorn es un servidor WSGI que se utiliza comúnmente para desplegar aplicaciones Flask.
+   [bash]
+   ----
+   pip install gunicorn
+   gunicorn -w 4 -b 0.0.0.0:8000 app:app
+   ----
+   En este ejemplo, `-w 4` indica que se usarán 4 trabajadores.
+
+2. **Configurar un servidor web (opcional)**: Para mejorar el rendimiento y la seguridad, puedes usar Nginx como proxy inverso.
+   [source,nginx]
+    ----
+   server {
+       listen 80;
+       server_name tu_dominio.com;
+
+       location / {
+           proxy_pass http://127.0.0.1:8000;
+           proxy_set_header Host $host;
+           proxy_set_header X-Real-IP $remote_addr;
+           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+           proxy_set_header X-Forwarded-Proto $scheme;
+       }
+   }
+    ----
+
+=== Uso de contenedores Docker 
+
+Docker permite empaquetar tu aplicación y sus dependencias en contenedores, lo que facilita su despliegue y escalabilidad.
+
+==== Ejemplo de configuración de Docker
+
+.Crear un Dockerfile: Define la imagen de tu aplicación Flask.
+[source,docker]
+----
+FROM python:3.9-slim
+
+WORKDIR /app
+
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+
+COPY . .
+
+CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:8000", "app:app"]
+----
+
+.Construir la imagen de Docker: 
+[bash]
+----
+docker build -t mi_aplicacion_flask .
+----
+.Ejecutar el contenedor: 
+[bash]
+----
+docker run -d -p 8000:8000 mi_aplicacion_flask
+----
